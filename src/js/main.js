@@ -20,3 +20,10 @@ formTabsToggles.forEach((toggle) => {
     }
   });
 });
+
+formTabs.forEach((tab) => {
+  tab.addEventListener('animationend', (e) => {
+    currentTab.classList.remove('hidden');
+    e.target.classList.toggle('hidden', !e.target.classList.contains('active'));
+  });
+});
