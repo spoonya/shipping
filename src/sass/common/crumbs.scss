@@ -1,0 +1,52 @@
+.crumbs {
+  margin-bottom: 16px;
+
+  ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  li {
+    &:last-of-type {
+      span {
+        color: $color-white-alpha;
+        font-weight: 400;
+      }
+    }
+
+    &:not(:last-of-type) {
+      &::after {
+        display: inline-block;
+        content: '\003E';
+        margin: 0 7px;
+        color: $color-white-alpha;
+
+        @include media-phone-lg {
+          margin: 0 1rem;
+        }
+      }
+    }
+  }
+
+  a {
+    color: $color-blue-alpha;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  a,
+  span {
+    font-size: 16px;
+  }
+
+  @include media-tablet-lg {
+    margin-bottom: 28px;
+  }
+
+  @include media-tablet-sm {
+    margin-bottom: 20px;
+  }
+}

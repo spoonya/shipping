@@ -1,0 +1,31 @@
+doctype html
+html(lang="ru")
+  block head
+    head
+      meta(charset="utf-8")
+      meta(name="description" content="Descrip")
+      meta(content="width=device-width, initial-scale=1" name="viewport")
+      meta(content="ie=edge" http-equiv="x-ua-compatible")
+
+      link(href="assets/fonts/Gilroy-Bold.woff2" as="font" rel="preload" type="font/woff2" crossorigin="anonymous")
+      link(href="assets/fonts/Gilroy-Regular.woff2" as="font" rel="preload" type="font/woff2" crossorigin="anonymous")
+
+      link(rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css")
+      script(src="https://unpkg.com/swiper@8/swiper-bundle.min.js")
+
+      link(rel="stylesheet" href="assets/css/style.min.css")
+
+      block title
+        title Title
+  body
+    include ../mixins/common
+    include header
+    .page
+      block header
+        +header
+      .content
+        block content
+        block footer
+          include footer
+    block scripts
+      script(src='assets/js/main.js')

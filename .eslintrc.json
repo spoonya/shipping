@@ -1,0 +1,32 @@
+{
+  "env": {
+    "jquery": true,
+    "browser": true
+  },
+  "extends": ["airbnb-base", "prettier"],
+  "rules": {
+    "import/prefer-default-export": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never"
+      }
+    ],
+    "func-names": "off",
+    "class-methods-use-this": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "import/no-unresolved": "off",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }]
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js"]
+      }
+    }
+  }
+}

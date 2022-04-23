@@ -1,0 +1,33 @@
+.button {
+  display: block;
+  max-width: fit-content;
+
+  color: $color-white-alpha;
+
+  background: linear-gradient(269.88deg, #2581ed 0.11%, #2ea7ff 99.92%);
+  box-shadow: -3px -3px 15px rgba(255, 255, 255, 0.15),
+    0px 5px 15px rgba(37, 128, 234, 0.3), inset -4px -4px 12px #267ddf,
+    inset 4px 4px 12px #5ebaff;
+  border-radius: 8px;
+
+  padding: 0.9375em 1.5625em;
+
+  transition: transform 0.1s linear;
+
+  &:hover {
+    transform: scale(1.035);
+  }
+
+  &--dark {
+    background: linear-gradient(
+      270deg,
+      #1f1f1f 0%,
+      #282828 0.01%,
+      #232323 0.02%,
+      #363636 100%
+    );
+    box-shadow: -3px -3px 15px rgba(255, 255, 255, 0.15),
+      0px 5px 15px rgba(54, 54, 54, 0.4), inset -4px -4px 12px #091522,
+      inset 4px 4px 12px #5a5a5a;
+  }
+}

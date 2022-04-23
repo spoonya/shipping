@@ -1,0 +1,7 @@
+.text {
+  font-size: 1.6rem;
+
+  &--dark {
+    color: $color-black-alpha;
+  }
+}

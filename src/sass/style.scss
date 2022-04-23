@@ -1,0 +1,19 @@
+@import 'utils/vars';
+
+@import 'mixins/media';
+@import 'mixins/scroll';
+@import 'mixins/outline';
+
+@import 'common/global';
+
+@import 'common/header';
+@import 'common/visually-hidden';
+@import 'common/title';
+@import 'common/text';
+@import 'common/button';
+@import 'common/burger-button';
+@import 'common/form';
+@import 'common/crumbs';
+@import 'common/footer';
+
+@import '404/not-found';

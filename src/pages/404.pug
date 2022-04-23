@@ -1,0 +1,15 @@
+extends common/layout
+
+block content
+  main.not-found
+    .container
+      .not-found__inner
+        .not-found__descrip
+          .not-found__content
+            .not-found__title.title.title--dark
+              h1 Такой страницы не  существует
+            .not-found__text.text.text--dark
+              p Страница, на которую вы пытаетесь попасть, не существует или была удалена.
+          a.button(href="index.html") Вернуться на главную
+        .not-found__img
+          img(src="assets/img/svg/404.svg", width="630", height="466", alt="")

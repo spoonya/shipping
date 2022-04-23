@@ -1,0 +1,14 @@
+@mixin element-scroll {
+  &::-webkit-scrollbar {
+    width: 5px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: darken($color-white-alpha, 10);
+    border-radius: 10px;
+  }
+
+  scrollbar-color: darken($color-white-alpha, 10) transparent;
+  scrollbar-width: thin;
+}
