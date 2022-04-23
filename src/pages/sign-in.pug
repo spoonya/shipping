@@ -1,0 +1,22 @@
+extends common/layout
+
+block content
+  main.content(style="background-image: url(assets/img/jpg/bg.jpg)")
+    .container
+      .content__inner
+        form.form(action="#" method="POST" name="signin")
+          .form__header
+            .title
+              p Sign in to your account
+          .form__inner
+            .form__control
+              input.form__input(type="text", name="login", placeholder="Login", required)
+            .form__control
+              input.form__input(type="password", name="password", placeholder="Password", required)
+          .form__bot
+            ul.form__links
+              li
+                a(href="reset.html") Forgot login or password?
+              li
+                a(href="sign-up.html") Сreate an account
+            button.button(type="submit") Sign in

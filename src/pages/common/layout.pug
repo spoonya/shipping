@@ -3,29 +3,24 @@ html(lang="ru")
   block head
     head
       meta(charset="utf-8")
-      meta(name="description" content="Descrip")
+      meta(name="description" content="Ship expertise")
       meta(content="width=device-width, initial-scale=1" name="viewport")
       meta(content="ie=edge" http-equiv="x-ua-compatible")
 
-      link(href="assets/fonts/Gilroy-Bold.woff2" as="font" rel="preload" type="font/woff2" crossorigin="anonymous")
-      link(href="assets/fonts/Gilroy-Regular.woff2" as="font" rel="preload" type="font/woff2" crossorigin="anonymous")
-
-      link(rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css")
-      script(src="https://unpkg.com/swiper@8/swiper-bundle.min.js")
+      link(rel="preconnect" href="https://fonts.googleapis.com")
+      link(rel="preconnect" href="https://fonts.gstatic.com" crossorigin)
+      link(href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet")
 
       link(rel="stylesheet" href="assets/css/style.min.css")
 
       block title
-        title Title
+        title Ship inspection
   body
     include ../mixins/common
-    include header
     .page
+      include header
       block header
         +header
-      .content
-        block content
-        block footer
-          include footer
+      block content
     block scripts
       script(src='assets/js/main.js')
