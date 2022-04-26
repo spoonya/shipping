@@ -56,21 +56,6 @@ p {
   margin: 0;
 }
 
-select {
-  appearance: none;
-  border: none;
-  font: inherit;
-  cursor: pointer;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &:focus-within {
-    border-color: $color-black-alpha;
-  }
-}
-
 input,
 textarea {
   font: inherit;
@@ -117,29 +102,6 @@ button {
   &:focus-visible {
     @include outline;
   }
-}
-
-details summary {
-  cursor: pointer;
-
-  user-select: none;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &:focus-visible {
-    @include outline;
-  }
-}
-
-details > summary {
-  list-style: none;
-  display: block;
-}
-
-details > summary::-webkit-details-marker {
-  display: none;
 }
 
 main {
@@ -191,8 +153,4 @@ body {
   @include media-tablet-sm {
     padding: 0 15px;
   }
-}
-
-.scroll-hidden {
-  overflow: hidden;
 }
