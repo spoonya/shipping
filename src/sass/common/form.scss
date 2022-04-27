@@ -33,6 +33,12 @@
     &:not(:last-child) {
       margin-bottom: 4rem;
     }
+
+    @include media-tablet-sm {
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
   }
 }
 

@@ -53,18 +53,24 @@ function renderMultiAnswersInfo(count) {
 
 function controlQuestionsTab() {
   const questionsTab = formTabs.find((tab) => tab.dataset.tab === 'questions');
-
-  if (!questionsTab) return;
-
   const questionsInputs = [...questionsTab.querySelectorAll('input')];
   const nextButton = questionsTab.querySelector(
     '[data-tab-target="answers-info"]'
   );
   let checkedCount = 0;
 
+  nextButton.setAttribute('disabled', true);
+
   questionsInputs.forEach((input) => {
     input.addEventListener('change', () => {
       checkedCount += input.checked ? 1 : -1;
+
+      if (checkedCount > 0) {
+        nextButton.removeAttribute('disabled');
+      } else {
+        nextButton.setAttribute('disabled', true);
+        return;
+      }
 
       if (checkedCount > 1) {
         nextButton.dataset.tabTarget = 'answers-info-multi';
