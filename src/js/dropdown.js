@@ -1,6 +1,6 @@
 import { CLASSES } from './constants';
 
-export function controlDropwdown() {
+export function toggleDropdown() {
   const selectedList = document.querySelectorAll(
     '[data-form-dropdown-selected]'
   );

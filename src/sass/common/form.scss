@@ -3,8 +3,6 @@
 
   max-width: 64rem;
   width: 100%;
-
-  overflow: hidden;
 }
 
 .form__tab {
@@ -17,6 +15,10 @@
 
   &.active {
     display: block;
+  }
+
+  @include media-phone-sm {
+    padding: 50px 15px;
   }
 }
 
@@ -41,6 +43,10 @@
 
   &--wide {
     grid-column: 1 / 4;
+  }
+
+  &--margin-sm {
+    margin-bottom: 2.5rem;
   }
 
   p {
@@ -103,11 +109,15 @@
   }
 
   &--secondary {
-    padding: 0.65em 2.2em;
+    padding: 1.6rem 3rem;
+
+    min-width: 14.2rem;
 
     background-color: $color-white-alpha;
     color: $color-black-alpha;
     border-color: $color-black-alpha;
+
+    font-size: 16px;
   }
 
   &--circle {
@@ -121,6 +131,15 @@
     min-width: 45px;
 
     border-radius: 50%;
+
+    &::before {
+      display: flex;
+      content: '';
+      width: 20px;
+      height: 20px;
+      background: url('../img/svg/arrow-down-light.svg');
+      background-repeat: no-repeat;
+    }
   }
 }
 
@@ -130,11 +149,17 @@
   grid-gap: 10px;
 
   margin-bottom: 4rem;
+
+  &--margin-sm {
+    margin-bottom: 2.5rem;
+  }
 }
 
 .form__cases {
   li {
     display: flex;
+
+    cursor: pointer;
 
     border: 1px solid $color-black-alpha;
     padding: 15px 20px;
@@ -185,8 +210,14 @@
 
     text-decoration: none;
 
-    svg {
+    &::before {
+      display: inline-block;
+      content: '';
+      width: 10px;
+      height: 15px;
       margin-right: 10px;
+      background: url('../img/svg/arrow-left.svg');
+      background-repeat: no-repeat;
     }
   }
 
@@ -342,12 +373,23 @@ textarea.form__input {
 .form__group {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
 
   justify-content: space-between;
 
   &--col {
     grid-template-columns: repeat(1, 1fr);
     grid-gap: 10px;
+  }
+
+  &--row {
+    align-items: center;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+
+    .form__answer-txt {
+      margin-bottom: 0;
+    }
   }
 
   @include media-phone-lg {
@@ -453,6 +495,16 @@ textarea.form__input {
       &::after {
         display: none;
       }
+
+      &::before {
+        display: inline-block;
+        content: '';
+        min-width: 30px;
+        height: 18px;
+        margin-right: 10px;
+        background: url('../img/svg/burger.svg');
+        background-repeat: no-repeat;
+      }
     }
 
     .form__options-container {
@@ -464,12 +516,13 @@ textarea.form__input {
       &.active {
         padding: 0;
         border: none;
-        max-height: auto;
         overflow: hidden;
+        margin-top: 10px;
       }
 
       li {
-        padding: 10px 0;
+        padding: 0 0 10px 0;
+        margin-bottom: 10px;
 
         cursor: pointer;
 
@@ -624,5 +677,75 @@ textarea.form__input {
   .form__button {
     font-size: 16px;
     max-width: unset;
+    width: 100%;
+  }
+}
+
+.form__items {
+  li {
+    display: flex;
+    align-items: center;
+
+    padding-bottom: 1.8rem;
+
+    &::before {
+      display: inline-block;
+      content: '';
+      min-width: 30px;
+      height: 18px;
+      margin-right: 10px;
+      background: url('../img/svg/burger.svg');
+      background-repeat: no-repeat;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 1.8rem;
+    }
+
+    border-bottom: 1px solid $color-gray-alpha;
+
+    cursor: pointer;
+
+    img {
+      width: 40px;
+      height: 40px;
+
+      margin-right: 10px;
+    }
+  }
+
+  &--iconless {
+    li {
+      &::before {
+        display: none;
+      }
+    }
+  }
+
+  &--padding-md {
+    li {
+      padding-bottom: 18px;
+    }
+  }
+}
+
+.form__notes {
+  li {
+    p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 300px;
+    }
+
+    &::before {
+      display: inline-block;
+      content: '';
+      min-width: 27px;
+      height: 26px;
+      margin-right: 10px;
+      background: url('../img/svg/note.svg');
+      background-repeat: no-repeat;
+    }
   }
 }

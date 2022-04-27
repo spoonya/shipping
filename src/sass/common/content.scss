@@ -1,13 +1,12 @@
 .content {
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  padding-top: 11.6rem;
-
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
+  @include media-tablet-sm {
+  }
 }
 
 .content__inner {

@@ -1,6 +1,6 @@
 import { CLASSES } from './constants';
 
-export function controlFormTabs() {
+export function toggleFormTabs() {
   const form = document.querySelector('#form-inspection');
 
   if (!form) return;

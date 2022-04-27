@@ -141,6 +141,12 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+
+  background-repeat: no-repeat;
+  background-position: initial;
+  background-size: 100%;
+
+  padding: 4rem 0;
 }
 
 .container {

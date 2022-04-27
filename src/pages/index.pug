@@ -1,17 +1,18 @@
 extends common/layout
 
 block content
-  main.content(style="background-image: url(assets/img/jpg/bg.jpg)")
+  main.content
     .container
       .content__inner
-        form#form-inspection.form(action="#" method="POST" name="inspection")
+        form#form-inspection.form(method="POST" name="inspection")
+          //Briefcases
           .form__tab(data-tab="briefcases")
             .form__header
+              button.form__header-button.form__header-button--right(type="button" data-tab-target="answers") Answers
               .form__title
                 p Briefcases
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="briefcases-answers") Answers
             .form__inner
-              ul.form__cases
+              ul.form__cases(data-tab-target="categories")
                 li
                   .form__cases-img
                     img(src="assets/img/svg/case.svg", with="130", height="130", alt="")
@@ -49,105 +50,11 @@ block content
             .form__bot
               button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add") + Add
               button.form__button.form__button--circle(type="button")
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 7L10.5 15L3 7" stroke="white" stroke-width="2"/>
-                </svg>
 
-          .form__tab(data-tab="briefcases-answers")
-            .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases")
-                <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L2 7.5L9 14" stroke="#057FF1" stroke-width="2"/>
-                </svg>
-                |Briefcases
-              .form__title
-                p Answers
-            .form__inner
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Machinery status
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Steering Compartment
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Pilotage
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Accommodation
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Certification and Documentation
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Policies and Procedures
-              .form__control.form__select.form__select--secondary(data-form-dropdown)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  img(src="assets/img/svg/burger.svg", width="40", height="40", alt="")
-                  span Stability ad Cargo Loading Limitations
-
+          //Briefcases-add
           .form__tab(data-tab="briefcases-add")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases")
-                <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L2 7.5L9 14" stroke="#057FF1" stroke-width="2"/>
-                </svg>
-                |Briefcases
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Add briefcase
             .form__inner
@@ -337,22 +244,159 @@ block content
             .form__control
                 input.form__input(type="text", name="inspection-name", placeholder="Inspection name", required)
             .form__bot.form__bot--justify-end
-              button.form__button(type="submit" data-tab-target="briefcases") Continue
+              button.form__button(type="button" data-tab-target="briefcases") Continue
 
+          //Categories
+          .form__tab(data-tab="categories")
+            .form__header
+              button.form__header-button.form__header-button--right(type="button" data-tab-target="notes") Notes
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
+              .form__title
+                p Categories
+            .form__inner
+              ul.form__items(data-tab-target="questions")
+                li Machinery status
+                li Steering Compartment
+                li Pilotage
+                li Accommodation
+
+          //Questions
+          .form__tab(data-tab="questions")
+            .form__header.form__header--margin-sm
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="categories") Categories
+              button.form__header-button.form__header-button--right(type="button" data-tab-target="notes") Notes
+            .form__title.form__title--margin-sm
+              p Machinery status
+            .form__inner
+              ul.form__items.form__items--iconless
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Are switchboards free of significant earth faults?
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Are the following, where applicable, all in good order and do they appear to be well maintained?
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt The main engine;
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Boilers, including waste heat and domestic boilers;
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Compressors including main, instrument and emergency air compressors;
+                li
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="question" type="checkbox" hidden)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Compressors including main, instrument and emergency air compressors;
+            .form__bot
+              button.form__button.form__button--secondary(type="button" data-tab-target="answers-info") Open questions >
+              button.form__button.form__button--circle(type="button")
+
+          //Answers
+          .form__tab(data-tab="answers")
+            .form__header
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
+              .form__title
+                p Answers
+            .form__inner
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Machinery status
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Steering Compartment
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Pilotage
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Accommodation
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Certification and Documentation
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Policies and Procedures
+              .form__select.form__select--secondary(data-form-dropdown)
+                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
+                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
+                  li The main engine;
+                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
+                  li Boilers, including waste heat and domestic boilers;
+                  li Compressors including main, instrument and emergency air compressors;
+                  li Compressors including main, instrument and emergency air compressors;
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  span Stability ad Cargo Loading Limitations
+
+          //Answers-info
           .form__tab(data-tab="answers-info")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases-answers")
-                <svg width="10" height="15" viewBox="0 0 10 15" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M9 1L2 7.5L9 14" stroke="#057FF1" stroke-width="2"/>
-                </svg>
-                |Answers
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="information") Information
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--right(type="button" data-tab-target="info") Information
             .form__inner
               p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
               .form__control
                 input.form__input(type="date", name="date", required)
               .form__control
-                textarea.form__input(name="message", maxlength="250") Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                textarea.form__input(name="message" ) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
               .form__group
                 .form__group.form__group--col.form__answer
                   p.form__answer-txt Answer:
@@ -365,9 +409,74 @@ block content
                     span.form__checkbox-styled
                     span.form__checkbox-txt No
                 .form__group.form__group--col.form__buttons
-                  button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add") + Add note
+                  button.form__button.form__button--secondary(type="button" data-tab-target="notes") + Add note
                   label.form__button.form__button--secondary
                     input.form__input(type="file" multiple="multiple" accept=".png, .jpg, .jpeg .gif" hidden name="files")
                     span.form__upload-button-txt + Add photo
             .form__bot.form__bot--justify-center
-              button.form__button(type="submit") Save
+              button.form__button(type="button") Save
+
+          //Answers-info-multi
+          .form__tab(data-tab="answers-info-multi")
+            .form__header
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--right(type="button" data-tab-target="info") Information
+            .form__inner
+              p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
+              .form__control
+                input.form__input(type="date", name="date", required)
+              .form__control
+                textarea.form__input(name="message" ) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              .form__group
+                .form__group.form__group--row
+                  p.form__answer-txt Answer:
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="answer" type="radio" hidden required)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt Yes
+                  label.form__checkbox-wrapper
+                    input.form__checkbox(name="answer" type="radio" hidden required)
+                    span.form__checkbox-styled
+                    span.form__checkbox-txt No
+                .form__buttons
+                  button.form__button(type="button") Save
+
+          //Notes
+          .form__tab(data-tab="notes")
+            .form__header
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="categories") Categories
+              .form__title
+                p Notes
+            .form__inner
+              ul.form__items.form__notes(data-tab-target="notes-add")
+                li
+                  p Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt odio corrupti eligendi fugiat cupiditate fugit numquam, quod tempore, quidem cum in esse, nulla laudantium dolor aspernatur assumenda quia odit perferendis.
+                li
+                  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci delectus sunt atque voluptatum cumque odit sequi placeat id saepe, ex explicabo ab porro quam dolorem dolores temporibus itaque rem libero.
+                li
+                  p The main engine
+            .form__bot
+              button.form__button.form__button--secondary(type="button" data-tab-target="notes-add") + Add
+              button.form__button.form__button--circle(type="button")
+
+          //Notes-add
+          .form__tab(data-tab="notes-add")
+            .form__header
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="notes") Notes
+              .form__title
+                p New note
+            .form__inner
+              .form__control
+                textarea.form__input(name="message") Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            .form__bot.form__bot--justify-center
+              button.form__button(type="button") Save
+
+          //Info
+          .form__tab(data-tab="info")
+            .form__header
+              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers-info") Question
+              .form__title
+                p Information
+            .form__inner
+              .form__text
+                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
