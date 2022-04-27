@@ -1,5 +1,5 @@
 import { toggleDropdown } from './dropdown';
-import { toggleFormTabs } from './form-tabs';
+import { controlForm } from './form-tabs';
 
-toggleFormTabs();
+controlForm();
 toggleDropdown();

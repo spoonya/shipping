@@ -8,7 +8,7 @@ block content
           //Briefcases
           .form__tab(data-tab="briefcases")
             .form__header
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="answers") Answers
               .form__title
                 p Briefcases
             .form__inner
@@ -54,7 +54,7 @@ block content
           //Briefcases-add
           .form__tab(data-tab="briefcases-add")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Add briefcase
             .form__inner
@@ -249,8 +249,8 @@ block content
           //Categories
           .form__tab(data-tab="categories")
             .form__header
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="notes") Notes
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="notes") Notes
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Categories
             .form__inner
@@ -263,8 +263,8 @@ block content
           //Questions
           .form__tab(data-tab="questions")
             .form__header.form__header--margin-sm
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="categories") Categories
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="notes") Notes
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="categories") Categories
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="notes") Notes
             .form__title.form__title--margin-sm
               p Machinery status
             .form__inner
@@ -311,7 +311,7 @@ block content
           //Answers
           .form__tab(data-tab="answers")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="briefcases") Briefcases
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Answers
             .form__inner
@@ -391,8 +391,8 @@ block content
           //Answers-info
           .form__tab(data-tab="answers-info")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers") Answers
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="info") Information
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="info") Information
             .form__inner
               p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
               .form__control
@@ -421,32 +421,33 @@ block content
           //Answers-info-multi
           .form__tab(data-tab="answers-info-multi")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers") Answers
-              button.form__header-button.form__header-button--right(type="button" data-tab-target="info") Information
-            .form__inner
-              p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
-              .form__control
-                input.form__input(type="date", name="date", required)
-              .form__control
-                textarea.form__input(name="message" ) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              .form__group.form__group--media-col
-                .form__group.form__group--row
-                  p.form__answer-txt Answer:
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" hidden required)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Yes
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" hidden required)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt No
-                .form__buttons
-                  button.form__button.form__button--media-wide(type="button") Save
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="info") Information
+            .form__wrapper
+              .form__inner.form__inner--margin-lg
+                p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
+                .form__control
+                  input.form__input(type="date", name="date", required)
+                .form__control
+                  textarea.form__input(name="message")
+                .form__group.form__group--media-col
+                  .form__group.form__group--row
+                    p.form__answer-txt Answer:
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="answer" type="radio" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt Yes
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="answer" type="radio" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt No
+                  .form__buttons
+                    button.form__button.form__button--media-wide(type="button") Save
 
           //Notes
           .form__tab(data-tab="notes")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="categories") Categories
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="categories") Categories
               .form__title
                 p Notes
             .form__inner
@@ -464,7 +465,7 @@ block content
           //Notes-add
           .form__tab(data-tab="notes-add")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="notes") Notes
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="notes") Notes
               .form__title
                 p New note
             .form__inner
@@ -476,7 +477,7 @@ block content
           //Info
           .form__tab(data-tab="info")
             .form__header
-              button.form__header-button.form__header-button--left(type="button" data-tab-target="answers-info") Question
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers-info") Question
               .form__title
                 p Information
             .form__inner
