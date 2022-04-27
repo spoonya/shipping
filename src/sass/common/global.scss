@@ -146,7 +146,7 @@ body {
   background-position: initial;
   background-size: 100%;
 
-  padding: 4rem 0;
+  padding-bottom: 4rem;
 }
 
 .container {
@@ -157,6 +157,6 @@ body {
   padding: 0 30px;
 
   @include media-tablet-sm {
-    padding: 0 15px;
+    padding: 0 10px;
   }
 }

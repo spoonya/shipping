@@ -244,7 +244,7 @@ block content
             .form__control
                 input.form__input(type="text", name="inspection-name", placeholder="Inspection name", required)
             .form__bot.form__bot--justify-end
-              button.form__button(type="button" data-tab-target="briefcases") Continue
+              button.form__button.form__button--media-wide(type="button" data-tab-target="briefcases") Continue
 
           //Categories
           .form__tab(data-tab="categories")
@@ -385,6 +385,8 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Stability ad Cargo Loading Limitations
+            .form__bot.form__bot--justify-end
+              button.form__button.form__button--circle(type="button")
 
           //Answers-info
           .form__tab(data-tab="answers-info")
@@ -414,7 +416,7 @@ block content
                     input.form__input(type="file" multiple="multiple" accept=".png, .jpg, .jpeg .gif" hidden name="files")
                     span.form__upload-button-txt + Add photo
             .form__bot.form__bot--justify-center
-              button.form__button(type="button") Save
+              button.form__button.form__button--media-wide(type="button") Save
 
           //Answers-info-multi
           .form__tab(data-tab="answers-info-multi")
@@ -427,7 +429,7 @@ block content
                 input.form__input(type="date", name="date", required)
               .form__control
                 textarea.form__input(name="message" ) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-              .form__group
+              .form__group.form__group--media-col
                 .form__group.form__group--row
                   p.form__answer-txt Answer:
                   label.form__checkbox-wrapper
@@ -439,7 +441,7 @@ block content
                     span.form__checkbox-styled
                     span.form__checkbox-txt No
                 .form__buttons
-                  button.form__button(type="button") Save
+                  button.form__button.form__button--media-wide(type="button") Save
 
           //Notes
           .form__tab(data-tab="notes")
@@ -469,7 +471,7 @@ block content
               .form__control
                 textarea.form__input(name="message") Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             .form__bot.form__bot--justify-center
-              button.form__button(type="button") Save
+              button.form__button.form__button--media-wide(type="button") Save
 
           //Info
           .form__tab(data-tab="info")

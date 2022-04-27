@@ -1,7 +1,7 @@
 extends common/layout
 
 block content
-  main.content(style="background-image: url(assets/img/jpg/bg.jpg)")
+  main.content
     .container
       .content__inner
         form.form(method="POST" name="sign-in")
@@ -15,4 +15,4 @@ block content
               .form__control
                 input.form__input(type="password", name="password", placeholder="Password", required)
             .form__bot.form__bot--justify-end
-              button.form__button(type="submit") Sign in
+              button.form__button.form__button--media-wide(type="submit") Sign in
