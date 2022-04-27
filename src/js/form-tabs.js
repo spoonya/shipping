@@ -22,13 +22,22 @@ function toggleFormTabs() {
 
       if (!tab) return;
 
-      if (
-        toggle.dataset.tabTarget === 'answers-info' ||
-        toggle.dataset.tabTarget === 'answers-info-multi'
-      ) {
+      const changePrevButtonTarget = (label) => {
         const prevButton = tab.querySelector('.form__header-button--prev');
         prevButton.dataset.tabTarget = currentTabId;
-        prevButton.innerText = currentTabId;
+        prevButton.innerText = label || currentTabId;
+      };
+
+      if (
+        (!toggle.classList.contains('form__header-button') &&
+          toggle.dataset.tabTarget === 'answers-info') ||
+        toggle.dataset.tabTarget === 'answers-info-multi'
+      ) {
+        changePrevButtonTarget();
+      }
+
+      if (toggle.dataset.tabTarget === 'info') {
+        changePrevButtonTarget('question');
       }
 
       currentTab.classList.remove('active');
