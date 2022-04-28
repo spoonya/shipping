@@ -418,32 +418,6 @@ block content
             .form__bot.form__bot--justify-center
               button.form__button.form__button--media-wide(type="button") Save
 
-          //Answers-info-multi
-          .form__tab(data-tab="answers-info-multi")
-            .form__header
-              button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers") Answers
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="info") Information
-            .form__wrapper
-              .form__inner.form__inner--margin-lg
-                p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
-                .form__control
-                  input.form__input(type="date", name="date", required)
-                .form__control
-                  textarea.form__input(name="message")
-                .form__group.form__group--media-col
-                  .form__group.form__group--row
-                    p.form__answer-txt Answer:
-                    label.form__checkbox-wrapper
-                      input.form__checkbox(name="answer" type="radio" hidden required)
-                      span.form__checkbox-styled
-                      span.form__checkbox-txt Yes
-                    label.form__checkbox-wrapper
-                      input.form__checkbox(name="answer" type="radio" hidden required)
-                      span.form__checkbox-styled
-                      span.form__checkbox-txt No
-                  .form__buttons
-                    button.form__button.form__button--media-wide(type="button") Save
-
           //Notes
           .form__tab(data-tab="notes")
             .form__header

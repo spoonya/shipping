@@ -1,9 +1,10 @@
 const form = document.querySelector('#form-inspection');
 const formTabs = [...form.querySelectorAll('[data-tab]')];
 const formTabsToggles = [...form.querySelectorAll('[data-tab-target]')];
-const multiAnswersInputsContainer = formTabs
-  .find((tab) => tab.dataset.tab === 'answers-info-multi')
-  .querySelector('.form__inner');
+const answersInfoTab = formTabs.find(
+  (tab) => tab.dataset.tab === 'answers-info'
+);
+const question = answersInfoTab.querySelector('.form__question');
 let currentTab = formTabs.find((tab) => tab.classList.contains('active'));
 
 function toggleFormTabs() {
@@ -29,9 +30,8 @@ function toggleFormTabs() {
       };
 
       if (
-        (!toggle.classList.contains('form__header-button') &&
-          toggle.dataset.tabTarget === 'answers-info') ||
-        toggle.dataset.tabTarget === 'answers-info-multi'
+        !toggle.classList.contains('form__header-button') &&
+        toggle.dataset.tabTarget === 'answers-info'
       ) {
         changePrevButtonTarget();
       }
@@ -47,17 +47,19 @@ function toggleFormTabs() {
   });
 }
 
-function renderMultiAnswersInfo(count) {
-  const answersTab = formTabs.find(
-    (tab) => tab.dataset.tab === 'answers-info-multi'
+function controlAnswersTab() {
+  const answersTab = formTabs.find((tab) => tab.dataset.tab === 'answers');
+  const answersOptionsLists = answersTab.querySelectorAll(
+    '[data-form-dropdown-container]'
   );
-  const answersInfoWrapper = answersTab.querySelector('.form__wrapper');
-  answersInfoWrapper.innerHTML = '';
 
-  for (let i = 0; i < count; i++) {
-    const answersInfoClone = multiAnswersInputsContainer.cloneNode(true);
-    answersInfoWrapper.appendChild(answersInfoClone);
-  }
+  answersOptionsLists.forEach((list) => {
+    list.addEventListener('click', (e) => {
+      const option = e.target;
+
+      question.textContent = option.textContent;
+    });
+  });
 }
 
 function controlQuestionsTab() {
@@ -67,6 +69,12 @@ function controlQuestionsTab() {
     '[data-tab-target="answers-info"]'
   );
   let checkedCount = 0;
+
+  const findCheckedInput = () => {
+    const checked = questionsInputs.find((input) => input.checked);
+
+    return checked.parentElement;
+  };
 
   nextButton.setAttribute('disabled', true);
 
@@ -78,14 +86,15 @@ function controlQuestionsTab() {
         nextButton.removeAttribute('disabled');
       } else {
         nextButton.setAttribute('disabled', true);
+
         return;
       }
 
       if (checkedCount > 1) {
-        nextButton.dataset.tabTarget = 'answers-info-multi';
-        renderMultiAnswersInfo(checkedCount);
+        question.textContent = 'Questions added to the list';
       } else {
-        nextButton.dataset.tabTarget = 'answers-info';
+        const checkedInput = findCheckedInput();
+        question.textContent = checkedInput.textContent;
       }
     });
   });
@@ -93,5 +102,6 @@ function controlQuestionsTab() {
 
 export function controlForm() {
   toggleFormTabs();
+  controlAnswersTab();
   controlQuestionsTab();
 }
