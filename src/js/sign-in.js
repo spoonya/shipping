@@ -2,7 +2,7 @@ import { DOM, TOKEN } from './constants';
 
 async function getToken(login, password) {
   try {
-    const url = 'https://mockend.com/org/spoonya/users';
+    const url = 'https://mockend.com/spoonya/shipping/users';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
