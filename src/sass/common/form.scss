@@ -101,7 +101,11 @@
 
   transition: background-color 0.1s linear, color 0.1s linear;
 
-  &:hover {
+  &[disabled] {
+    background-color: lighten($color-black-alpha, 30);
+  }
+
+  &:not([disabled]):hover {
     background-color: lighten($color-black-alpha, 15);
     color: $color-white-alpha;
   }

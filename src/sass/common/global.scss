@@ -95,6 +95,10 @@ button {
   border: none;
   background: none;
 
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
   &:focus {
     outline: 0;
   }

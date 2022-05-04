@@ -6,16 +6,16 @@ block content
       .content__inner
         #form-inspection.form
           //Sign-in
-          .form__tab(data-tab="sign-in").active
+          .form__tab.active(data-tab="sign-in")
             .form__header
               .form__title.form__title--wide
                 p Sign in to your account
             .form__inner
               span.form__error(data-tab-error) Incorrect login or password
               .form__control
-                input.form__input(type="text", value="kminchelle", name="login", placeholder="Login", required)
+                input.form__input(type="text", value="admin", name="login", placeholder="Login", required)
               .form__control
-                input.form__input(type="password", value="0lelplR", name="password", placeholder="Password", required)
+                input.form__input(type="password", value="admin", name="password", placeholder="Password", required)
             .form__bot.form__bot--justify-end
               button.form__button.form__button--media-wide(type="button" data-tab-submit) Sign in
 

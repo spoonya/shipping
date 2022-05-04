@@ -1,0 +1,7 @@
+{
+  "User": {
+    "name": { "string": { "minLength": 5, "maxLength": 10 } },
+    "password": { "string": { "minLength": 8, "maxLength": 10 } },
+    "token": { "string": { "minLength": 8, "maxLength": 20 } }
+  }
+}

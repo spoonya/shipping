@@ -1,16 +1,15 @@
 import { DOM, TOKEN } from './constants';
 
-async function getToken(username, password) {
+async function getToken(login, password) {
   try {
-    const url = 'https://dummyjson.com/auth/login';
+    const url = 'https://mockend.com/org/spoonya/users';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ login, password })
     });
-
     const data = await res.json();
 
     return data.token;
