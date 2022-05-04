@@ -22,14 +22,15 @@ async function getBriefcases() {
   }
 }
 
-function createBriefcase({ id, title, city, text, test }) {
+function createBriefcase({ id, title, city, text, test, date }) {
   const briefcaseHTML = `<li id=${id}>
-                    <div class="form__cases-img"><img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
+                    <div class="form__cases-img">
+                    <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
                       <div class="form__cases-header">
                         <p class="form__cases-header-title">${title}</p>
                         <div class="form__text form__text--sm">
-                          <p>15.04.2022</p>
+                          <p>${date}</p>
                         </div>
                       </div>
                       <div class="form__cases-descrip">
@@ -55,16 +56,17 @@ export async function renderBriefcases() {
     (tab) => tab.getAttribute('data-tab') === 'briefcases'
   );
   const briefcasesList = briefcasesTab.querySelector('.form__cases');
-  const maxRender = 2;
+  const itemsPerView = 2;
 
   briefcasesList.innerHTML = '';
 
-  for (let i = 0; i < maxRender; i++) {
+  for (let i = 0; i < itemsPerView; i++) {
     briefcasesList.insertAdjacentHTML(
       'beforeend',
       createBriefcase({
         id: briefcases[i].id,
         title: briefcases[i].title,
+        date: new Date().toLocaleDateString(),
         city: briefcases[i].brand,
         text: [
           'Site Visit',

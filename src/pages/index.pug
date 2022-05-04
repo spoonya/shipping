@@ -6,7 +6,7 @@ block content
       .content__inner
         #form-inspection.form
           //Sign-in
-          .form__tab.active(data-tab="sign-in")
+          .form__tab(data-tab="sign-in")
             .form__header
               .form__title.form__title--wide
                 p Sign in to your account
@@ -17,7 +17,7 @@ block content
               .form__control
                 input.form__input(type="password", value="0lelplR", name="password", placeholder="Password", required)
             .form__bot.form__bot--justify-end
-              button.form__button.form__button--media-wide(type="button" data-tab-submit) Sign in
+              button.form__button.form__button--media-wide(type="button" data-tab-submit ) Sign in
 
           //Briefcases
           .form__tab(data-tab="briefcases")
@@ -27,23 +27,6 @@ block content
                 p Briefcases
             .form__inner
               ul.form__cases(data-tab-target="categories")
-                li
-                  .form__cases-img
-                    img(src="assets/img/svg/case.svg", with="130", height="130", alt="")
-                  .form__cases-content
-                    .form__cases-header
-                      p.form__cases-header-title Kourus
-                      .form__text.form__text--sm
-                        p 15.04.2022
-                    .form__cases-descrip
-                      p.form__cases-city Shenzhen
-                      .form__text
-                        p Site Visit
-                        p Administration Nacional de Combustibles Alcohol y Portland (ACAP)
-                      .form__cases-test
-                        span Test:&nbsp;
-                        .form__text
-                          p do not used
                 li
                   .form__cases-img
                     img(src="assets/img/svg/case.svg", with="130", height="130", alt="")

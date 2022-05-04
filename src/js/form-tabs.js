@@ -1,31 +1,30 @@
-import { DOM } from './constants';
+import { DOM, CURRENT_TAB } from './constants';
 
 const answersInfoTab = DOM.formTabs.find(
   (tab) => tab.dataset.tab === 'answers-info'
 );
 const question = answersInfoTab.querySelector('.form__question');
-let currentTab = DOM.formTabs.find((tab) => tab.classList.contains('active'));
 
 function toggleFormTabs() {
   if (!DOM.form) return;
 
-  if (!currentTab) {
-    [currentTab] = DOM.formTabs;
-    currentTab.classList.add('active');
+  if (!CURRENT_TAB.element) {
+    [CURRENT_TAB.element] = DOM.formTabs;
+    CURRENT_TAB.element.classList.add('active');
   }
 
   DOM.formTabsToggles.forEach((toggle) => {
     toggle.addEventListener('click', () => {
       const tabId = toggle.dataset.tabTarget;
       const tab = DOM.formTabs.find((el) => el.dataset.tab === tabId);
-      const currentTabId = currentTab.dataset.tab;
+      CURRENT_TAB.id = CURRENT_TAB.element.dataset.tab;
 
       if (!tab) return;
 
       const changePrevButtonTarget = (label) => {
         const prevButton = tab.querySelector('.form__header-button--prev');
-        prevButton.dataset.tabTarget = currentTabId;
-        prevButton.innerText = label || currentTabId;
+        prevButton.dataset.tabTarget = CURRENT_TAB.id;
+        prevButton.innerText = label || CURRENT_TAB.id;
       };
 
       if (
@@ -39,9 +38,9 @@ function toggleFormTabs() {
         changePrevButtonTarget('question');
       }
 
-      currentTab.classList.remove('active');
+      CURRENT_TAB.element.classList.remove('active');
       tab.classList.add('active');
-      currentTab = tab;
+      CURRENT_TAB.element = tab;
     });
   });
 }
