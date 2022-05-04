@@ -1,6 +1,6 @@
 {
   "User": {
-    "name": { "string": { "minLength": 5, "maxLength": 10 } },
+    "login": { "regexp": "[A-Z][a-z]{5,10}" },
     "password": {},
     "token": {}
   }
