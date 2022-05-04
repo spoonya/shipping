@@ -1,24 +1,23 @@
-const form = document.querySelector('#form-inspection');
-const formTabs = [...form.querySelectorAll('[data-tab]')];
-const formTabsToggles = [...form.querySelectorAll('[data-tab-target]')];
-const answersInfoTab = formTabs.find(
+import { DOM } from './constants';
+
+const answersInfoTab = DOM.formTabs.find(
   (tab) => tab.dataset.tab === 'answers-info'
 );
 const question = answersInfoTab.querySelector('.form__question');
-let currentTab = formTabs.find((tab) => tab.classList.contains('active'));
+let currentTab = DOM.formTabs.find((tab) => tab.classList.contains('active'));
 
 function toggleFormTabs() {
-  if (!form) return;
+  if (!DOM.form) return;
 
   if (!currentTab) {
-    [currentTab] = formTabs;
+    [currentTab] = DOM.formTabs;
     currentTab.classList.add('active');
   }
 
-  formTabsToggles.forEach((toggle) => {
+  DOM.formTabsToggles.forEach((toggle) => {
     toggle.addEventListener('click', () => {
       const tabId = toggle.dataset.tabTarget;
-      const tab = formTabs.find((el) => el.dataset.tab === tabId);
+      const tab = DOM.formTabs.find((el) => el.dataset.tab === tabId);
       const currentTabId = currentTab.dataset.tab;
 
       if (!tab) return;
@@ -48,7 +47,7 @@ function toggleFormTabs() {
 }
 
 function controlAnswersTab() {
-  const answersTab = formTabs.find((tab) => tab.dataset.tab === 'answers');
+  const answersTab = DOM.formTabs.find((tab) => tab.dataset.tab === 'answers');
   const answersOptionsLists = answersTab.querySelectorAll(
     '[data-form-dropdown-container]'
   );
@@ -63,7 +62,9 @@ function controlAnswersTab() {
 }
 
 function controlQuestionsTab() {
-  const questionsTab = formTabs.find((tab) => tab.dataset.tab === 'questions');
+  const questionsTab = DOM.formTabs.find(
+    (tab) => tab.dataset.tab === 'questions'
+  );
   const questionsInputs = [...questionsTab.querySelectorAll('input')];
   const nextButton = questionsTab.querySelector(
     '[data-tab-target="answers-info"]'

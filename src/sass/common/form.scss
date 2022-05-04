@@ -372,6 +372,16 @@
   }
 }
 
+.form__error {
+  display: none;
+  margin-bottom: 15px;
+
+  &.active {
+    display: inline-block;
+    color: $color-red-alpha;
+  }
+}
+
 .form__option-selected {
   &.error {
     color: $color-red-alpha;
