@@ -1,14 +1,15 @@
+import { renderBriefcases } from './briefcases';
 import { DOM, TOKEN } from './constants';
 
 async function getToken(login, password) {
   try {
-    const url = 'https://mockend.com/spoonya/shipping/users';
+    const url = 'https://dummyjson.com/auth/login';
     const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ login, password })
+      body: JSON.stringify({ username: login, password })
     });
     const data = await res.json();
 
@@ -36,6 +37,8 @@ export function signIn() {
     TOKEN.value = await getToken(login.value, password.value);
 
     if (TOKEN.value) {
+      await renderBriefcases();
+
       signInTab.classList.remove('active');
       DOM.formTabs
         .find((tab) => tab.getAttribute('data-tab') === 'briefcases')

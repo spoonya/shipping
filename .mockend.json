@@ -1,7 +1,0 @@
-{
-  "User": {
-    "login": { "regexp": "[A-Z][a-z]{5,10}" },
-    "password": {},
-    "token": {}
-  }
-}
