@@ -12,13 +12,15 @@ export function toggleDropdown() {
     const selectedLabel = selected.querySelector('span');
 
     optionsContainer.addEventListener('click', (e) => {
-      selectedLabel.textContent = e.target
-        .closest('[data-form-dropdown-option]')
-        .querySelector('label').innerText;
+      const option = e.target.closest('[data-form-dropdown-option]');
+
+      if (e.target.tagName === 'DIV') {
+        option.querySelector('input').checked = true;
+      }
+
+      selectedLabel.textContent = option.querySelector('label').innerText;
       optionsContainer.classList.remove('active');
       optionsContainer.setAttribute('data-dropdown-selected', true);
-
-      selected.classList.add('active');
     });
 
     selected.addEventListener('click', () => {
