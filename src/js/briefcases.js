@@ -12,18 +12,16 @@ async function getBriefcases() {
     });
     const data = await res.json();
 
-    console.log(data.products);
-
     return data.products;
   } catch (error) {
     console.log(error);
-
-    return null;
   }
+
+  return null;
 }
 
 function createBriefcase({ id, title, city, text, test, date }) {
-  const briefcaseHTML = `<li id=${id}>
+  const briefcaseHTML = `<li data-id=${id}>
                     <div class="form__cases-img">
                     <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
@@ -50,17 +48,15 @@ function createBriefcase({ id, title, city, text, test, date }) {
   return briefcaseHTML;
 }
 
-export async function renderBriefcases() {
-  const briefcases = await getBriefcases();
-  const briefcasesTab = DOM.formTabs.find(
-    (tab) => tab.getAttribute('data-tab') === 'briefcases'
-  );
-  const briefcasesList = briefcasesTab.querySelector('.form__cases');
-  const itemsPerView = 2;
-
+function renderBriefcases({
+  briefcases,
+  currentIndex,
+  itemsPerView,
+  briefcasesList
+}) {
   briefcasesList.innerHTML = '';
 
-  for (let i = 0; i < itemsPerView; i++) {
+  for (let i = currentIndex; i < itemsPerView + currentIndex; i++) {
     briefcasesList.insertAdjacentHTML(
       'beforeend',
       createBriefcase({
@@ -76,4 +72,41 @@ export async function renderBriefcases() {
       })
     );
   }
+}
+
+export async function displayBriefcases() {
+  const briefcases = await getBriefcases();
+  const briefcasesTab = DOM.formTabs.find(
+    (tab) => tab.getAttribute('data-tab') === 'briefcases'
+  );
+  const briefcasesList = briefcasesTab.querySelector('.form__cases');
+  const loadMore = briefcasesTab.querySelector('[data-load-more]');
+  const itemsPerView = 2;
+  let currentIndex = 0;
+
+  console.log(briefcases);
+
+  renderBriefcases({
+    briefcases,
+    currentIndex,
+    itemsPerView,
+    briefcasesList
+  });
+
+  currentIndex += itemsPerView;
+
+  loadMore.addEventListener('click', () => {
+    renderBriefcases({
+      briefcases,
+      currentIndex,
+      itemsPerView,
+      briefcasesList
+    });
+
+    currentIndex += itemsPerView;
+
+    if (!briefcases[currentIndex]) {
+      loadMore.remove();
+    }
+  });
 }

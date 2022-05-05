@@ -1,4 +1,4 @@
-import { renderBriefcases } from './briefcases';
+import { displayBriefcases } from './briefcases';
 import { CURRENT_TAB, DOM, TOKEN } from './constants';
 
 async function getToken(login, password) {
@@ -16,9 +16,9 @@ async function getToken(login, password) {
     return data.token;
   } catch (error) {
     console.log(error);
-
-    return null;
   }
+
+  return null;
 }
 
 export function signIn() {
@@ -37,11 +37,12 @@ export function signIn() {
     TOKEN.value = await getToken(login.value, password.value);
 
     if (TOKEN.value) {
-      await renderBriefcases();
-
       CURRENT_TAB.element = DOM.formTabs.find(
         (tab) => tab.getAttribute('data-tab') === 'briefcases'
       );
+
+      await displayBriefcases();
+
       CURRENT_TAB.element.classList.add('active');
       signInTab.classList.remove('active');
     } else {
