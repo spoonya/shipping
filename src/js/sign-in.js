@@ -1,4 +1,4 @@
-import { displayBriefcases } from './briefcases';
+import { loadBriefcases } from './briefcases';
 import { CURRENT_TAB, DOM, TOKEN } from './constants';
 
 async function getToken(login, password) {
@@ -31,7 +31,8 @@ export function signIn() {
   const error = signInTab.querySelector('[data-tab-error]');
 
   submitButton.addEventListener('click', async () => {
-    submitButton.setAttribute('disabled', true);
+    DOM.form.classList.add('loading');
+
     error.classList.remove('active');
 
     TOKEN.value = await getToken(login.value, password.value);
@@ -41,7 +42,7 @@ export function signIn() {
         (tab) => tab.getAttribute('data-tab') === 'briefcases'
       );
 
-      await displayBriefcases();
+      await loadBriefcases();
 
       CURRENT_TAB.element.classList.add('active');
       signInTab.classList.remove('active');
@@ -49,6 +50,6 @@ export function signIn() {
       error.classList.add('active');
     }
 
-    submitButton.removeAttribute('disabled');
+    DOM.form.classList.remove('loading');
   });
 }

@@ -59,7 +59,9 @@
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "core-js": "^3.22.4",
+    "normalize.css": "^8.0.1",
+    "regenerator-runtime": "^0.13.9"
   },
   "editorconfig-cli": [
     "*.json",

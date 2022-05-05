@@ -1,8 +1,7 @@
-import { DOM, TOKEN } from './constants';
+import { DOM, CURRENT_TAB, TOKEN } from './constants';
 
-async function getBriefcases() {
+async function fetchData(url) {
   try {
-    const url = 'https://dummyjson.com/auth/products';
     const res = await fetch(url, {
       method: 'GET',
       headers: {
@@ -12,12 +11,56 @@ async function getBriefcases() {
     });
     const data = await res.json();
 
-    return data.products;
+    return data;
   } catch (error) {
     console.log(error);
   }
 
   return null;
+}
+
+async function getBriefcases() {
+  const url = 'https://dummyjson.com/auth/products';
+  const data = await fetchData(url);
+
+  return data.products;
+}
+
+async function getVessels() {
+  const url = 'https://dummyjson.com/auth/users';
+  const data = await fetchData(url);
+
+  return data.users;
+}
+
+async function getPorts() {
+  const url = 'https://dummyjson.com/auth/users';
+  const data = await fetchData(url);
+
+  return data.users;
+}
+
+async function getInspections() {
+  const url = 'https://dummyjson.com/auth/users';
+  const data = await fetchData(url);
+
+  return data.users;
+}
+
+function createDropdownOption({ firstName }) {
+  const dropdownOptionHTML = `<div class="form__option" data-form-dropdown-option>
+                        <label>
+                          <input type="radio">${firstName}
+                        </label>
+                      </div>`;
+
+  return dropdownOptionHTML;
+}
+
+function renderDropdown(data, container) {
+  for (let i = 0; i < data.length; i++) {
+    container.insertAdjacentHTML('beforeend', createDropdownOption(data[i]));
+  }
 }
 
 function createBriefcase({ id, title, city, text, test, date }) {
@@ -74,17 +117,71 @@ function renderBriefcases({
   }
 }
 
-export async function displayBriefcases() {
-  const briefcases = await getBriefcases();
-  const briefcasesTab = DOM.formTabs.find(
-    (tab) => tab.getAttribute('data-tab') === 'briefcases'
+async function loadAddDropdowns(isLoaded) {
+  if (isLoaded) return;
+
+  DOM.form.classList.add('loading');
+
+  const vessels = await getVessels();
+  const ports = await getPorts();
+  const inspections = await getInspections();
+  const vesselsDropdown = CURRENT_TAB.element.querySelector(
+    '[data-dropdown-vessels]'
   );
-  const briefcasesList = briefcasesTab.querySelector('.form__cases');
-  const loadMore = briefcasesTab.querySelector('[data-load-more]');
+  const portsDropdown = CURRENT_TAB.element.querySelector(
+    '[data-dropdown-ports]'
+  );
+  const inspectionsDropdown = CURRENT_TAB.element.querySelector(
+    '[data-dropdown-inspections]'
+  );
+
+  renderDropdown(vessels, vesselsDropdown);
+  renderDropdown(ports, portsDropdown);
+  renderDropdown(inspections, inspectionsDropdown);
+
+  DOM.form.classList.remove('loading');
+}
+
+async function addBriefcase(tab) {
+  const inspectionName = tab.querySelector('input[name="inspection-name"]');
+  const dropdowns = tab.querySelectorAll('[data-form-dropdown-container]');
+  const error = tab.querySelector('.form__error');
+
+  const validateDropdowns = () => {
+    let isValid = true;
+
+    dropdowns.forEach((dropdown) => {
+      if (!dropdown.hasAttribute(['data-dropdown-selected'])) {
+        isValid = false;
+      }
+    });
+
+    return isValid;
+  };
+
+  if (!inspectionName.value || !validateDropdowns()) {
+    error.classList.add('active');
+
+    return;
+  }
+
+  error.classList.remove('active');
+}
+
+export async function loadBriefcases() {
+  const briefcases = await getBriefcases();
+  const briefcasesList = CURRENT_TAB.element.querySelector('.form__cases');
+  const loadMore = CURRENT_TAB.element.querySelector('[data-load-more]');
+  const addBriefcaseButton = CURRENT_TAB.element.querySelector(
+    '[data-tab-target="briefcases-add"]'
+  );
+  const briefcaseAddTab = DOM.formTabs.find(
+    (el) => el.dataset.tab === 'briefcases-add'
+  );
+  const briefcaseAddSubmit = briefcaseAddTab.querySelector('[data-tab-submit]');
   const itemsPerView = 2;
   let currentIndex = 0;
-
-  console.log(briefcases);
+  let isDropdownsLoaded = false;
 
   renderBriefcases({
     briefcases,
@@ -109,4 +206,13 @@ export async function displayBriefcases() {
       loadMore.remove();
     }
   });
+
+  addBriefcaseButton.addEventListener('click', async () => {
+    await loadAddDropdowns(isDropdownsLoaded);
+    isDropdownsLoaded = true;
+  });
+
+  briefcaseAddSubmit.addEventListener('click', () =>
+    addBriefcase(briefcaseAddTab)
+  );
 }

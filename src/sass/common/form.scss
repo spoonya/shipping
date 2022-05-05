@@ -126,6 +126,12 @@
 
     font-size: 1.6rem;
 
+    &[disabled] {
+      background-color: $color-white-alpha;
+      border-color: lighten($color-black-alpha, 50);
+      color: lighten($color-black-alpha, 50);
+    }
+
     @include media-tablet-sm {
       padding: 1.6rem 1rem;
     }

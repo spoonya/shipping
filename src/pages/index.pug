@@ -5,6 +5,7 @@ block content
     .container
       .content__inner
         #form-inspection.form
+          <div class="spinner"><div></div><div></div><div></div><div></div></div>
           //Sign-in
           .form__tab(data-tab="sign-in")
             .form__header
@@ -55,193 +56,26 @@ block content
               .form__title
                 p Add briefcase
             .form__inner
+              span.form__error(data-tab-error) Fill in the required data
               .form__control.form__select(data-form-dropdown)
-                .form__options-container(data-form-dropdown-container)
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="5")
-                      |gea
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="6")
-                      |kouros
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="7")
-                      |kriton
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="8")
-                      |lysias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="9")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="vessel[]" value="5")
-                      |gea
+                .form__options-container(data-form-dropdown-container data-dropdown-vessels)
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   img(src="assets/img/svg/vessel.svg", width="40", height="40", alt="")
                   span Vessels
               .form__control.form__select(data-form-dropdown)
-                .form__options-container(data-form-dropdown-container)
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="5")
-                      |gea
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="6")
-                      |kouros
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="7")
-                      |kriton
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="8")
-                      |lysias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="9")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="port[]" value="5")
-                      |gea
+                .form__options-container(data-form-dropdown-container data-dropdown-ports)
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   img(src="assets/img/svg/anchor.svg", width="40", height="40", alt="")
                   span Port
               .form__control.form__select(data-form-dropdown)
-                .form__options-container(data-form-dropdown-container)
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="5")
-                      |gea
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="6")
-                      |kouros
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="7")
-                      |kriton
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="8")
-                      |lysias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="9")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="1")
-                      |dromeas
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="2")
-                      |estia
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="3")
-                      |evridiki
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="4")
-                      |fidias
-                  .form__option(data-form-dropdown-option)
-                    label
-                      input(type="radio" name="inspection[]" value="5")
-                      |gea
+                .form__options-container(data-form-dropdown-container data-dropdown-inspections)
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   img(src="assets/img/svg/inspection.svg", width="40", height="40", alt="")
                   span Type of inspection
             .form__control
                 input.form__input(type="text", name="inspection-name", placeholder="Inspection name", required)
             .form__bot.form__bot--justify-end
-              button.form__button.form__button--media-wide(type="button" data-tab-target="briefcases") Continue
+              button.form__button.form__button--media-wide(type="button" data-tab-submit) Continue
 
           //Categories
           .form__tab(data-tab="categories")
