@@ -98,6 +98,8 @@ function createBriefcase({ id, title, city, text, test, date }) {
 }
 
 function renderBriefcases({ briefcases, startFrom, maxPerView }) {
+  currentIndex += itemsPerView;
+
   const briefcasesList = CURRENT_TAB.element.querySelector('.form__cases');
 
   briefcasesList.innerHTML = '';
@@ -165,9 +167,32 @@ function findCheckedInput(container) {
   return checkedInput;
 }
 
-async function addBriefcase(tab) {
+function resetBriefcaseAdd({
+  dropdownsContainer,
+  textInput,
+  dropdownsPlaceholder
+}) {
+  dropdownsContainer.forEach((dropdown, index) => {
+    const inputs = dropdown.querySelectorAll('input');
+    const selectedLabel = dropdown
+      .closest('[data-form-dropdown]')
+      .querySelector('[data-form-dropdown-selected] span');
+
+    selectedLabel.textContent = dropdownsPlaceholder[index];
+
+    inputs.forEach((input) => {
+      input.checked = false;
+    });
+  });
+
+  textInput.value = '';
+}
+
+async function addBriefcase(tab, dropdownsPlaceholder) {
   const inspectionName = tab.querySelector('input[name="inspection-name"]');
-  const dropdowns = tab.querySelectorAll('[data-form-dropdown-container]');
+  const dropdownsContainer = tab.querySelectorAll(
+    '[data-form-dropdown-container]'
+  );
   const dropdownVessels = tab.querySelector('[data-dropdown-vessels]');
   const dropdownPorts = tab.querySelector('[data-dropdown-ports]');
   const dropdownInspections = tab.querySelector('[data-dropdown-inspections]');
@@ -176,7 +201,7 @@ async function addBriefcase(tab) {
   const validateDropdowns = () => {
     let isValid = true;
 
-    dropdowns.forEach((dropdown) => {
+    dropdownsContainer.forEach((dropdown) => {
       if (!dropdown.hasAttribute(['data-dropdown-selected'])) {
         isValid = false;
       }
@@ -229,6 +254,12 @@ async function addBriefcase(tab) {
       maxPerView: itemsPerView
     });
 
+    resetBriefcaseAdd({
+      dropdownsContainer,
+      textInput: inspectionName,
+      dropdownsPlaceholder
+    });
+
     prevTab.classList.remove('active');
     CURRENT_TAB.element.classList.add('active');
   } catch (error) {
@@ -248,6 +279,9 @@ export async function loadBriefcases() {
     (el) => el.dataset.tab === 'briefcases-add'
   );
   const briefcaseAddSubmit = briefcaseAddTab.querySelector('[data-tab-submit]');
+  const dropdownsPlaceholder = [
+    ...briefcaseAddTab.querySelectorAll('[data-form-dropdown-selected] span')
+  ].map((el) => el.textContent);
 
   let isDropdownsLoaded = false;
 
@@ -257,16 +291,12 @@ export async function loadBriefcases() {
     maxPerView: itemsPerView
   });
 
-  currentIndex += itemsPerView;
-
   loadMore.addEventListener('click', () => {
     renderBriefcases({
       briefcases,
       startFrom: currentIndex,
       maxPerView: itemsPerView
     });
-
-    currentIndex += itemsPerView;
 
     if (!briefcases[currentIndex]) {
       loadMore.remove();
@@ -279,6 +309,6 @@ export async function loadBriefcases() {
   });
 
   briefcaseAddSubmit.addEventListener('click', () =>
-    addBriefcase(briefcaseAddTab)
+    addBriefcase(briefcaseAddTab, dropdownsPlaceholder)
   );
 }

@@ -8,7 +8,6 @@ export function toggleDropdown() {
     const optionsContainer = dropdown.querySelector(
       '[data-form-dropdown-container]'
     );
-
     const selectedLabel = selected.querySelector('span');
 
     optionsContainer.addEventListener('click', (e) => {

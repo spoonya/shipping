@@ -9,7 +9,11 @@ async function getToken(login, password) {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username: login, password })
+      body: JSON.stringify({
+        username: login,
+        password,
+        returnSecureToken: true
+      })
     });
     const data = await res.json();
 
