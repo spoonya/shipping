@@ -80,7 +80,6 @@ block content
           //Categories
           .form__tab(data-tab="categories")
             .form__header
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="notes") Notes
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Categories
@@ -95,7 +94,6 @@ block content
           .form__tab(data-tab="questions")
             .form__header.form__header--margin-sm
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="categories") Categories
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="notes") Notes
             .form__title.form__title--margin-sm
               p Machinery status
             .form__inner
@@ -146,7 +144,7 @@ block content
               .form__title
                 p Answers
             .form__inner
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -156,7 +154,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Machinery status
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -166,7 +164,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Steering Compartment
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -176,7 +174,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Pilotage
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -186,7 +184,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Accommodation
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -196,7 +194,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Certification and Documentation
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -206,7 +204,7 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Policies and Procedures
-              .form__select.form__select--secondary(data-form-dropdown)
+              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
                 ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
                   li Are the following, where applicable, all in good order and do they appear to be well maintained?
                   li The main engine;
@@ -234,48 +232,17 @@ block content
                 .form__group.form__group--col.form__answer
                   p.form__answer-txt Answer:
                   label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" hidden required)
+                    input.form__checkbox(name="answer" type="radio" value="yes" hidden required)
                     span.form__checkbox-styled
                     span.form__checkbox-txt Yes
                   label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" hidden required)
+                    input.form__checkbox(name="answer" type="radio" value="no" hidden required)
                     span.form__checkbox-styled
                     span.form__checkbox-txt No
                 .form__group.form__group--col.form__buttons
-                  button.form__button.form__button--secondary(type="button" data-tab-target="notes") + Add note
                   label.form__button.form__button--secondary
                     input.form__input(type="file" multiple="multiple" accept=".png, .jpg, .jpeg .gif" hidden name="files")
                     span.form__upload-button-txt + Add photo
-            .form__bot.form__bot--justify-center
-              button.form__button.form__button--media-wide(type="button") Save
-
-          //Notes
-          .form__tab(data-tab="notes")
-            .form__header
-              button.form__header-button.form__header-button--prev(type="button" data-tab-target="categories") Categories
-              .form__title
-                p Notes
-            .form__inner
-              ul.form__items.form__notes(data-tab-target="notes-add")
-                li
-                  p Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nesciunt odio corrupti eligendi fugiat cupiditate fugit numquam, quod tempore, quidem cum in esse, nulla laudantium dolor aspernatur assumenda quia odit perferendis.
-                li
-                  p Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci delectus sunt atque voluptatum cumque odit sequi placeat id saepe, ex explicabo ab porro quam dolorem dolores temporibus itaque rem libero.
-                li
-                  p The main engine
-            .form__bot
-              button.form__button.form__button--secondary(type="button" data-tab-target="notes-add") + Add
-              button.form__button.form__button--circle(type="button")
-
-          //Notes-add
-          .form__tab(data-tab="notes-add")
-            .form__header
-              button.form__header-button.form__header-button--prev(type="button" data-tab-target="notes") Notes
-              .form__title
-                p New note
-            .form__inner
-              .form__control
-                textarea.form__input(name="message") Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
             .form__bot.form__bot--justify-center
               button.form__button.form__button--media-wide(type="button") Save
 
