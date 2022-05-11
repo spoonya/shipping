@@ -131,6 +131,7 @@ async function loadAddDropdowns(isLoaded) {
 	const vessels = await getVessels();
 	const ports = await getPorts();
 	const inspections = await getInspections();
+
 	const vesselsDropdown = CURRENT_TAB.element.querySelector(
 		'[data-dropdown-vessels]'
 	);

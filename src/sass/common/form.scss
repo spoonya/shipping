@@ -662,7 +662,7 @@ textarea.form__input {
 	order: 1;
 
 	transition: max-height 0.2s ease-in-out, padding 0.2s ease-in-out,
-		border 0.2s ease-in-out;
+		border 0.2s ease-in-out, margin 0.2s ease-in-out;
 
 	will-change: max-height, padding, border;
 
@@ -751,7 +751,7 @@ textarea.form__input {
 	}
 }
 
-.form__answer {
+.form__answers {
 	padding-left: 2.8rem;
 
 	&-txt {
@@ -760,6 +760,12 @@ textarea.form__input {
 
 	@include media-tablet-sm {
 		padding-left: 0;
+	}
+
+	&-item {
+		&:not(:last-child) {
+			margin-bottom: 20px;
+		}
 	}
 }
 

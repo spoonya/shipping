@@ -227,18 +227,33 @@ block content
               .form__control
                 input.form__input(type="date", name="date", required)
               .form__control
-                textarea.form__input(name="message" ) Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                textarea.form__input(name="message" placeholder="Comment")
               .form__group
-                .form__group.form__group--col.form__answer
-                  p.form__answer-txt Answer:
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" value="yes" hidden required)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Yes
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="answer" type="radio" value="no" hidden required)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt No
+                .form__group.form__group--col.form__answers
+                  .form__group.form__group--col.form__answers-item
+                    p.form__answer-txt Answer:
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="answer" type="radio" value="yes" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt Yes
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="answer" type="radio" value="no" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt No
+                  .form__group.form__group--col.form__answers-item
+                    p.form__answer-txt Significant:
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="significant" type="radio" value="hight" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt High
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="significant" type="radio" value="medium" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt Medium
+                    label.form__checkbox-wrapper
+                      input.form__checkbox(name="significant" type="radio" value="low" hidden required)
+                      span.form__checkbox-styled
+                      span.form__checkbox-txt Low
                 .form__group.form__group--col.form__buttons
                   label.form__button.form__button--secondary
                     input.form__input(type="file" multiple="multiple" accept=".png, .jpg, .jpeg .gif" hidden name="files")
