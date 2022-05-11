@@ -1,27 +1,9 @@
-import { DOM, CURRENT_TAB, TOKEN } from './constants';
-import * as DATA from './data';
+import { DOM, CURRENT_TAB } from './constants';
+import { fetchData, findTab } from './helpers';
+import { loadCategories } from './categories';
 
 const itemsPerView = 2;
 let currentIndex = 0;
-
-async function fetchData(url) {
-	try {
-		const res = await fetch(url, {
-			method: 'GET',
-			headers: {
-				Authorization: `Bearer ${TOKEN.value}`,
-				'Content-Type': 'application/json'
-			}
-		});
-		const data = await res.json();
-
-		return data;
-	} catch (error) {
-		console.log(error);
-	}
-
-	return null;
-}
 
 async function getBriefcases() {
 	const url = 'https://dummyjson.com/auth/products';
@@ -31,24 +13,26 @@ async function getBriefcases() {
 }
 
 async function getVessels() {
-	const url = 'https://dummyjson.com/auth/users';
+	const url = '../data/vessels.json';
 	const data = await fetchData(url);
 
-	return data.users;
+	return data;
 }
 
 async function getPorts() {
-	const url = 'https://dummyjson.com/auth/users';
+	const url = '../data/ports.json';
+
 	const data = await fetchData(url);
 
-	return data.users;
+	return data;
 }
 
 async function getInspections() {
-	const url = 'https://dummyjson.com/auth/users';
+	const url = '../data/inspection-type.json';
+
 	const data = await fetchData(url);
 
-	return data.users;
+	return data;
 }
 
 function createDropdownOption(value, inputName) {
@@ -143,17 +127,17 @@ async function loadAddDropdowns(isLoaded) {
 	);
 
 	renderDropdown({
-		data: DATA.VESSELS,
+		data: vessels,
 		container: vesselsDropdown,
 		inputName: 'vessels'
 	});
 	renderDropdown({
-		data: DATA.PORTS,
+		data: ports,
 		container: portsDropdown,
 		inputName: 'ports'
 	});
 	renderDropdown({
-		data: DATA.INSPECTION_TYPE,
+		data: inspections,
 		container: inspectionsDropdown,
 		inputName: 'inspections'
 	});
@@ -248,9 +232,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
 		const prevTab = CURRENT_TAB.element;
 
-		CURRENT_TAB.element = DOM.formTabs.find(
-			(el) => el.getAttribute('data-tab') === 'briefcases'
-		);
+		CURRENT_TAB.element = findTab('briefcases');
 
 		const briefcases = await getBriefcases();
 
@@ -281,13 +263,14 @@ export async function loadBriefcases() {
 	const addBriefcaseButton = CURRENT_TAB.element.querySelector(
 		'[data-tab-target="briefcases-add"]'
 	);
-	const briefcaseAddTab = DOM.formTabs.find(
-		(el) => el.dataset.tab === 'briefcases-add'
-	);
+	const briefcaseAddTab = findTab('briefcases-add');
 	const briefcaseAddSubmit = briefcaseAddTab.querySelector('[data-tab-submit]');
 	const dropdownsPlaceholder = [
 		...briefcaseAddTab.querySelectorAll('[data-form-dropdown-selected] span')
 	].map((el) => el.textContent);
+	const briefcasesList = CURRENT_TAB.element.querySelector(
+		'[data-briefcases-list]'
+	);
 
 	let isDropdownsLoaded = false;
 
@@ -309,8 +292,27 @@ export async function loadBriefcases() {
 		}
 	});
 
-	addBriefcaseButton.addEventListener('click', () => {
-		loadAddDropdowns(isDropdownsLoaded);
+	briefcasesList.addEventListener('click', async (e) => {
+		DOM.form.classList.add('loading');
+
+		const briefcaseId =
+			e.target.tagName === 'LI'
+				? e.target.dataset.id
+				: e.target.closest('li').dataset.id;
+		const prevTab = CURRENT_TAB.element;
+
+		CURRENT_TAB.element = findTab('categories');
+
+		await loadCategories(briefcaseId);
+
+		prevTab.classList.remove('active');
+		CURRENT_TAB.element.classList.add('active');
+
+		DOM.form.classList.remove('loading');
+	});
+
+	addBriefcaseButton.addEventListener('click', async () => {
+		await loadAddDropdowns(isDropdownsLoaded);
 		isDropdownsLoaded = true;
 	});
 

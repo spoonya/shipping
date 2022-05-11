@@ -27,24 +27,7 @@ block content
               .form__title
                 p Briefcases
             .form__inner
-              ul.form__cases(data-tab-target="categories")
-                li
-                  .form__cases-img
-                    img(src="assets/img/svg/case.svg", with="130", height="130", alt="")
-                  .form__cases-content
-                    .form__cases-header
-                      p.form__cases-header-title Kourus
-                      .form__text.form__text--sm
-                        p 15.04.2022
-                    .form__cases-descrip
-                      p.form__cases-city Shenzhen
-                      .form__text
-                        p Site Visit
-                        p Administration Nacional de Combustibles Alcohol y Portland (ACAP)
-                      .form__cases-test
-                        span Test:&nbsp;
-                        .form__text
-                          p do not used
+              ul.form__cases(data-briefcases-list)
             .form__bot
               button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add") + Add
               button.form__button.form__button--circle(type="button" data-load-more)
@@ -84,11 +67,7 @@ block content
               .form__title
                 p Categories
             .form__inner
-              ul.form__items(data-tab-target="questions")
-                li Machinery status
-                li Steering Compartment
-                li Pilotage
-                li Accommodation
+              ul.form__items(data-tab-categories)
 
           //Questions
           .form__tab(data-tab="questions")
@@ -97,44 +76,9 @@ block content
             .form__title.form__title--margin-sm
               p Machinery status
             .form__inner
-              ul.form__items.form__items--iconless
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Are switchboards free of significant earth faults?
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Are the following, where applicable, all in good order and do they appear to be well maintained?
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt The main engine;
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Boilers, including waste heat and domestic boilers;
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Compressors including main, instrument and emergency air compressors;
-                li
-                  label.form__checkbox-wrapper
-                    input.form__checkbox(name="question" type="checkbox" hidden)
-                    span.form__checkbox-styled
-                    span.form__checkbox-txt Compressors including main, instrument and emergency air compressors;
+              ul.form__items.form__items--iconless(data-tab-questions)
             .form__bot
-              button.form__button.form__button--secondary(type="button" data-tab-target="answers-info") Open questions >
+              button.form__button.form__button--secondary(type="button" data-tab-target="answers-info" data-tab-open-questions) Open questions >
               button.form__button.form__button--circle(type="button")
 
           //Answers

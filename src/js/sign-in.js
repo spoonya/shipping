@@ -1,5 +1,6 @@
 import { loadBriefcases } from './briefcases';
 import { CURRENT_TAB, DOM, TOKEN } from './constants';
+import { findTab } from './helpers';
 
 async function getToken(login, password) {
 	try {
@@ -26,9 +27,7 @@ async function getToken(login, password) {
 }
 
 export function signIn() {
-	const signInTab = DOM.formTabs.find(
-		(tab) => tab.getAttribute('data-tab') === 'sign-in'
-	);
+	const signInTab = findTab('sign-in');
 	const submitButton = signInTab.querySelector('[data-tab-submit]');
 	const login = signInTab.querySelector('input[name="login"]');
 	const password = signInTab.querySelector('input[name="password"]');
@@ -42,9 +41,7 @@ export function signIn() {
 		TOKEN.value = await getToken(login.value, password.value);
 
 		if (TOKEN.value) {
-			CURRENT_TAB.element = DOM.formTabs.find(
-				(tab) => tab.getAttribute('data-tab') === 'briefcases'
-			);
+			CURRENT_TAB.element = findTab('briefcases');
 
 			await loadBriefcases();
 
