@@ -126,7 +126,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	const dropdownInspections = tab.querySelector('[data-dropdown-inspections]');
 	const errorEl = tab.querySelector('.form__error');
 
-	const validateDropdowns = () => {
+	const isDropdownsValid = () => {
 		let isValid = true;
 
 		dropdownsContainer.forEach((dropdown) => {
@@ -138,8 +138,9 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 		return isValid;
 	};
 
-	if (!inspectionName.value || !validateDropdowns()) {
+	if (!inspectionName.value || !isDropdownsValid()) {
 		errorEl.classList.add('active');
+		DOM.form.classList.remove('loading');
 
 		return;
 	}
@@ -149,8 +150,6 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	const vessel = findCheckedInput(dropdownVessels);
 	const port = findCheckedInput(dropdownPorts);
 	const inspection = findCheckedInput(dropdownInspections);
-
-	DOM.form.classList.add('loading');
 
 	try {
 		const url = 'https://dummyjson.com/products/add';
