@@ -6,7 +6,12 @@ export const DOM = {
 
 export const CURRENT_TAB = {
 	element: DOM.formTabs.find((tab) => tab.classList.contains('active')),
-	id: ''
+	id: null
+};
+
+export const PREV_TAB = {
+	element: null,
+	id: null
 };
 
 export const TOKEN = {

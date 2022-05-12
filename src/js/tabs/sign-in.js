@@ -1,7 +1,7 @@
 import { loadBriefcases } from './briefcases';
 import { loadAddBriefcase } from './briefcases-add';
-import { TOKEN } from './constants';
-import { findTabByName } from './helpers';
+import { TOKEN } from '../constants';
+import { findTabByName } from '../helpers';
 
 async function getToken(login, password) {
 	try {

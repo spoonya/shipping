@@ -1,6 +1,6 @@
-import { CURRENT_TAB, DOM } from './constants';
-import { fetchData, findTabByName } from './helpers';
-import { TOGGLE } from './utils';
+import { CURRENT_TAB, DOM } from '../constants';
+import { fetchData, findTabByName } from '../helpers';
+import { TOGGLE } from '../utils';
 
 async function getQuestions(id) {
 	const url = '../data/questions.json';

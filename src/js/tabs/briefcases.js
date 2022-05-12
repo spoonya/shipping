@@ -1,6 +1,6 @@
-import { DOM, CURRENT_TAB, STATE } from './constants';
-import { TOGGLE } from './utils';
-import { fetchData } from './helpers';
+import { DOM, CURRENT_TAB, STATE } from '../constants';
+import { TOGGLE } from '../utils';
+import { fetchData } from '../helpers';
 import { loadCategories } from './categories';
 
 export async function getBriefcases() {

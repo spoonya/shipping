@@ -1,6 +1,6 @@
-import { CURRENT_TAB, DOM } from './constants';
-import { fetchData } from './helpers';
-import { TOGGLE } from './utils';
+import { CURRENT_TAB, DOM } from '../constants';
+import { fetchData } from '../helpers';
+import { TOGGLE } from '../utils';
 import { loadQuestions } from './questions';
 
 async function getCategories(id) {
