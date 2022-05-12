@@ -12,3 +12,10 @@ export const CURRENT_TAB = {
 export const TOKEN = {
 	value: ''
 };
+
+export const STATE = {
+	briefcases: {
+		itemsPerView: 2,
+		currentIndex: 0
+	}
+};

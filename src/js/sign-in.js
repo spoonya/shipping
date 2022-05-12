@@ -1,6 +1,7 @@
 import { loadBriefcases } from './briefcases';
-import { CURRENT_TAB, DOM, TOKEN } from './constants';
-import { findTab } from './helpers';
+import { loadAddBriefcase } from './briefcases-add';
+import { TOKEN } from './constants';
+import { findTabByName } from './helpers';
 
 async function getToken(login, password) {
 	try {
@@ -27,30 +28,22 @@ async function getToken(login, password) {
 }
 
 export function signIn() {
-	const signInTab = findTab('sign-in');
+	const signInTab = findTabByName('sign-in');
 	const submitButton = signInTab.querySelector('[data-tab-submit]');
 	const login = signInTab.querySelector('input[name="login"]');
 	const password = signInTab.querySelector('input[name="password"]');
 	const error = signInTab.querySelector('[data-tab-error]');
 
 	submitButton.addEventListener('click', async () => {
-		DOM.form.classList.add('loading');
-
 		error.classList.remove('active');
 
 		TOKEN.value = await getToken(login.value, password.value);
 
 		if (TOKEN.value) {
-			CURRENT_TAB.element = findTab('briefcases');
-
 			await loadBriefcases();
-
-			CURRENT_TAB.element.classList.add('active');
-			signInTab.classList.remove('active');
+			loadAddBriefcase();
 		} else {
 			error.classList.add('active');
 		}
-
-		DOM.form.classList.remove('loading');
 	});
 }

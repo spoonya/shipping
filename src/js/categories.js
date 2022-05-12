@@ -1,5 +1,6 @@
 import { CURRENT_TAB, DOM } from './constants';
-import { fetchData, findTab } from './helpers';
+import { fetchData } from './helpers';
+import { TOGGLE } from './utils';
 import { loadQuestions } from './questions';
 
 async function getCategories(id) {
@@ -35,18 +36,9 @@ export async function loadCategories(id) {
 	renderCategories(categories, categoriesList);
 
 	categoriesList.addEventListener('click', async (e) => {
-		DOM.form.classList.add('loading');
-
 		const categoryId = e.target.dataset.id;
-		const prevTab = CURRENT_TAB.element;
-
-		CURRENT_TAB.element = findTab('questions');
-
 		await loadQuestions(categoryId);
-
-		prevTab.classList.remove('active');
-		CURRENT_TAB.element.classList.add('active');
-
-		DOM.form.classList.remove('loading');
 	});
+
+	DOM.form.dispatchEvent(TOGGLE);
 }

@@ -1,5 +1,6 @@
 import { CURRENT_TAB, DOM } from './constants';
-import { fetchData, findTab } from './helpers';
+import { fetchData, findTabByName } from './helpers';
+import { TOGGLE } from './utils';
 
 async function getQuestions(id) {
 	const url = '../data/questions.json';
@@ -35,7 +36,7 @@ function renderQuestions(questions, container) {
 }
 
 function controlQuestions() {
-	const answersInfoTab = findTab('answers-info');
+	const answersInfoTab = findTabByName('answers-info');
 	const question = answersInfoTab.querySelector('.form__question');
 	const questionsInputs = [...CURRENT_TAB.element.querySelectorAll('input')];
 	const nextButton = CURRENT_TAB.element.querySelector(
@@ -50,8 +51,6 @@ function controlQuestions() {
 
 		return checked.parentElement;
 	};
-
-	nextButton.setAttribute('disabled', true);
 
 	questionsInputs.forEach((input) => {
 		input.addEventListener('change', () => {
@@ -87,4 +86,6 @@ export async function loadQuestions(id) {
 
 	renderQuestions(categories, categoriesList);
 	controlQuestions();
+
+	DOM.form.dispatchEvent(TOGGLE);
 }

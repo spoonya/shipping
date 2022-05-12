@@ -18,7 +18,7 @@ block content
               .form__control
                 input.form__input(type="password", value="0lelplR", name="password", placeholder="Password", required)
             .form__bot.form__bot--justify-end
-              button.form__button.form__button--media-wide(type="button" data-tab-submit ) Sign in
+              button.form__button.form__button--media-wide(type="button" data-tab-target="briefcases" data-tab-submit) Sign in
 
           //Briefcases
           .form__tab(data-tab="briefcases")
@@ -27,9 +27,9 @@ block content
               .form__title
                 p Briefcases
             .form__inner
-              ul.form__cases(data-briefcases-list)
+              ul.form__cases(data-tab-target="categories" data-briefcases-list data-tab-submit)
             .form__bot
-              button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add") + Add
+              button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add" data-tab-submit) + Add
               button.form__button.form__button--circle(type="button" data-load-more)
 
           //Briefcases-add
@@ -58,7 +58,7 @@ block content
             .form__control
                 input.form__input(type="text", name="inspection-name", placeholder="Inspection name", required)
             .form__bot.form__bot--justify-end
-              button.form__button.form__button--media-wide(type="button" data-tab-submit) Continue
+              button.form__button.form__button--media-wide(type="button" data-tab-target="briefcases" data-tab-submit) Continue
 
           //Categories
           .form__tab(data-tab="categories")
@@ -67,7 +67,7 @@ block content
               .form__title
                 p Categories
             .form__inner
-              ul.form__items(data-tab-categories)
+              ul.form__items(data-tab-categories data-tab-target="questions" data-tab-submit)
 
           //Questions
           .form__tab(data-tab="questions")
@@ -78,7 +78,7 @@ block content
             .form__inner
               ul.form__items.form__items--iconless(data-tab-questions)
             .form__bot
-              button.form__button.form__button--secondary(type="button" data-tab-target="answers-info" data-tab-open-questions) Open questions >
+              button.form__button.form__button--secondary(type="button" disabled data-tab-target="answers-info" data-tab-open-questions) Open questions >
               button.form__button.form__button--circle(type="button")
 
           //Answers
