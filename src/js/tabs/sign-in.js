@@ -1,6 +1,6 @@
 import { loadBriefcases } from './briefcases';
 import { controlAddBriefcase } from './briefcases-add';
-import { TOKEN } from '../constants';
+import { DOM, TOKEN, CURRENT_TAB, PREV_TAB } from '../constants';
 import { findTabByName } from '../helpers';
 
 async function getToken(login, password) {
@@ -44,6 +44,9 @@ export function signIn() {
 			controlAddBriefcase();
 		} else {
 			error.classList.add('active');
+			DOM.form.classList.remove('loading');
+			CURRENT_TAB.element = PREV_TAB.element;
+			CURRENT_TAB.id = PREV_TAB.id;
 		}
 	});
 }
