@@ -4,4 +4,4 @@ export * from './briefcases';
 export * from './briefcases-add';
 export * from './categories';
 export * from './questions';
-export * from './answers';
+export * from './answers-info';

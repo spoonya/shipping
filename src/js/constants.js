@@ -19,6 +19,9 @@ export const TOKEN = {
 };
 
 export const STATE = {
+	questions: {
+		idArray: []
+	},
 	dropdowns: {
 		isLoaded: false
 	}

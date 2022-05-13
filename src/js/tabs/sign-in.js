@@ -1,5 +1,5 @@
 import { loadBriefcases } from './briefcases';
-import { loadAddBriefcase } from './briefcases-add';
+import { controlAddBriefcase } from './briefcases-add';
 import { TOKEN } from '../constants';
 import { findTabByName } from '../helpers';
 
@@ -41,7 +41,7 @@ export function signIn() {
 
 		if (TOKEN.value) {
 			await loadBriefcases();
-			loadAddBriefcase();
+			controlAddBriefcase();
 		} else {
 			error.classList.add('active');
 		}

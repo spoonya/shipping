@@ -176,7 +176,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
-export function loadAddBriefcase() {
+export function controlAddBriefcase() {
 	const briefcaseAddTab = findTabByName('briefcases-add');
 	const briefcaseAddSubmit = briefcaseAddTab.querySelector('[data-tab-submit]');
 	const dropdownsPlaceholder = [

@@ -116,7 +116,7 @@ block content
           .form__tab(data-tab="answers-info")
             .form__header
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers") Answers
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="info") Information
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="info" data-tab-submit) Information
             .form__inner
               p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
               span.form__error(data-tab-error) Fill in the required data
@@ -151,7 +151,7 @@ block content
                       span.form__checkbox-styled
                       span.form__checkbox-txt Low
                 .form__group.form__group--col.form__buttons
-                  label.form__button.form__button--secondary
+                  label.form__button.form__button--secondary(data-tab-photo-button)
                     input.form__input(type="file" multiple="multiple" accept=".png, .jpg, .jpeg .gif" hidden name="photo")
                     span.form__upload-button-txt + Add photo
                   .form__img-preview(data-tab-img-preview)
@@ -166,4 +166,4 @@ block content
                 p Information
             .form__inner
               .form__text
-                p Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+

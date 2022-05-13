@@ -1,7 +1,7 @@
-import { CURRENT_TAB, DOM } from '../constants';
+import { CURRENT_TAB, DOM, STATE } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
-import { controlAnswer } from './answers';
+import { loadAnswer } from './answers-info';
 
 async function getQuestions(id) {
 	const url = '../data/questions.json';
@@ -42,6 +42,9 @@ function renderQuestions({ questions, title, container }) {
 function controlQuestions() {
 	const answersInfoTab = findTabByName('answers-info');
 	const question = answersInfoTab.querySelector('.form__question');
+	const addPhotoButton = answersInfoTab.querySelector(
+		'[data-tab-photo-button]'
+	);
 	const questionsInputs = [...CURRENT_TAB.element.querySelectorAll('input')];
 	const nextButton = CURRENT_TAB.element.querySelector(
 		'[data-tab-open-questions]'
@@ -50,7 +53,7 @@ function controlQuestions() {
 
 	let checkedCount = 0;
 
-	const findCheckedInput = () => {
+	const findCheckedInputParent = () => {
 		const checked = questionsInputs.find((input) => input.checked);
 
 		return checked.parentElement;
@@ -71,15 +74,23 @@ function controlQuestions() {
 			if (checkedCount > 1) {
 				question.textContent = 'Questions added to the list';
 				infoButton.style.display = 'none';
+				addPhotoButton.style.display = 'none';
 			} else {
-				const checkedInput = findCheckedInput();
+				const checkedInput = findCheckedInputParent();
 				question.textContent = checkedInput.textContent;
 				infoButton.style.display = 'grid';
+				addPhotoButton.style.display = 'block';
 			}
 		});
 	});
 
-	nextButton.addEventListener('click', () => controlAnswer('add'));
+	nextButton.addEventListener('click', () => {
+		STATE.questions.idArray = questionsInputs
+			.filter((input) => input.checked)
+			.map((input) => input.closest('li').dataset.id);
+
+		loadAnswer('add');
+	});
 }
 
 export async function loadQuestions(id, title) {
