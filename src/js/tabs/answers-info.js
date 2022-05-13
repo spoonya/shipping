@@ -1,5 +1,5 @@
-import { DOM, CURRENT_TAB, PREV_TAB } from '../constants';
-import { findCheckedInput, fetchData } from '../helpers';
+import { DOM, CURRENT_TAB } from '../constants';
+import { findCheckedInput, fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
 
@@ -91,9 +91,7 @@ async function saveAnswer(action, tab) {
 	};
 
 	if (!isAnswerValid(data, errorEl)) {
-		DOM.form.classList.remove('loading');
-		CURRENT_TAB.element = PREV_TAB.element;
-		CURRENT_TAB.id = PREV_TAB.id;
+		preventTabChange();
 
 		return;
 	}
@@ -122,8 +120,6 @@ export function loadAnswer(action) {
 	const infoButton = tab.querySelector('[data-tab-target="info"]');
 
 	infoButton.addEventListener('click', loadInfo);
-
 	photoInput.addEventListener('change', (e) => showImagePreview(e));
-
 	saveButton.addEventListener('click', () => saveAnswer(action, tab));
 }

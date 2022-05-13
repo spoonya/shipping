@@ -1,7 +1,7 @@
 import { loadBriefcases } from './briefcases';
 import { controlAddBriefcase } from './briefcases-add';
-import { DOM, TOKEN, CURRENT_TAB, PREV_TAB } from '../constants';
-import { findTabByName } from '../helpers';
+import { STATE } from '../constants';
+import { findTabByName, preventTabChange } from '../helpers';
 
 async function getToken(login, password) {
 	try {
@@ -37,16 +37,14 @@ export function signIn() {
 	submitButton.addEventListener('click', async () => {
 		error.classList.remove('active');
 
-		TOKEN.value = await getToken(login.value, password.value);
+		STATE.token = await getToken(login.value, password.value);
 
-		if (TOKEN.value) {
+		if (STATE.token) {
 			await loadBriefcases();
 			controlAddBriefcase();
 		} else {
 			error.classList.add('active');
-			DOM.form.classList.remove('loading');
-			CURRENT_TAB.element = PREV_TAB.element;
-			CURRENT_TAB.id = PREV_TAB.id;
+			preventTabChange();
 		}
 	});
 }

@@ -45,11 +45,11 @@ function controlQuestions() {
 	const addPhotoButton = answersInfoTab.querySelector(
 		'[data-tab-photo-button]'
 	);
+	const infoButton = answersInfoTab.querySelector('[data-tab-target="info"]');
 	const questionsInputs = [...CURRENT_TAB.element.querySelectorAll('input')];
 	const nextButton = CURRENT_TAB.element.querySelector(
 		'[data-tab-open-questions]'
 	);
-	const infoButton = answersInfoTab.querySelector('[data-tab-target="info"]');
 
 	let checkedCount = 0;
 

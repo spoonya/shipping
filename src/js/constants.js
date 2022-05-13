@@ -14,15 +14,12 @@ export const PREV_TAB = {
 	id: null
 };
 
-export const TOKEN = {
-	value: null
-};
-
 export const STATE = {
 	questions: {
 		idArray: []
 	},
 	dropdowns: {
 		isLoaded: false
-	}
+	},
+	token: ''
 };

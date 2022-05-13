@@ -1,6 +1,11 @@
-import { DOM, CURRENT_TAB, PREV_TAB, STATE } from '../constants';
-import { fetchData, findTabByName, findCheckedInput } from '../helpers';
-import { getBriefcases, renderBriefcases } from './briefcases';
+import { DOM, CURRENT_TAB, STATE } from '../constants';
+import {
+	fetchData,
+	findTabByName,
+	findCheckedInput,
+	preventTabChange
+} from '../helpers';
+import { loadBriefcases } from './briefcases';
 import { TOGGLE_TAB } from '../utils';
 
 async function getVessels() {
@@ -144,9 +149,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
 	if (!inspectionName.value || !isDropdownsValid(dropdownsContainer)) {
 		errorEl.classList.add('active');
-		DOM.form.classList.remove('loading');
-		CURRENT_TAB.element = PREV_TAB.element;
-		CURRENT_TAB.id = PREV_TAB.id;
+		preventTabChange();
 
 		return;
 	}
@@ -164,8 +167,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 		inspectionType: inspection.value
 	});
 
-	const briefcases = await getBriefcases();
-	renderBriefcases(briefcases);
+	loadBriefcases();
 
 	resetBriefcaseAdd({
 		dropdownsContainer,

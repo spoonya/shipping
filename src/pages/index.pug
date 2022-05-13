@@ -28,7 +28,7 @@ block content
           //Briefcases
           .form__tab(data-tab="briefcases")
             .form__header
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="answers") Answers
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="answers" data-tab-submit) Answers
               .form__title
                 p Briefcases
             .form__inner
@@ -90,27 +90,8 @@ block content
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Answers
-            .form__inner
-              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  span Machinery status
-              .form__select.form__select--secondary(data-form-dropdown data-form-dropdown-spoiler)
-                ul.form__options-container(data-form-dropdown-container data-tab-target="answers-info")
-                  li Are the following, where applicable, all in good order and do they appear to be well maintained?
-                  li The main engine;
-                  li Auxiliary engines and generators, including shaft g and emergency generators where fitted.
-                  li Boilers, including waste heat and domestic boilers;
-                  li Compressors including main, instrument and emergency air compressors;
-                  li Compressors including main, instrument and emergency air compressors;
-                .form__option-selected.form__input(data-form-dropdown-selected)
-                  span Steering Compartment
+            .form__inner(data-tab-answers)
+
 
           //Answers-info
           .form__tab(data-tab="answers-info")

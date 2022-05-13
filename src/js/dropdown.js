@@ -1,7 +1,11 @@
-export function toggleDropdown() {
-	const selectedList = document.querySelectorAll(
-		'[data-form-dropdown-selected]'
-	);
+export function toggleDropdown(elements = null) {
+	let selectedList;
+
+	if (!elements) {
+		selectedList = document.querySelectorAll('[data-form-dropdown-selected]');
+	} else {
+		selectedList = elements;
+	}
 
 	selectedList.forEach((selected) => {
 		const dropdown = selected.closest('[data-form-dropdown]');
@@ -10,7 +14,7 @@ export function toggleDropdown() {
 		);
 		const selectedLabel = selected.querySelector('span');
 
-		if (!dropdown.hasAttribute('data-form-dropdown-spoiler')) {
+		if (dropdown.dataset.formDropdown !== 'spoiler') {
 			optionsContainer.addEventListener('click', (e) => {
 				const option = e.target.closest('[data-form-dropdown-option]');
 

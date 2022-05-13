@@ -6,7 +6,7 @@ function displayCurrentTab() {
 	CURRENT_TAB.element.classList.add('active');
 }
 
-export function toggleTabs() {
+export function toggleTabs(elements = null) {
 	if (!DOM.form) return;
 
 	if (!CURRENT_TAB.element) {
@@ -14,7 +14,11 @@ export function toggleTabs() {
 		CURRENT_TAB.element.classList.add('active');
 	}
 
-	DOM.formTabsToggles.forEach((toggle) => {
+	if (!elements) {
+		elements = DOM.formTabsToggles;
+	}
+
+	elements.forEach((toggle) => {
 		toggle.addEventListener('click', () => {
 			const tabName = toggle.dataset.tabTarget;
 

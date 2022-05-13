@@ -1,7 +1,8 @@
-import { DOM, CURRENT_TAB } from '../constants';
+import { DOM } from '../constants';
 import { TOGGLE_TAB } from '../utils';
-import { fetchData } from '../helpers';
+import { fetchData, findTabByName, preventTabChange } from '../helpers';
 import { loadCategories } from './categories';
+import { loadAnswers } from './answers';
 
 export async function getBriefcases() {
 	const url = 'https://dummyjson.com/auth/products';
@@ -38,13 +39,11 @@ function createBriefcase({ id, title, port, text, test, date }) {
 	return briefcaseHTML;
 }
 
-export function renderBriefcases(briefcases) {
-	const briefcasesList = CURRENT_TAB.element.querySelector('.form__cases');
-
-	briefcasesList.innerHTML = '';
+export function renderBriefcases(briefcases, container) {
+	container.innerHTML = '';
 
 	for (let i = 0; i < briefcases.length; i++) {
-		briefcasesList.insertAdjacentHTML(
+		container.insertAdjacentHTML(
 			'beforeend',
 			createBriefcase({
 				id: briefcases[i].id,
@@ -61,16 +60,17 @@ export function renderBriefcases(briefcases) {
 	}
 }
 
-export async function loadBriefcases() {
-	const briefcases = await getBriefcases();
-
-	const briefcasesList = CURRENT_TAB.element.querySelector(
-		'[data-briefcases-list]'
-	);
-
-	renderBriefcases(briefcases);
+function controlBriefcases(tab) {
+	const briefcasesList = tab.querySelector('[data-briefcases-list]');
+	const answersButton = tab.querySelector('[data-tab-target="answers"]');
 
 	briefcasesList.addEventListener('click', async (e) => {
+		if (e.target.tagName === 'UL') {
+			preventTabChange();
+
+			return;
+		}
+
 		const briefcaseId =
 			e.target.tagName === 'LI'
 				? e.target.dataset.id
@@ -78,6 +78,17 @@ export async function loadBriefcases() {
 
 		await loadCategories(briefcaseId);
 	});
+
+	answersButton.addEventListener('click', loadAnswers);
+}
+
+export async function loadBriefcases() {
+	const briefcases = await getBriefcases();
+	const briefcasesTab = findTabByName('briefcases');
+	const briefcasesList = briefcasesTab.querySelector('.form__cases');
+
+	renderBriefcases(briefcases, briefcasesList);
+	controlBriefcases(briefcasesTab);
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

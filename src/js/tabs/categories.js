@@ -1,5 +1,5 @@
 import { CURRENT_TAB, DOM } from '../constants';
-import { fetchData } from '../helpers';
+import { fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
@@ -27,6 +27,19 @@ function renderCategories(categories, container) {
 	}
 }
 
+function controlCategories(list) {
+	list.addEventListener('click', async (e) => {
+		if (e.target.tagName === 'LI') {
+			const categoryId = e.target.dataset.id;
+			const categoryTitle = e.target.textContent;
+
+			await loadQuestions(categoryId, categoryTitle);
+		} else {
+			preventTabChange();
+		}
+	});
+}
+
 export async function loadCategories(id) {
 	const categories = await getCategories(id);
 	const categoriesList = CURRENT_TAB.element.querySelector(
@@ -34,13 +47,7 @@ export async function loadCategories(id) {
 	);
 
 	renderCategories(categories, categoriesList);
-
-	categoriesList.addEventListener('click', async (e) => {
-		const categoryId = e.target.dataset.id;
-		const categoryTitle = e.target.textContent;
-
-		await loadQuestions(categoryId, categoryTitle);
-	});
+	controlCategories(categoriesList);
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
