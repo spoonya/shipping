@@ -1,5 +1,5 @@
 import { DOM, CURRENT_TAB, PREV_TAB, STATE } from '../constants';
-import { fetchData, findTabByName } from '../helpers';
+import { fetchData, findTabByName, findCheckedInput } from '../helpers';
 import { getBriefcases, renderBriefcases } from './briefcases';
 import { TOGGLE_TAB } from '../utils';
 
@@ -24,13 +24,18 @@ async function getInspections() {
 	return data;
 }
 
-async function addBriefcaseToDB({ inspectionName, vessel, port, inspection }) {
+async function addBriefcaseToDB({
+	inspectionName,
+	vessel,
+	port,
+	inspectionType
+}) {
 	const url = 'https://dummyjson.com/products/add';
 	await fetchData(url, 'POST', {
-		title: inspectionName.value,
+		title: inspectionName,
 		date: new Date().toLocaleDateString(),
-		city: vessel.value,
-		text: [port.value, inspection.value],
+		city: vessel,
+		text: [port, inspectionType],
 		test: 'do not used'
 	});
 }
@@ -115,18 +120,6 @@ async function loadAddDropdowns(isLoaded) {
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
-function findCheckedInput(container) {
-	let checkedInput = '';
-
-	container.querySelectorAll('input').forEach((input) => {
-		if (input.checked) {
-			checkedInput = input;
-		}
-	});
-
-	return checkedInput;
-}
-
 function isDropdownsValid(container) {
 	let isValid = true;
 
@@ -164,7 +157,12 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	const port = findCheckedInput(dropdownPorts);
 	const inspection = findCheckedInput(dropdownInspections);
 
-	await addBriefcaseToDB({ inspectionName, vessel, port, inspection });
+	await addBriefcaseToDB({
+		inspection: inspectionName.value,
+		vessel: vessel.value,
+		port: port.value,
+		inspectionType: inspection.value
+	});
 
 	const briefcases = await getBriefcases();
 	renderBriefcases(briefcases);

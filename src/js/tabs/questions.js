@@ -1,6 +1,7 @@
 import { CURRENT_TAB, DOM } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
+import { controlAnswer } from './answers';
 
 async function getQuestions(id) {
 	const url = '../data/questions.json';
@@ -78,7 +79,7 @@ function controlQuestions() {
 		});
 	});
 
-	nextButton.addEventListener('click', () => {});
+	nextButton.addEventListener('click', () => controlAnswer('add'));
 }
 
 export async function loadQuestions(id, title) {
