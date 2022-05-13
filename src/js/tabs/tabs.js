@@ -1,12 +1,12 @@
 import { DOM, CURRENT_TAB, PREV_TAB } from '../constants';
 import { findTabByName } from '../helpers';
 
-function displayCurrentTab(prevTab) {
-	prevTab.classList.remove('active');
+function displayCurrentTab() {
+	PREV_TAB.element.classList.remove('active');
 	CURRENT_TAB.element.classList.add('active');
 }
 
-function toggleFormTabs() {
+export function toggleTabs() {
 	if (!DOM.form) return;
 
 	if (!CURRENT_TAB.element) {
@@ -22,6 +22,12 @@ function toggleFormTabs() {
 			PREV_TAB.id = CURRENT_TAB.id;
 			CURRENT_TAB.element = findTabByName(tabId);
 			CURRENT_TAB.id = CURRENT_TAB.element.dataset.tab;
+
+			if (!toggle.hasAttribute('data-tab-submit')) {
+				displayCurrentTab();
+			} else {
+				DOM.form.classList.add('loading');
+			}
 
 			const changePrevButtonTarget = (label) => {
 				const prevButton = CURRENT_TAB.element.querySelector(
@@ -41,21 +47,11 @@ function toggleFormTabs() {
 			if (toggle.dataset.tabTarget === 'info') {
 				changePrevButtonTarget('question');
 			}
-
-			if (!toggle.hasAttribute('data-tab-submit')) {
-				displayCurrentTab(PREV_TAB.element);
-			} else {
-				DOM.form.classList.add('loading');
-			}
 		});
 	});
 
 	DOM.form.addEventListener('toggleTab', () => {
-		displayCurrentTab(PREV_TAB.element);
+		displayCurrentTab();
 		DOM.form.classList.remove('loading');
 	});
-}
-
-export function controlTabs() {
-	toggleFormTabs();
 }

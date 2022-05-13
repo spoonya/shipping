@@ -1,6 +1,6 @@
 import { CURRENT_TAB, DOM } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
-import { TOGGLE } from '../utils';
+import { TOGGLE_TAB } from '../utils';
 
 async function getQuestions(id) {
 	const url = '../data/questions.json';
@@ -87,5 +87,5 @@ export async function loadQuestions(id) {
 	renderQuestions(categories, categoriesList);
 	controlQuestions();
 
-	DOM.form.dispatchEvent(TOGGLE);
+	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

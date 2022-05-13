@@ -1,1 +1,1 @@
-export const TOGGLE = new Event('toggleTab');
+export const TOGGLE_TAB = new Event('toggleTab');

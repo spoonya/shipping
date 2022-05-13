@@ -5,7 +5,12 @@ block content
     .container
       .content__inner
         #form-inspection.form
-          <div class="spinner"><div></div><div></div><div></div><div></div></div>
+          .spinner
+            div
+            div
+            div
+            div
+
           //Sign-in
           .form__tab(data-tab="sign-in")
             .form__header
@@ -30,7 +35,6 @@ block content
               ul.form__cases(data-tab-target="categories" data-briefcases-list data-tab-submit)
             .form__bot
               button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add" data-tab-submit) + Add
-              button.form__button.form__button--circle(type="button" data-load-more)
 
           //Briefcases-add
           .form__tab(data-tab="briefcases-add")
@@ -79,7 +83,6 @@ block content
               ul.form__items.form__items--iconless(data-tab-questions)
             .form__bot
               button.form__button.form__button--secondary(type="button" disabled data-tab-target="answers-info" data-tab-open-questions) Open questions >
-              button.form__button.form__button--circle(type="button")
 
           //Answers
           .form__tab(data-tab="answers")
@@ -158,8 +161,6 @@ block content
                   li Compressors including main, instrument and emergency air compressors;
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   span Stability ad Cargo Loading Limitations
-            .form__bot.form__bot--justify-end
-              button.form__button.form__button--circle(type="button")
 
           //Answers-info
           .form__tab(data-tab="answers-info")

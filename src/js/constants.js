@@ -15,12 +15,11 @@ export const PREV_TAB = {
 };
 
 export const TOKEN = {
-	value: ''
+	value: null
 };
 
 export const STATE = {
-	briefcases: {
-		itemsPerView: 2,
-		currentIndex: 0
+	dropdowns: {
+		isLoaded: false
 	}
 };

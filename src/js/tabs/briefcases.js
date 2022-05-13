@@ -1,5 +1,5 @@
-import { DOM, CURRENT_TAB, STATE } from '../constants';
-import { TOGGLE } from '../utils';
+import { DOM, CURRENT_TAB } from '../constants';
+import { TOGGLE_TAB } from '../utils';
 import { fetchData } from '../helpers';
 import { loadCategories } from './categories';
 
@@ -38,14 +38,12 @@ function createBriefcase({ id, title, port, text, test, date }) {
 	return briefcaseHTML;
 }
 
-export function renderBriefcases({ briefcases, startFrom, maxPerView }) {
-	STATE.briefcases.currentIndex += STATE.briefcases.itemsPerView;
-
+export function renderBriefcases(briefcases) {
 	const briefcasesList = CURRENT_TAB.element.querySelector('.form__cases');
 
 	briefcasesList.innerHTML = '';
 
-	for (let i = startFrom; i < maxPerView + startFrom; i++) {
+	for (let i = 0; i < briefcases.length; i++) {
 		briefcasesList.insertAdjacentHTML(
 			'beforeend',
 			createBriefcase({
@@ -65,29 +63,12 @@ export function renderBriefcases({ briefcases, startFrom, maxPerView }) {
 
 export async function loadBriefcases() {
 	const briefcases = await getBriefcases();
-	const loadMore = CURRENT_TAB.element.querySelector('[data-load-more]');
 
 	const briefcasesList = CURRENT_TAB.element.querySelector(
 		'[data-briefcases-list]'
 	);
 
-	renderBriefcases({
-		briefcases,
-		startFrom: STATE.briefcases.currentIndex,
-		maxPerView: STATE.briefcases.itemsPerView
-	});
-
-	loadMore.addEventListener('click', () => {
-		renderBriefcases({
-			briefcases,
-			startFrom: STATE.briefcases.currentIndex,
-			maxPerView: STATE.briefcases.itemsPerView
-		});
-
-		if (!briefcases[STATE.briefcases.currentIndex]) {
-			loadMore.remove();
-		}
-	});
+	renderBriefcases(briefcases);
 
 	briefcasesList.addEventListener('click', async (e) => {
 		const briefcaseId =
@@ -98,5 +79,5 @@ export async function loadBriefcases() {
 		await loadCategories(briefcaseId);
 	});
 
-	DOM.form.dispatchEvent(TOGGLE);
+	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

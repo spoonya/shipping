@@ -1,6 +1,6 @@
 import { CURRENT_TAB, DOM } from '../constants';
 import { fetchData } from '../helpers';
-import { TOGGLE } from '../utils';
+import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
 async function getCategories(id) {
@@ -40,5 +40,5 @@ export async function loadCategories(id) {
 		await loadQuestions(categoryId);
 	});
 
-	DOM.form.dispatchEvent(TOGGLE);
+	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

@@ -1,7 +1,7 @@
 import { DOM, CURRENT_TAB, PREV_TAB, STATE } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
 import { getBriefcases, renderBriefcases } from './briefcases';
-import { TOGGLE } from '../utils';
+import { TOGGLE_TAB } from '../utils';
 
 async function getVessels() {
 	const url = '../data/vessels.json';
@@ -22,6 +22,17 @@ async function getInspections() {
 	const data = await fetchData(url);
 
 	return data;
+}
+
+async function addBriefcaseToDB({ inspectionName, vessel, port, inspection }) {
+	const url = 'https://dummyjson.com/products/add';
+	await fetchData(url, 'POST', {
+		title: inspectionName.value,
+		date: new Date().toLocaleDateString(),
+		city: vessel.value,
+		text: [port.value, inspection.value],
+		test: 'do not used'
+	});
 }
 
 function createDropdownOption(value, inputName) {
@@ -66,7 +77,7 @@ function resetBriefcaseAdd({
 
 async function loadAddDropdowns(isLoaded) {
 	if (isLoaded) {
-		DOM.form.dispatchEvent(TOGGLE);
+		DOM.form.dispatchEvent(TOGGLE_TAB);
 
 		return;
 	}
@@ -101,7 +112,7 @@ async function loadAddDropdowns(isLoaded) {
 		inputName: 'inspections'
 	});
 
-	DOM.form.dispatchEvent(TOGGLE);
+	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
 function findCheckedInput(container) {
@@ -116,6 +127,18 @@ function findCheckedInput(container) {
 	return checkedInput;
 }
 
+function isDropdownsValid(container) {
+	let isValid = true;
+
+	container.forEach((dropdown) => {
+		if (!dropdown.hasAttribute(['data-dropdown-selected'])) {
+			isValid = false;
+		}
+	});
+
+	return isValid;
+}
+
 async function addBriefcase(tab, dropdownsPlaceholder) {
 	const inspectionName = tab.querySelector('input[name="inspection-name"]');
 	const dropdownsContainer = tab.querySelectorAll(
@@ -126,19 +149,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	const dropdownInspections = tab.querySelector('[data-dropdown-inspections]');
 	const errorEl = tab.querySelector('.form__error');
 
-	const isDropdownsValid = () => {
-		let isValid = true;
-
-		dropdownsContainer.forEach((dropdown) => {
-			if (!dropdown.hasAttribute(['data-dropdown-selected'])) {
-				isValid = false;
-			}
-		});
-
-		return isValid;
-	};
-
-	if (!inspectionName.value || !isDropdownsValid()) {
+	if (!inspectionName.value || !isDropdownsValid(dropdownsContainer)) {
 		errorEl.classList.add('active');
 		DOM.form.classList.remove('loading');
 		CURRENT_TAB.element = PREV_TAB.element;
@@ -153,40 +164,18 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	const port = findCheckedInput(dropdownPorts);
 	const inspection = findCheckedInput(dropdownInspections);
 
-	try {
-		const url = 'https://dummyjson.com/products/add';
-		await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				title: inspectionName.value,
-				date: new Date().toLocaleDateString(),
-				city: vessel.value,
-				text: [port.value, inspection.value],
-				test: 'do not used'
-			})
-		});
+	await addBriefcaseToDB({ inspectionName, vessel, port, inspection });
 
-		const briefcases = await getBriefcases();
+	const briefcases = await getBriefcases();
+	renderBriefcases(briefcases);
 
-		renderBriefcases({
-			briefcases,
-			startFrom: STATE.briefcases.currentIndex,
-			maxPerView: STATE.briefcases.itemsPerView
-		});
+	resetBriefcaseAdd({
+		dropdownsContainer,
+		textInput: inspectionName,
+		dropdownsPlaceholder
+	});
 
-		resetBriefcaseAdd({
-			dropdownsContainer,
-			textInput: inspectionName,
-			dropdownsPlaceholder
-		});
-	} catch (error) {
-		console.log(error);
-	}
-
-	DOM.form.dispatchEvent(TOGGLE);
+	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
 export function loadAddBriefcase() {
@@ -198,11 +187,10 @@ export function loadAddBriefcase() {
 	const addBriefcaseButton = CURRENT_TAB.element.querySelector(
 		'[data-tab-target="briefcases-add"]'
 	);
-	let isDropdownsLoaded = false;
 
 	addBriefcaseButton.addEventListener('click', async () => {
-		await loadAddDropdowns(isDropdownsLoaded);
-		isDropdownsLoaded = true;
+		await loadAddDropdowns(STATE.dropdowns.isLoaded);
+		STATE.dropdowns.isLoaded = true;
 	});
 
 	briefcaseAddSubmit.addEventListener('click', () =>
