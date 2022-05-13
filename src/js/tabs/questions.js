@@ -21,8 +21,11 @@ function createQuestion({ questionID, question }) {
 	return categoryHTML;
 }
 
-function renderQuestions(questions, container) {
+function renderQuestions({ questions, title, container }) {
 	container.innerHTML = '';
+
+	const titleEl = CURRENT_TAB.element.querySelector('.form__title p');
+	titleEl.textContent = title;
 
 	for (let i = 0; i < questions.length; i++) {
 		container.insertAdjacentHTML(
@@ -78,13 +81,13 @@ function controlQuestions() {
 	nextButton.addEventListener('click', () => {});
 }
 
-export async function loadQuestions(id) {
-	const categories = await getQuestions(id);
+export async function loadQuestions(id, title) {
+	const questions = await getQuestions(id);
 	const categoriesList = CURRENT_TAB.element.querySelector(
 		'[data-tab-questions]'
 	);
 
-	renderQuestions(categories, categoriesList);
+	renderQuestions({ questions, title, container: categoriesList });
 	controlQuestions();
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);

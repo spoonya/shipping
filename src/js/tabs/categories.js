@@ -37,7 +37,9 @@ export async function loadCategories(id) {
 
 	categoriesList.addEventListener('click', async (e) => {
 		const categoryId = e.target.dataset.id;
-		await loadQuestions(categoryId);
+		const categoryTitle = e.target.textContent;
+
+		await loadQuestions(categoryId, categoryTitle);
 	});
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);

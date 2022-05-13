@@ -16,11 +16,11 @@ export function toggleTabs() {
 
 	DOM.formTabsToggles.forEach((toggle) => {
 		toggle.addEventListener('click', () => {
-			const tabId = toggle.dataset.tabTarget;
+			const tabName = toggle.dataset.tabTarget;
 
 			PREV_TAB.element = CURRENT_TAB.element;
 			PREV_TAB.id = CURRENT_TAB.id;
-			CURRENT_TAB.element = findTabByName(tabId);
+			CURRENT_TAB.element = findTabByName(tabName);
 			CURRENT_TAB.id = CURRENT_TAB.element.dataset.tab;
 
 			if (!toggle.hasAttribute('data-tab-submit')) {
