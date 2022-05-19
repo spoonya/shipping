@@ -12,6 +12,8 @@ async function getVessels() {
 	const url = '../data/vessels.json';
 	const data = await fetchData(url);
 
+	console.log(data);
+
 	return data;
 }
 

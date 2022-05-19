@@ -68,23 +68,7 @@ export function renderBriefcases(briefcases, container) {
 }
 
 function controlBriefcases(tab) {
-	const briefcasesList = tab.querySelector('[data-briefcases-list]');
 	const answersButton = tab.querySelector('[data-tab-target="answers"]');
-
-	briefcasesList.addEventListener('click', async (e) => {
-		if (e.target.tagName === 'UL') {
-			preventTabChange();
-
-			return;
-		}
-
-		const briefcaseId =
-			e.target.tagName === 'LI'
-				? e.target.dataset.id
-				: e.target.closest('li').dataset.id;
-
-		await loadCategories(briefcaseId);
-	});
 
 	answersButton.addEventListener('click', loadAnswers);
 }

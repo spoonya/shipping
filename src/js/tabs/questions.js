@@ -7,8 +7,6 @@ async function getQuestions(id) {
 	const url = 'http://dev.eraappmobile.com/api/question';
 	const data = await fetchData(url, 'POST', { qid: id });
 
-	console.log(data);
-
 	return data;
 }
 
@@ -100,6 +98,8 @@ export async function loadQuestions(id, title) {
 	const categoriesList = CURRENT_TAB.element.querySelector(
 		'[data-tab-questions]'
 	);
+
+	console.log(questions);
 
 	renderQuestions({ questions, title, container: categoriesList });
 	controlQuestions();

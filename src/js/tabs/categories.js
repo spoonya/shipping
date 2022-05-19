@@ -1,11 +1,13 @@
 import { CURRENT_TAB, DOM } from '../constants';
-import { fetchData, preventTabChange } from '../helpers';
+import { fetchData, findTabByName, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
 async function getCategories() {
 	const url = 'http://dev.eraappmobile.com/api/question';
 	const data = await fetchData(url);
+
+	console.log(data);
 
 	return data;
 }
@@ -42,9 +44,8 @@ function controlCategories(list) {
 
 export async function loadCategories(id) {
 	const categories = await getCategories(id);
-	const categoriesList = CURRENT_TAB.element.querySelector(
-		'[data-tab-categories]'
-	);
+	const categoriesTab = findTabByName('categories');
+	const categoriesList = categoriesTab.querySelector('[data-tab-categories]');
 
 	renderCategories(categories, categoriesList);
 	controlCategories(categoriesList);

@@ -2,6 +2,7 @@ import { loadBriefcases } from './briefcases';
 import { controlAddBriefcase } from './briefcases-add';
 import { STATE } from '../constants';
 import { findTabByName, preventTabChange } from '../helpers';
+import { loadCategories } from './categories';
 
 async function getToken(login, password) {
 	try {
@@ -41,6 +42,7 @@ export function signIn() {
 
 		if (STATE.token) {
 			await loadBriefcases();
+			await loadCategories();
 			controlAddBriefcase();
 		} else {
 			error.classList.add('active');
