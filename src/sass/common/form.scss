@@ -245,7 +245,7 @@
 	}
 }
 
-.form__cases-city {
+.form__cases-port {
 	font-weight: 700;
 }
 
@@ -875,6 +875,7 @@ textarea.form__input {
 
 	img {
 		object-fit: cover;
+		height: 65px;
 	}
 
 	&.active {

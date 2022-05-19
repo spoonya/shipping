@@ -19,9 +19,9 @@ block content
             .form__inner
               span.form__error(data-tab-error) Incorrect login or password
               .form__control
-                input.form__input(type="text", value="kminchelle", name="login", placeholder="Login", required)
+                input.form__input(type="text", value="ilia@mail.ru", name="login", placeholder="Login", required)
               .form__control
-                input.form__input(type="password", value="0lelplR", name="password", placeholder="Password", required)
+                input.form__input(type="password", value="12345", name="password", placeholder="Password", required)
             .form__bot.form__bot--justify-end
               button.form__button.form__button--media-wide(type="button" data-tab-target="briefcases" data-tab-submit) Sign in
 
@@ -92,14 +92,13 @@ block content
                 p Answers
             .form__inner(data-tab-answers)
 
-
           //Answers-info
           .form__tab(data-tab="answers-info")
             .form__header
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers") Answers
               button.form__header-button.form__header-button--next(type="button" data-tab-target="info" data-tab-submit) Information
             .form__inner
-              p.form__question Are the following, where applicable, all in good order and do they appear to be well maintained?
+              p.form__question
               span.form__error(data-tab-error) Fill in the required data
               .form__control
                 input.form__input(type="date", name="date", required)
@@ -147,4 +146,3 @@ block content
                 p Information
             .form__inner
               .form__text
-

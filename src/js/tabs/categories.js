@@ -3,7 +3,7 @@ import { fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
-async function getCategories(id) {
+async function getCategories() {
 	const url = '../data/categories.json';
 	const data = await fetchData(url);
 

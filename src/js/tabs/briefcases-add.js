@@ -33,15 +33,18 @@ async function addBriefcaseToDB({
 	inspectionName,
 	vessel,
 	port,
-	inspectionType
+	inspectionType,
+	inspectionSource
 }) {
 	const url = 'https://dummyjson.com/products/add';
 	await fetchData(url, 'POST', {
-		title: inspectionName,
-		date: new Date().toLocaleDateString(),
-		city: vessel,
-		text: [port, inspectionType],
-		test: 'do not used'
+		inspectionName,
+		inspectionType,
+		inspectionSource,
+		port,
+		vessel,
+		test: 'do not used',
+		date: new Date().toLocaleDateString()
 	});
 }
 
@@ -162,9 +165,10 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
 	await addBriefcaseToDB({
 		inspection: inspectionName.value,
+		inspectionType: inspection.value,
+		inspectionSource: '???',
 		vessel: vessel.value,
-		port: port.value,
-		inspectionType: inspection.value
+		port: port.value
 	});
 
 	loadBriefcases();

@@ -4,14 +4,16 @@ import { TOGGLE_TAB } from '../utils';
 import { loadAnswer } from './answers-info';
 
 async function getQuestions(id) {
-	const url = '../data/questions.json';
-	const data = await fetchData(url);
+	const url = 'http://dev.eraappmobile.com/api/question';
+	const data = await fetchData(url, 'POST', { qid: id });
+
+	console.log(data);
 
 	return data;
 }
 
-function createQuestion({ questionID, question }) {
-	const categoryHTML = `<li data-id="${questionID}">
+function createQuestion({ questionid, question }) {
+	const categoryHTML = `<li data-id="${questionid}">
                     <label class="form__checkbox-wrapper">
                       <input class="form__checkbox" name="question" type="checkbox" hidden>
                       <span class="form__checkbox-styled"></span>
@@ -32,7 +34,7 @@ function renderQuestions({ questions, title, container }) {
 		container.insertAdjacentHTML(
 			'beforeend',
 			createQuestion({
-				questionID: questions[i].questionID,
+				questionid: questions[i].questionid,
 				question: questions[i].question
 			})
 		);

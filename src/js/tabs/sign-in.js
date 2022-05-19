@@ -5,14 +5,14 @@ import { findTabByName, preventTabChange } from '../helpers';
 
 async function getToken(login, password) {
 	try {
-		const url = 'https://dummyjson.com/auth/login';
+		const url = 'http://dev.eraappmobile.com/login';
 		const res = await fetch(url, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
-				username: login,
+				email: login,
 				password,
 				returnSecureToken: true
 			})

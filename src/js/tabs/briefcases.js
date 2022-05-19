@@ -5,28 +5,36 @@ import { loadCategories } from './categories';
 import { loadAnswers } from './answers';
 
 export async function getBriefcases() {
-	const url = 'https://dummyjson.com/auth/products';
+	const url = '../data/briefcases.json';
 	const data = await fetchData(url);
 
-	return data.products;
+	return data;
 }
 
-function createBriefcase({ id, title, port, text, test, date }) {
+function createBriefcase({
+	id,
+	inspectionName,
+	inspectionType,
+	inspectionSource,
+	vessel,
+	port,
+	test,
+	date
+}) {
 	const briefcaseHTML = `<li data-id=${id}>
                     <div class="form__cases-img">
                     <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
                       <div class="form__cases-header">
-                        <p class="form__cases-header-title">${title}</p>
+                        <p class="form__cases-header-title">${vessel}</p>
                         <div class="form__text form__text--sm">
                           <p>${date}</p>
                         </div>
                       </div>
                       <div class="form__cases-descrip">
-                        <p class="form__cases-city">${port}</p>
-                        <div class="form__text">
-                          ${text.map((item) => `<p>${item}</p>`).join('')}
-                        </div>
+                        <p class="form__cases-port">${port}</p>
+                        <p class="form__cases-inpection-type form__text">${inspectionType}</p>
+                        <p class="form__cases-inpection-source form__text">${inspectionSource}</p>
                         <div class="form__cases-test"><span>Test:&nbsp;</span>
                           <div class="form__text">
                             <p>${test}</p>
@@ -47,14 +55,13 @@ export function renderBriefcases(briefcases, container) {
 			'beforeend',
 			createBriefcase({
 				id: briefcases[i].id,
-				title: briefcases[i].title,
-				date: new Date().toLocaleDateString(),
-				port: briefcases[i].brand,
-				text: [
-					'Site Visit',
-					'Administration Nacional de Combustibles Alcohol y Portland (ACAP)'
-				],
-				test: 'do not used'
+				inspectionName: briefcases[i].inspectionName,
+				inspectionType: briefcases[i].inspectionType,
+				inspectionSource: briefcases[i].inspectionSource,
+				vessel: briefcases[i].vessel,
+				port: briefcases[i].port,
+				test: briefcases[i].test,
+				date: briefcases[i].date
 			})
 		);
 	}
