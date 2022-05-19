@@ -4,7 +4,7 @@ import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
 async function getCategories() {
-	const url = '../data/categories.json';
+	const url = 'http://dev.eraappmobile.com/api/question';
 	const data = await fetchData(url);
 
 	return data;
