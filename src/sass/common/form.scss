@@ -31,8 +31,10 @@
 
 	margin-bottom: 2rem;
 
-	max-height: 386px;
-	overflow-y: auto;
+	&--fixed-height {
+		max-height: 386px;
+		overflow-y: auto;
+	}
 
 	&--margin-lg {
 		&:not(:last-child) {

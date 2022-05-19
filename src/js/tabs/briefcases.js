@@ -1,7 +1,6 @@
 import { DOM } from '../constants';
 import { TOGGLE_TAB } from '../utils';
-import { fetchData, findTabByName, preventTabChange } from '../helpers';
-import { loadCategories } from './categories';
+import { fetchData, findTabByName } from '../helpers';
 import { loadAnswers } from './answers';
 
 export async function getBriefcases() {

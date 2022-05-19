@@ -24,8 +24,15 @@ async function getPorts() {
 	return data;
 }
 
-async function getInspections() {
+async function getInspectionsType() {
 	const url = '../data/inspection-type.json';
+	const data = await fetchData(url);
+
+	return data;
+}
+
+async function getInspectionsSource() {
+	const url = '../data/inspection-source.json';
 	const data = await fetchData(url);
 
 	return data;
@@ -99,7 +106,8 @@ async function loadAddDropdowns(isLoaded) {
 
 	const vessels = await getVessels();
 	const ports = await getPorts();
-	const inspections = await getInspections();
+	const inspectionsType = await getInspectionsType();
+	const inspectionsSource = await getInspectionsSource();
 
 	const vesselsDropdown = CURRENT_TAB.element.querySelector(
 		'[data-dropdown-vessels]'
@@ -107,8 +115,11 @@ async function loadAddDropdowns(isLoaded) {
 	const portsDropdown = CURRENT_TAB.element.querySelector(
 		'[data-dropdown-ports]'
 	);
-	const inspectionsDropdown = CURRENT_TAB.element.querySelector(
-		'[data-dropdown-inspections]'
+	const inspectionsTypeDropdown = CURRENT_TAB.element.querySelector(
+		'[data-dropdown-inspections-type]'
+	);
+	const inspectionsSourceDropdown = CURRENT_TAB.element.querySelector(
+		'[data-dropdown-inspections-source]'
 	);
 
 	renderDropdown({
@@ -122,9 +133,14 @@ async function loadAddDropdowns(isLoaded) {
 		inputName: 'ports'
 	});
 	renderDropdown({
-		data: inspections,
-		container: inspectionsDropdown,
-		inputName: 'inspections'
+		data: inspectionsType,
+		container: inspectionsTypeDropdown,
+		inputName: 'inspections-type'
+	});
+	renderDropdown({
+		data: inspectionsSource,
+		container: inspectionsSourceDropdown,
+		inputName: 'inspections-source'
 	});
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);

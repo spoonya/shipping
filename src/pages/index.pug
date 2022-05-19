@@ -31,7 +31,7 @@ block content
               button.form__header-button.form__header-button--next(type="button" data-tab-target="answers" data-tab-submit) Answers
               .form__title
                 p Briefcases
-            .form__inner
+            .form__inner.form__inner--fixed-height
               ul.form__cases(data-tab-target="categories" data-briefcases-list)
             .form__bot
               button.form__button.form__button--secondary(type="button" data-tab-target="briefcases-add" data-tab-submit) + Add
@@ -55,10 +55,15 @@ block content
                   img(src="assets/img/svg/anchor.svg", width="40", height="40", alt="")
                   span Port
               .form__control.form__select(data-form-dropdown)
-                .form__options-container(data-form-dropdown-container data-dropdown-inspections)
+                .form__options-container(data-form-dropdown-container data-dropdown-inspections-source)
+                .form__option-selected.form__input(data-form-dropdown-selected)
+                  img(src="assets/img/svg/inspection-source.svg", width="40", height="40", alt="")
+                  span Inspection source
+              .form__control.form__select(data-form-dropdown)
+                .form__options-container(data-form-dropdown-container data-dropdown-inspections-type)
                 .form__option-selected.form__input(data-form-dropdown-selected)
                   img(src="assets/img/svg/inspection.svg", width="40", height="40", alt="")
-                  span Type of inspection
+                  span Inspection type
             .form__control
                 input.form__input(type="text", name="inspection-name", placeholder="Inspection name", required)
             .form__bot.form__bot--justify-end
@@ -70,7 +75,7 @@ block content
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Categories
-            .form__inner
+            .form__inner.form__inner--fixed-height
               ul.form__items(data-tab-categories data-tab-target="questions" data-tab-submit)
 
           //Questions
@@ -79,7 +84,7 @@ block content
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="categories") Categories
             .form__title.form__title--margin-sm
               p Machinery status
-            .form__inner
+            .form__inner.form__inner--fixed-height
               ul.form__items.form__items--iconless(data-tab-questions)
             .form__bot
               button.form__button.form__button--secondary(type="button" disabled data-tab-target="answers-info" data-tab-open-questions) Open questions >
@@ -90,7 +95,7 @@ block content
               button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
               .form__title
                 p Answers
-            .form__inner(data-tab-answers)
+            .form__inner.form__inner--fixed-height(data-tab-answers)
 
           //Answers-info
           .form__tab(data-tab="answers-info")
