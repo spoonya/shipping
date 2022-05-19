@@ -1,4 +1,4 @@
-import { CURRENT_TAB, DOM, STATE } from '../constants';
+import { ANSWERS_INFO_ACTIONS, CURRENT_TAB, DOM, STATE } from '../constants';
 import { toggleDropdown } from '../dropdown';
 import { fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
@@ -54,15 +54,11 @@ function controlAnswers(answers, list) {
 		if (e.target.tagName === 'LI') {
 			const answerId = e.target.dataset.id;
 
-			console.log(answers);
-
 			STATE.activeQuestions.idArray = [answerId];
 
-			const activeAnswer = answers.find(
-				(answer) => answer.questionID === answerId
-			);
+			const activeAnswer = null;
 
-			loadAnswerDetails('edit', activeAnswer);
+			loadAnswerDetails(ANSWERS_INFO_ACTIONS.edit, activeAnswer);
 
 			DOM.form.dispatchEvent(TOGGLE_TAB);
 		} else if (e.target.closest('ul')) {

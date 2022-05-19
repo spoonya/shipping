@@ -1,4 +1,4 @@
-import { DOM, CURRENT_TAB, STATE } from '../constants';
+import { DOM, CURRENT_TAB, STATE, ANSWERS_INFO_ACTIONS } from '../constants';
 import { findCheckedInput, fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
@@ -40,7 +40,7 @@ function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
 	return isValid;
 }
 
-function resetAnswer({ date, comment, photo, answer, significant }) {
+function resetAnswerInputs({ date, comment, photo, answer, significant }) {
 	const imgPreview = photo
 		.closest('.form__group')
 		.querySelector('[data-tab-img-preview]');
@@ -72,22 +72,21 @@ function showImagePreview(e) {
 	previewContainer.classList.add('active');
 }
 
-async function saveAnswer(action, tab) {
-	const date = tab.querySelector('input[type="date"]');
-	const comment = tab.querySelector('textarea');
-	const photo = tab.querySelector('input[name="photo"]');
-	const answerContainer = tab.querySelector('[data-tab-answer]');
-	const significantContainer = tab.querySelector('[data-tab-significant]');
-	const answer = findCheckedInput(answerContainer);
-	const significant = findCheckedInput(significantContainer);
-	const errorEl = tab.querySelector('.form__error');
+async function saveAnswer(
+	action,
+	{ dateEl, commentEl, photoEl, answerContainer, significantContainer, errorEl }
+) {
+	const answerEl = findCheckedInput(answerContainer);
+	const significantEl = findCheckedInput(significantContainer);
+
+	console.log(answerEl);
 
 	const data = {
-		date: date.value,
-		comment: comment.value,
-		photo: photo.files,
-		answer: answer && answer.value,
-		significant: significant && significant.value
+		date: dateEl.value,
+		comment: commentEl.value,
+		photo: photoEl.files,
+		answer: answerEl && answerEl.value,
+		significant: significantEl && significantEl.value
 	};
 
 	if (!isAnswerValid(data, errorEl)) {
@@ -97,10 +96,10 @@ async function saveAnswer(action, tab) {
 	}
 
 	switch (action) {
-		case 'add':
+		case ANSWERS_INFO_ACTIONS.add:
 			await addAnswerToDB(data);
 			break;
-		case 'edit':
+		case ANSWERS_INFO_ACTIONS.edit:
 			await editAnswerInDB(data);
 			break;
 		default:
@@ -110,10 +109,24 @@ async function saveAnswer(action, tab) {
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 
-	resetAnswer({ date, comment, photo, answer, significant });
+	resetAnswerInputs({
+		date: dateEl,
+		comment: commentEl,
+		photo: photoEl,
+		answer: answerEl,
+		significant: significantEl
+	});
 }
 
-export function loadAnswerDetails(action, obj = null) {
+function fillAnswer(
+	data,
+	{ dateEl, commentEl, photoEl, answerContainer, significantContainer }
+) {
+	dateEl.value = data.date;
+	commentEl.value = data.comment;
+}
+
+export function loadAnswerDetails(action, data = null) {
 	const tab = CURRENT_TAB.element;
 	const saveButton = tab.querySelector('.form__bot [data-tab-submit]');
 	const photoInput = tab.querySelector('input[name="photo"]');
@@ -126,12 +139,46 @@ export function loadAnswerDetails(action, obj = null) {
 		infoButton.style.display = 'none';
 		addPhotoButton.style.display = 'none';
 	} else {
-		questionEl.textContent = obj.question;
+		questionEl.textContent = data.question;
 		infoButton.style.display = 'grid';
 		addPhotoButton.style.display = 'block';
 	}
 
-	loadInfo(obj && obj.comment);
+	const dateEl = tab.querySelector('input[type="date"]');
+	const commentEl = tab.querySelector('textarea');
+	const photoEl = tab.querySelector('input[name="photo"]');
+	const answerContainer = tab.querySelector('[data-tab-answer]');
+	const significantContainer = tab.querySelector('[data-tab-significant]');
+	const errorEl = tab.querySelector('.form__error');
+
+	resetAnswerInputs({
+		date: dateEl,
+		comment: commentEl,
+		photo: photoEl,
+		answer: answerContainer,
+		significant: significantContainer
+	});
+
+	if (action === ANSWERS_INFO_ACTIONS.edit) {
+		fillAnswer(data, {
+			dateEl,
+			commentEl,
+			photoEl,
+			answerContainer,
+			significantContainer
+		});
+	}
+
+	saveButton.addEventListener('click', () =>
+		saveAnswer(action, {
+			dateEl,
+			commentEl,
+			photoEl,
+			answerContainer,
+			significantContainer,
+			errorEl
+		})
+	);
+	loadInfo(data && data.comment);
 	photoInput.addEventListener('change', (e) => showImagePreview(e));
-	saveButton.addEventListener('click', () => saveAnswer(action, tab));
 }

@@ -14,6 +14,11 @@ export const PREV_TAB = {
 	id: null
 };
 
+export const ANSWERS_INFO_ACTIONS = {
+	add: 'add',
+	edit: 'edit'
+};
+
 export const STATE = {
 	activeQuestions: {
 		idArray: []

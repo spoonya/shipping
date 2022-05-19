@@ -1,4 +1,4 @@
-import { CURRENT_TAB, DOM, STATE } from '../constants';
+import { ANSWERS_INFO_ACTIONS, CURRENT_TAB, DOM, STATE } from '../constants';
 import { fetchData } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
@@ -75,7 +75,7 @@ function controlQuestions(questions) {
 
 		console.log(activeQuestion);
 
-		loadAnswerDetails('add', activeQuestion);
+		loadAnswerDetails(ANSWERS_INFO_ACTIONS.add, activeQuestion);
 	});
 }
 
