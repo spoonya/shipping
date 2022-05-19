@@ -165,7 +165,12 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 	);
 	const dropdownVessels = tab.querySelector('[data-dropdown-vessels]');
 	const dropdownPorts = tab.querySelector('[data-dropdown-ports]');
-	const dropdownInspections = tab.querySelector('[data-dropdown-inspections]');
+	const dropdownInspectionsType = tab.querySelector(
+		'[data-dropdown-inspections-type]'
+	);
+	const dropdownInspectionsSource = tab.querySelector(
+		'[data-dropdown-inspections-source]'
+	);
 	const errorEl = tab.querySelector('.form__error');
 
 	if (!inspectionName.value || !isDropdownsValid(dropdownsContainer)) {
@@ -179,12 +184,13 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
 	const vessel = findCheckedInput(dropdownVessels);
 	const port = findCheckedInput(dropdownPorts);
-	const inspection = findCheckedInput(dropdownInspections);
+	const inspectionType = findCheckedInput(dropdownInspectionsType);
+	const inspectionSource = findCheckedInput(dropdownInspectionsSource);
 
 	await addBriefcaseToDB({
 		inspection: inspectionName.value,
-		inspectionType: inspection.value,
-		inspectionSource: '???',
+		inspectionType: inspectionType.value,
+		inspectionSource: inspectionSource.value,
 		vessel: vessel.value,
 		port: port.value
 	});
