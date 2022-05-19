@@ -1,32 +1,24 @@
-import { DOM, CURRENT_TAB, STATE } from '../constants';
-import { fetchData } from '../helpers';
+import { DOM } from '../constants';
+import { findTabByName } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 
-async function getInfo(id) {
-	const url = '../data/info.json';
-	const data = await fetchData(url);
-
-	return data[id];
-}
-
 function createInfo(text) {
-	const infoHTML = `<p>${text}</p>`;
+	const infoHTML = `<p>${text || 'No info'}</p>`;
 
 	return infoHTML;
 }
 
-function renderInfo(info, container) {
+function renderInfo(comment, container) {
 	container.innerHTML = '';
 
-	container.insertAdjacentHTML('beforeend', createInfo(info));
+	container.insertAdjacentHTML('beforeend', createInfo(comment));
 }
 
-export async function loadInfo() {
-	const textContainer = CURRENT_TAB.element.querySelector('.form__text');
-	const [selectedQuestionId] = STATE.questions.idArray;
-	const info = await getInfo(selectedQuestionId);
+export async function loadInfo(comment) {
+	const infoTab = findTabByName('info');
+	const textContainer = infoTab.querySelector('.form__text');
 
-	renderInfo(info, textContainer);
+	renderInfo(comment, textContainer);
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

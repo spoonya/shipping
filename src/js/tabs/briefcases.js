@@ -1,7 +1,7 @@
 import { DOM } from '../constants';
 import { TOGGLE_TAB } from '../utils';
 import { fetchData, findTabByName } from '../helpers';
-import { loadAnswers } from './answers';
+import { loadAnswerDetailss } from './answers';
 
 export async function getBriefcases() {
 	const url = '../data/briefcases.json';
@@ -69,7 +69,7 @@ export function renderBriefcases(briefcases, container) {
 function controlBriefcases(tab) {
 	const answersButton = tab.querySelector('[data-tab-target="answers"]');
 
-	answersButton.addEventListener('click', loadAnswers);
+	answersButton.addEventListener('click', loadAnswerDetailss);
 }
 
 export async function loadBriefcases() {

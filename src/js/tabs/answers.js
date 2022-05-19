@@ -3,7 +3,7 @@ import { toggleDropdown } from '../dropdown';
 import { fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { toggleTabs } from './tabs';
-import { loadAnswer } from './answers-info';
+import { loadAnswerDetails } from './answers-info';
 
 async function getAnswers() {
 	const url = '../data/answers.json';
@@ -56,7 +56,7 @@ function controlAnswers(list) {
 
 			STATE.questions.idArray = [answerId];
 
-			loadAnswer('edit');
+			loadAnswerDetails('edit');
 
 			DOM.form.dispatchEvent(TOGGLE_TAB);
 		} else if (e.target.closest('ul')) {
@@ -65,7 +65,7 @@ function controlAnswers(list) {
 	});
 }
 
-export async function loadAnswers() {
+export async function loadAnswerDetailss() {
 	const answers = await getAnswers();
 	const answersContainer =
 		CURRENT_TAB.element.querySelector('[data-tab-answers]');

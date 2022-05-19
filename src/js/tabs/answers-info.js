@@ -113,13 +113,12 @@ async function saveAnswer(action, tab) {
 	resetAnswer({ date, comment, photo, answer, significant });
 }
 
-export function loadAnswer(action) {
+export function loadAnswerDetails(action, question = null) {
 	const tab = CURRENT_TAB.element;
 	const saveButton = tab.querySelector('.form__bot [data-tab-submit]');
 	const photoInput = tab.querySelector('input[name="photo"]');
-	const infoButton = tab.querySelector('[data-tab-target="info"]');
 
-	infoButton.addEventListener('click', loadInfo);
+	loadInfo(question.comment);
 	photoInput.addEventListener('change', (e) => showImagePreview(e));
 	saveButton.addEventListener('click', () => saveAnswer(action, tab));
 }

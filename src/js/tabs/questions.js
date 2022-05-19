@@ -1,7 +1,7 @@
 import { CURRENT_TAB, DOM, STATE } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
-import { loadAnswer } from './answers-info';
+import { loadAnswerDetails } from './answers-info';
 
 async function getQuestions(id) {
 	const url = 'http://dev.eraappmobile.com/api/question';
@@ -39,9 +39,9 @@ function renderQuestions({ questions, title, container }) {
 	}
 }
 
-function controlQuestions() {
+function controlQuestions(questions) {
 	const answersInfoTab = findTabByName('answers-info');
-	const question = answersInfoTab.querySelector('.form__question');
+	const questionEl = answersInfoTab.querySelector('.form__question');
 	const addPhotoButton = answersInfoTab.querySelector(
 		'[data-tab-photo-button]'
 	);
@@ -51,6 +51,7 @@ function controlQuestions() {
 		'[data-tab-open-questions]'
 	);
 
+	let activeQuestion = {};
 	let checkedCount = 0;
 
 	const findCheckedInputParent = () => {
@@ -72,12 +73,12 @@ function controlQuestions() {
 			}
 
 			if (checkedCount > 1) {
-				question.textContent = 'Questions added to the list';
+				questionEl.textContent = 'Questions added to the list';
 				infoButton.style.display = 'none';
 				addPhotoButton.style.display = 'none';
 			} else {
 				const checkedInput = findCheckedInputParent();
-				question.textContent = checkedInput.textContent;
+				questionEl.textContent = checkedInput.textContent;
 				infoButton.style.display = 'grid';
 				addPhotoButton.style.display = 'block';
 			}
@@ -89,7 +90,13 @@ function controlQuestions() {
 			.filter((input) => input.checked)
 			.map((input) => input.closest('li').dataset.id);
 
-		loadAnswer('add');
+		activeQuestion = questions.find(
+			(question) => question.questionid === STATE.questions.idArray[0]
+		);
+
+		console.log(activeQuestion);
+
+		loadAnswerDetails('add', activeQuestion);
 	});
 }
 
@@ -102,7 +109,7 @@ export async function loadQuestions(id, title) {
 	console.log(questions);
 
 	renderQuestions({ questions, title, container: categoriesList });
-	controlQuestions();
+	controlQuestions(questions);
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
