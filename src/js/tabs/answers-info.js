@@ -1,4 +1,4 @@
-import { DOM, CURRENT_TAB } from '../constants';
+import { DOM, CURRENT_TAB, STATE } from '../constants';
 import { findCheckedInput, fetchData, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
@@ -113,12 +113,25 @@ async function saveAnswer(action, tab) {
 	resetAnswer({ date, comment, photo, answer, significant });
 }
 
-export function loadAnswerDetails(action, question = null) {
+export function loadAnswerDetails(action, obj = null) {
 	const tab = CURRENT_TAB.element;
 	const saveButton = tab.querySelector('.form__bot [data-tab-submit]');
 	const photoInput = tab.querySelector('input[name="photo"]');
+	const questionEl = tab.querySelector('.form__question');
+	const addPhotoButton = tab.querySelector('[data-tab-photo-button]');
+	const infoButton = tab.querySelector('[data-tab-target="info"]');
 
-	loadInfo(question.comment);
+	if (STATE.activeQuestions.idArray.length > 1) {
+		questionEl.textContent = 'Questions added to the list';
+		infoButton.style.display = 'none';
+		addPhotoButton.style.display = 'none';
+	} else {
+		questionEl.textContent = obj.question;
+		infoButton.style.display = 'grid';
+		addPhotoButton.style.display = 'block';
+	}
+
+	loadInfo(obj && obj.comment);
 	photoInput.addEventListener('change', (e) => showImagePreview(e));
 	saveButton.addEventListener('click', () => saveAnswer(action, tab));
 }

@@ -15,7 +15,7 @@ export const PREV_TAB = {
 };
 
 export const STATE = {
-	questions: {
+	activeQuestions: {
 		idArray: []
 	},
 	dropdowns: {

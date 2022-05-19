@@ -1,5 +1,3 @@
-import { DOM } from '../constants';
-import { TOGGLE_TAB } from '../utils';
 import { fetchData, findTabByName } from '../helpers';
 import { loadAnswerDetailss } from './answers';
 
@@ -79,6 +77,4 @@ export async function loadBriefcases() {
 
 	renderBriefcases(briefcases, briefcasesList);
 	controlBriefcases(briefcasesTab);
-
-	DOM.form.dispatchEvent(TOGGLE_TAB);
 }

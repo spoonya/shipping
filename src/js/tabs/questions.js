@@ -1,5 +1,5 @@
 import { CURRENT_TAB, DOM, STATE } from '../constants';
-import { fetchData, findTabByName } from '../helpers';
+import { fetchData } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
 
@@ -40,25 +40,13 @@ function renderQuestions({ questions, title, container }) {
 }
 
 function controlQuestions(questions) {
-	const answersInfoTab = findTabByName('answers-info');
-	const questionEl = answersInfoTab.querySelector('.form__question');
-	const addPhotoButton = answersInfoTab.querySelector(
-		'[data-tab-photo-button]'
-	);
-	const infoButton = answersInfoTab.querySelector('[data-tab-target="info"]');
 	const questionsInputs = [...CURRENT_TAB.element.querySelectorAll('input')];
 	const nextButton = CURRENT_TAB.element.querySelector(
 		'[data-tab-open-questions]'
 	);
 
-	let activeQuestion = {};
+	let activeQuestion = null;
 	let checkedCount = 0;
-
-	const findCheckedInputParent = () => {
-		const checked = questionsInputs.find((input) => input.checked);
-
-		return checked.parentElement;
-	};
 
 	questionsInputs.forEach((input) => {
 		input.addEventListener('change', () => {
@@ -68,31 +56,22 @@ function controlQuestions(questions) {
 				nextButton.removeAttribute('disabled');
 			} else {
 				nextButton.setAttribute('disabled', true);
-
-				return;
-			}
-
-			if (checkedCount > 1) {
-				questionEl.textContent = 'Questions added to the list';
-				infoButton.style.display = 'none';
-				addPhotoButton.style.display = 'none';
-			} else {
-				const checkedInput = findCheckedInputParent();
-				questionEl.textContent = checkedInput.textContent;
-				infoButton.style.display = 'grid';
-				addPhotoButton.style.display = 'block';
 			}
 		});
 	});
 
 	nextButton.addEventListener('click', () => {
-		STATE.questions.idArray = questionsInputs
+		STATE.activeQuestions.idArray = questionsInputs
 			.filter((input) => input.checked)
 			.map((input) => input.closest('li').dataset.id);
 
-		activeQuestion = questions.find(
-			(question) => question.questionid === STATE.questions.idArray[0]
-		);
+		if (STATE.activeQuestions.idArray.length === 1) {
+			activeQuestion = questions.find(
+				(question) => question.questionid === STATE.activeQuestions.idArray[0]
+			);
+		} else {
+			activeQuestion = null;
+		}
 
 		console.log(activeQuestion);
 

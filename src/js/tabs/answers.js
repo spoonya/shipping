@@ -13,19 +13,19 @@ async function getAnswers() {
 }
 
 function createAnswer({ category, answers }) {
-	const categoryHTML = `<div class="form__select form__select--secondary" data-form-dropdown="spoiler">
+	const answerHTML = `<div class="form__select form__select--secondary" data-form-dropdown="spoiler">
                   <ul class="form__options-container" data-form-dropdown-container data-tab-target="answers-info" data-tab-submit>
                     ${answers
 											.map(
 												(answer) =>
-													`<li data-id="${answer.questionID}">${answer.question}</li>`
+													`<li data-id="${answer.questionid}">${answer.question}</li>`
 											)
 											.join('')}
                   </ul>
                   <div class="form__option-selected form__input" data-form-dropdown-selected><span>${category}</span></div>
                 </div>`;
 
-	return categoryHTML;
+	return answerHTML;
 }
 
 function renderAnswers(answers, container) {
@@ -49,14 +49,20 @@ function renderAnswers(answers, container) {
 	toggleTabs(tabToggles);
 }
 
-function controlAnswers(list) {
+function controlAnswers(answers, list) {
 	list.addEventListener('click', async (e) => {
 		if (e.target.tagName === 'LI') {
 			const answerId = e.target.dataset.id;
 
-			STATE.questions.idArray = [answerId];
+			console.log(answers);
 
-			loadAnswerDetails('edit');
+			STATE.activeQuestions.idArray = [answerId];
+
+			const activeAnswer = answers.find(
+				(answer) => answer.questionID === answerId
+			);
+
+			loadAnswerDetails('edit', activeAnswer);
 
 			DOM.form.dispatchEvent(TOGGLE_TAB);
 		} else if (e.target.closest('ul')) {
@@ -71,7 +77,7 @@ export async function loadAnswerDetailss() {
 		CURRENT_TAB.element.querySelector('[data-tab-answers]');
 
 	renderAnswers(answers, answersContainer);
-	controlAnswers(answersContainer);
+	controlAnswers(answers, answersContainer);
 
 	DOM.form.dispatchEvent(TOGGLE_TAB);
 }
