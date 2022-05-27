@@ -67,7 +67,7 @@ function controlAnswers(answers, list) {
 	});
 }
 
-export async function loadAnswerDetailss() {
+export async function loadAnswers() {
 	const answers = await getAnswers();
 	const answersContainer =
 		CURRENT_TAB.element.querySelector('[data-tab-answers]');

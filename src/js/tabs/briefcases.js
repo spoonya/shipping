@@ -1,5 +1,5 @@
 import { fetchData, findTabByName } from '../helpers';
-import { loadAnswerDetailss } from './answers';
+import { loadAnswers } from './answers';
 
 export async function getBriefcases() {
 	const url = '../data/briefcases.json';
@@ -67,7 +67,7 @@ export function renderBriefcases(briefcases, container) {
 function controlBriefcases(tab) {
 	const answersButton = tab.querySelector('[data-tab-target="answers"]');
 
-	answersButton.addEventListener('click', loadAnswerDetailss);
+	answersButton.addEventListener('click', loadAnswers);
 }
 
 export async function loadBriefcases() {
