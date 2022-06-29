@@ -1,52 +1,52 @@
 import { loadBriefcases } from './briefcases';
 import { controlAddBriefcase } from './briefcases-add';
-import { STATE } from '../constants';
+import { BASE_URL, STATE } from '../constants';
 import { findTabByName, preventTabChange } from '../helpers';
 import { loadCategories } from './categories';
 
 async function getToken(login, password) {
-	try {
-		const url = 'http://dev.eraappmobile.com/login';
-		const res = await fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				email: login,
-				password,
-				returnSecureToken: true
-			})
-		});
-		const data = await res.json();
+  try {
+    const url = `${BASE_URL}/login`;
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: login,
+        password,
+        returnSecureToken: true
+      })
+    });
+    const data = await res.json();
 
-		return data.token;
-	} catch (error) {
-		console.log(error);
-	}
+    return data.token;
+  } catch (error) {
+    console.log(error);
+  }
 
-	return null;
+  return null;
 }
 
 export function signIn() {
-	const signInTab = findTabByName('sign-in');
-	const submitButton = signInTab.querySelector('[data-tab-submit]');
-	const login = signInTab.querySelector('input[name="login"]');
-	const password = signInTab.querySelector('input[name="password"]');
-	const error = signInTab.querySelector('[data-tab-error]');
+  const signInTab = findTabByName('sign-in');
+  const submitButton = signInTab.querySelector('[data-tab-submit]');
+  const login = signInTab.querySelector('input[name="login"]');
+  const password = signInTab.querySelector('input[name="password"]');
+  const error = signInTab.querySelector('[data-tab-error]');
 
-	submitButton.addEventListener('click', async () => {
-		error.classList.remove('active');
+  submitButton.addEventListener('click', async () => {
+    error.classList.remove('active');
 
-		STATE.token = await getToken(login.value, password.value);
+    STATE.token = await getToken(login.value, password.value);
 
-		if (STATE.token) {
-			await loadBriefcases();
-			await loadCategories();
-			controlAddBriefcase();
-		} else {
-			error.classList.add('active');
-			preventTabChange();
-		}
-	});
+    if (STATE.token) {
+      await loadBriefcases();
+      await loadCategories();
+      controlAddBriefcase();
+    } else {
+      error.classList.add('active');
+      preventTabChange();
+    }
+  });
 }

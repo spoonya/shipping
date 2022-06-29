@@ -1,54 +1,54 @@
-import { CURRENT_TAB, DOM } from '../constants';
+import { BASE_URL, DOM } from '../constants';
 import { fetchData, findTabByName, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadQuestions } from './questions';
 
 async function getCategories() {
-	const url = 'http://dev.eraappmobile.com/api/question';
-	const data = await fetchData(url);
+  const url = `${BASE_URL}/api/question`;
+  const data = await fetchData(url);
 
-	console.log(data);
+  console.log(data);
 
-	return data;
+  return data;
 }
 
 function createCategory({ title, qid }) {
-	const categoryHTML = `<li data-id=${qid}>${title}</li>`;
+  const categoryHTML = `<li data-id=${qid}>${title}</li>`;
 
-	return categoryHTML;
+  return categoryHTML;
 }
 
 function renderCategories(categories, container) {
-	container.innerHTML = '';
+  container.innerHTML = '';
 
-	for (let i = 0; i < categories.length; i++) {
-		container.insertAdjacentHTML(
-			'beforeend',
-			createCategory({ qid: categories[i].qid, title: categories[i].title })
-		);
-	}
+  for (let i = 0; i < categories.length; i++) {
+    container.insertAdjacentHTML(
+      'beforeend',
+      createCategory({ qid: categories[i].qid, title: categories[i].title })
+    );
+  }
 }
 
 function controlCategories(list) {
-	list.addEventListener('click', async (e) => {
-		if (e.target.tagName === 'LI') {
-			const categoryId = e.target.dataset.id;
-			const categoryTitle = e.target.textContent;
+  list.addEventListener('click', async (e) => {
+    if (e.target.tagName === 'LI') {
+      const categoryId = e.target.dataset.id;
+      const categoryTitle = e.target.textContent;
 
-			await loadQuestions(categoryId, categoryTitle);
-		} else {
-			preventTabChange();
-		}
-	});
+      await loadQuestions(categoryId, categoryTitle);
+    } else {
+      preventTabChange();
+    }
+  });
 }
 
 export async function loadCategories(id) {
-	const categories = await getCategories(id);
-	const categoriesTab = findTabByName('categories');
-	const categoriesList = categoriesTab.querySelector('[data-tab-categories]');
+  const categories = await getCategories(id);
+  const categoriesTab = findTabByName('categories');
+  const categoriesList = categoriesTab.querySelector('[data-tab-categories]');
 
-	renderCategories(categories, categoriesList);
-	controlCategories(categoriesList);
+  renderCategories(categories, categoriesList);
+  controlCategories(categoriesList);
 
-	DOM.form.dispatchEvent(TOGGLE_TAB);
+  DOM.form.dispatchEvent(TOGGLE_TAB);
 }

@@ -2,23 +2,23 @@ import { fetchData, findTabByName } from '../helpers';
 import { loadAnswers } from './answers';
 
 export async function getBriefcases() {
-	const url = '../data/briefcases.json';
-	const data = await fetchData(url);
+  const url = '../data/briefcases.json';
+  const data = await fetchData(url);
 
-	return data;
+  return data;
 }
 
 function createBriefcase({
-	id,
-	inspectionName,
-	inspectionType,
-	inspectionSource,
-	vessel,
-	port,
-	test,
-	date
+  id,
+  inspectionName,
+  inspectionType,
+  inspectionSource,
+  vessel,
+  port,
+  test,
+  date
 }) {
-	const briefcaseHTML = `<li data-id=${id}>
+  const briefcaseHTML = `<li data-id=${id}>
                     <div class="form__cases-img">
                     <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
@@ -41,40 +41,40 @@ function createBriefcase({
                     </div>
                   </li>`;
 
-	return briefcaseHTML;
+  return briefcaseHTML;
 }
 
 export function renderBriefcases(briefcases, container) {
-	container.innerHTML = '';
+  container.innerHTML = '';
 
-	for (let i = 0; i < briefcases.length; i++) {
-		container.insertAdjacentHTML(
-			'beforeend',
-			createBriefcase({
-				id: briefcases[i].id,
-				inspectionName: briefcases[i].inspectionName,
-				inspectionType: briefcases[i].inspectionType,
-				inspectionSource: briefcases[i].inspectionSource,
-				vessel: briefcases[i].vessel,
-				port: briefcases[i].port,
-				test: briefcases[i].test,
-				date: briefcases[i].date
-			})
-		);
-	}
+  for (let i = 0; i < briefcases.length; i++) {
+    container.insertAdjacentHTML(
+      'beforeend',
+      createBriefcase({
+        id: briefcases[i].id,
+        inspectionName: briefcases[i].inspectionName,
+        inspectionType: briefcases[i].inspectionType,
+        inspectionSource: briefcases[i].inspectionSource,
+        vessel: briefcases[i].vessel,
+        port: briefcases[i].port,
+        test: briefcases[i].test,
+        date: briefcases[i].date
+      })
+    );
+  }
 }
 
 function controlBriefcases(tab) {
-	const answersButton = tab.querySelector('[data-tab-target="answers"]');
+  const answersButton = tab.querySelector('[data-tab-target="answers"]');
 
-	answersButton.addEventListener('click', loadAnswers);
+  answersButton.addEventListener('click', loadAnswers);
 }
 
 export async function loadBriefcases() {
-	const briefcases = await getBriefcases();
-	const briefcasesTab = findTabByName('briefcases');
-	const briefcasesList = briefcasesTab.querySelector('.form__cases');
+  const briefcases = await getBriefcases();
+  const briefcasesTab = findTabByName('briefcases');
+  const briefcasesList = briefcasesTab.querySelector('.form__cases');
 
-	renderBriefcases(briefcases, briefcasesList);
-	controlBriefcases(briefcasesTab);
+  renderBriefcases(briefcases, briefcasesList);
+  controlBriefcases(briefcasesTab);
 }

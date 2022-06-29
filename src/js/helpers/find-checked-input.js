@@ -1,11 +1,11 @@
 export function findCheckedInput(container) {
-	let checkedInput;
+  let checkedInput;
 
-	container.querySelectorAll('input').forEach((input) => {
-		if (input.checked) {
-			checkedInput = input;
-		}
-	});
+  container.querySelectorAll('input').forEach((input) => {
+    if (input.checked) {
+      checkedInput = input;
+    }
+  });
 
-	return checkedInput;
+  return checkedInput;
 }
