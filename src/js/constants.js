@@ -29,6 +29,6 @@ export const STATE = {
   token: ''
 };
 
-export const BASE_URL = 'https://dev.eraapp.ru';
-
 export const PROXY = 'https://crossorigin.me';
+
+export const BASE_URL = 'http://dev.eraapp.ru';
