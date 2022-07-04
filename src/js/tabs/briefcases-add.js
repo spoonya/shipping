@@ -1,4 +1,5 @@
-import { DOM, CURRENT_TAB, STATE } from '../constants';
+/* eslint-disable camelcase */
+import { DOM, CURRENT_TAB, STATE, BASE_URL } from '../constants';
 import {
   fetchData,
   findTabByName,
@@ -8,31 +9,8 @@ import {
 import { loadBriefcases } from './briefcases';
 import { TOGGLE_TAB } from '../utils';
 
-async function getVessels() {
-  const url = '../data/vessels.json';
-  const data = await fetchData(url);
-
-  console.log(data);
-
-  return data;
-}
-
-async function getPorts() {
-  const url = '../data/ports.json';
-  const data = await fetchData(url);
-
-  return data;
-}
-
-async function getInspectionsType() {
-  const url = '../data/inspection-type.json';
-  const data = await fetchData(url);
-
-  return data;
-}
-
-async function getInspectionsSource() {
-  const url = '../data/inspection-source.json';
+async function getInfoBriefcase() {
+  const url = `${BASE_URL}/api/infobiefcase`;
   const data = await fetchData(url);
 
   return data;
@@ -104,10 +82,7 @@ async function loadAddDropdowns(isLoaded) {
     return;
   }
 
-  const vessels = await getVessels();
-  const ports = await getPorts();
-  const inspectionsType = await getInspectionsType();
-  const inspectionsSource = await getInspectionsSource();
+  const infoBriefcase = await getInfoBriefcase();
 
   const vesselsDropdown = CURRENT_TAB.element.querySelector(
     '[data-dropdown-vessels]'
@@ -123,22 +98,22 @@ async function loadAddDropdowns(isLoaded) {
   );
 
   renderDropdown({
-    data: vessels,
+    data: infoBriefcase.vessel,
     container: vesselsDropdown,
     inputName: 'vessels'
   });
   renderDropdown({
-    data: ports,
+    data: infoBriefcase.port,
     container: portsDropdown,
     inputName: 'ports'
   });
   renderDropdown({
-    data: inspectionsType,
+    data: infoBriefcase.inspection_type,
     container: inspectionsTypeDropdown,
     inputName: 'inspections-type'
   });
   renderDropdown({
-    data: inspectionsSource,
+    data: infoBriefcase.inspecstion_source,
     container: inspectionsSourceDropdown,
     inputName: 'inspections-source'
   });
