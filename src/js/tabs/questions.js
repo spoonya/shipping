@@ -88,11 +88,24 @@ export async function loadQuestions(id, title) {
   const categoriesList = CURRENT_TAB.element.querySelector(
     '[data-tab-questions]'
   );
+  const briefcases = JSON.parse(localStorage.getItem('briefcases'));
+  const briefcase = briefcases.find(
+    (item) => item.briefcase.id_case === STATE.currentBriefcaseId
+  );
+  const unansweredQuestions = questions.filter((item) =>
+    briefcase.answer.some((answered) => answered.questionid !== item.questionid)
+  );
 
-  renderQuestions({ questions, title, container: categoriesList });
-  controlQuestions(questions);
-  STATE.questions = questions;
+  console.log(briefcase.answer);
+  console.log(unansweredQuestions);
 
-  console.log(STATE.questions);
+  renderQuestions({
+    questions: unansweredQuestions,
+    title,
+    container: categoriesList
+  });
+  controlQuestions(unansweredQuestions);
+  STATE.questions = unansweredQuestions;
+
   DOM.form.dispatchEvent(TOGGLE_TAB);
 }
