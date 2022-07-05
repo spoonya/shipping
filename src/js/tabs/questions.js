@@ -91,6 +91,8 @@ export async function loadQuestions(id, title) {
 
   renderQuestions({ questions, title, container: categoriesList });
   controlQuestions(questions);
+  STATE.questions = questions;
 
+  console.log(STATE.questions);
   DOM.form.dispatchEvent(TOGGLE_TAB);
 }

@@ -14,6 +14,38 @@ async function addAnswerToDB({ date, comment, photo, answer, significant }) {
   });
 }
 
+function addAnswerToStorage({ date, comment, photo, answer, significant }) {
+  const briefcases = JSON.parse(localStorage.getItem('briefcases'));
+  const briefcase = briefcases.find(
+    (item) => item.briefcase.id_case === STATE.currentBriefcaseId
+  );
+
+  for (let i = 0; i < STATE.activeQuestions.idArray.length; i++) {
+    const question = STATE.questions.find(
+      (item) => item.questionid === STATE.activeQuestions.idArray[i]
+    );
+
+    briefcase.answer.push({
+      date,
+      comment,
+      answer,
+      significant,
+      data_image: photo,
+      questionid: question.questionid,
+      question: question.question,
+      questioncode: question.questioncode,
+      categoryid: question.categoryid,
+      categorynewid: question.categorynewid,
+      origin: question.origin
+    });
+  }
+
+  localStorage.setItem('briefcases', JSON.stringify(briefcases));
+
+  console.log(STATE.activeQuestions);
+  console.log(briefcases);
+}
+
 async function editAnswerInDB({ date, comment, photo, answer, significant }) {
   const url = '';
   await fetchData(url, 'PUT', {
@@ -28,7 +60,13 @@ async function editAnswerInDB({ date, comment, photo, answer, significant }) {
 function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
   let isValid = true;
 
-  if (!date || !comment || !photo.length || !answer || !significant)
+  if (
+    !date ||
+    !comment ||
+    (STATE.activeQuestions.idArray.length === 1 && !photo.length) ||
+    !answer ||
+    !significant
+  )
     isValid = false;
 
   if (isValid) {
@@ -95,10 +133,9 @@ async function saveAnswer(
 
   switch (action) {
     case ANSWERS_INFO_ACTIONS.add:
-      await addAnswerToDB(data);
+      addAnswerToStorage(data);
       break;
     case ANSWERS_INFO_ACTIONS.edit:
-      await editAnswerInDB(data);
       break;
     default:
       console.log('Invalid action');

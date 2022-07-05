@@ -27,7 +27,8 @@ export const STATE = {
     isLoaded: false
   },
   token: '',
-  currentBriefcaseId: null
+  currentBriefcaseId: null,
+  questions: null
 };
 
 export const BASE_URL = 'https://dev.eraapp.ru';
