@@ -885,3 +885,22 @@ textarea.form__input {
     display: grid;
   }
 }
+
+.form__answers-list {
+  li {
+    cursor: pointer;
+    padding: 10px 0;
+
+    border-bottom: 1px solid $color-black-alpha;
+
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+
+    transition: color 0.1s linear;
+
+    &:hover {
+      color: $color-blue-alpha;
+    }
+  }
+}

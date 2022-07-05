@@ -1,5 +1,6 @@
 import { STATE } from '../constants';
 import { findTabByName } from '../helpers';
+import { loadAnswers } from './answers';
 
 function createBriefcase({
   id,
@@ -61,10 +62,11 @@ function controlBriefcases(tab) {
   const briefcaseItems = tab.querySelectorAll('[data-id]');
   briefcaseItems.forEach((briefcaseItem) => {
     briefcaseItem.addEventListener('click', () => {
-      const briefcaseId = briefcaseItem.dataset.id;
-      STATE.currentBriefcaseId = briefcaseId;
+      STATE.currentBriefcaseId = briefcaseItem.dataset.id;
 
       tab.classList.remove('active');
+
+      loadAnswers();
     });
   });
 }

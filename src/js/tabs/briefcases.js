@@ -77,7 +77,10 @@ function controlBriefcases(tab) {
   const answersButton = tab.querySelector(
     '[data-tab-target="answers-briefcases"]'
   );
-  answersButton.addEventListener('click', loadAnswersBriefcases);
+  answersButton.addEventListener('click', () => {
+    tab.classList.remove('active');
+    loadAnswersBriefcases();
+  });
 
   const briefcaseItems = tab.querySelectorAll('[data-id]');
   briefcaseItems.forEach((briefcaseItem) => {

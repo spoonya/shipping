@@ -1,31 +1,24 @@
-import { ANSWERS_INFO_ACTIONS, CURRENT_TAB, DOM, STATE } from '../constants';
-import { toggleDropdown } from '../dropdown';
-import { fetchData, preventTabChange } from '../helpers';
+import { ANSWERS_INFO_ACTIONS, DOM, STATE } from '../constants';
+import { preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
-import { toggleTabs } from './tabs';
 import { loadAnswerDetails } from './answers-info';
 
-async function getAnswers() {
-  const url = '';
-  const data = await fetchData(url);
+function getAnswersFromStorage() {
+  const briefcases = localStorage.getItem('briefcases')
+    ? JSON.parse(localStorage.getItem('briefcases'))
+    : [];
 
-  return data;
+  const answers = briefcases.find(
+    (obj) => obj.briefcase.id_case === STATE.currentBriefcaseId
+  ).answer;
+
+  console.log(answers);
+
+  return answers;
 }
 
-function getAnswersFromStorage() {}
-
-function createAnswer({ category, answers }) {
-  const answerHTML = `<div class="form__select form__select--secondary" data-form-dropdown="spoiler">
-                  <ul class="form__options-container" data-form-dropdown-container data-tab-target="answers-info" data-tab-submit>
-                    ${answers
-                      .map(
-                        (answer) =>
-                          `<li data-id="${answer.questionid}">${answer.question}</li>`
-                      )
-                      .join('')}
-                  </ul>
-                  <div class="form__option-selected form__input" data-form-dropdown-selected><span>${category}</span></div>
-                </div>`;
+function createAnswer({ answer, id }) {
+  const answerHTML = `<li data-id=${id}>${answer}</li>`;
 
   return answerHTML;
 }
@@ -36,23 +29,13 @@ function renderAnswers(answers, container) {
   for (let i = 0; i < answers.length; i++) {
     container.insertAdjacentHTML(
       'beforeend',
-      createAnswer({
-        category: answers[i].category,
-        answers: answers[i].answers
-      })
+      createAnswer({ answer: answers[i].question, id: answers[i].questionid })
     );
   }
-
-  // Add addEventListeners
-  const dropdowns = container.querySelectorAll('[data-form-dropdown-selected]');
-  const tabToggles = [...container.querySelectorAll('[data-tab-target]')];
-
-  toggleDropdown(dropdowns);
-  toggleTabs(tabToggles);
 }
 
 function controlAnswers(answers, list) {
-  list.addEventListener('click', async (e) => {
+  list.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
       const answerId = e.target.dataset.id;
 
@@ -63,19 +46,16 @@ function controlAnswers(answers, list) {
       loadAnswerDetails(ANSWERS_INFO_ACTIONS.edit, activeAnswer);
 
       DOM.form.dispatchEvent(TOGGLE_TAB);
-    } else if (e.target.closest('ul')) {
+    } else if (e.target === 'UL') {
       preventTabChange();
     }
   });
 }
 
-export async function loadAnswers() {
-  const answers = [];
-  const answersContainer =
-    CURRENT_TAB.element.querySelector('[data-tab-answers]');
+export function loadAnswers() {
+  const answers = getAnswersFromStorage();
+  const answersContainer = DOM.form.querySelector('[data-tab-answers]');
 
   renderAnswers(answers, answersContainer);
   controlAnswers(answers, answersContainer);
-
-  DOM.form.dispatchEvent(TOGGLE_TAB);
 }
