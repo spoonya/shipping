@@ -13,6 +13,8 @@ async function getQuestions(id) {
   const url = `${BASE_URL}/api/question`;
   const data = await fetchData(url, 'POST', { qid: id });
 
+  console.log(data);
+
   return data;
 }
 
@@ -79,8 +81,6 @@ function controlQuestions(questions) {
       activeQuestion = null;
     }
 
-    console.log(activeQuestion);
-
     loadAnswerDetails(ANSWERS_INFO_ACTIONS.add, activeQuestion);
   });
 }
@@ -90,8 +90,6 @@ export async function loadQuestions(id, title) {
   const categoriesList = CURRENT_TAB.element.querySelector(
     '[data-tab-questions]'
   );
-
-  console.log(questions);
 
   renderQuestions({ questions, title, container: categoriesList });
   controlQuestions(questions);

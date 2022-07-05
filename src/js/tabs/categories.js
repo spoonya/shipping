@@ -7,8 +7,6 @@ async function getCategories() {
   const url = `${BASE_URL}/api/question`;
   const data = await fetchData(url);
 
-  console.log(data);
-
   return data;
 }
 

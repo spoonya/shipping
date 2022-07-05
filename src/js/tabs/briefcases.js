@@ -2,23 +2,30 @@ import { fetchData, findTabByName } from '../helpers';
 import { loadAnswers } from './answers';
 
 export async function getBriefcases() {
-  const url = '../data/briefcases.json';
+  const url = '';
   const data = await fetchData(url);
 
   return data;
 }
 
+export function getBriefCasesFromStorage() {
+  const briefcases = localStorage.getItem('briefcases')
+    ? JSON.parse(localStorage.getItem('briefcases'))
+    : [];
+
+  return briefcases;
+}
+
 function createBriefcase({
-  id,
-  inspectionName,
+  inspectorName,
   inspectionType,
   inspectionSource,
   vessel,
   port,
-  test,
-  date
+  date,
+  caseName
 }) {
-  const briefcaseHTML = `<li data-id=${id}>
+  const briefcaseHTML = `<li>
                     <div class="form__cases-img">
                     <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
@@ -34,7 +41,7 @@ function createBriefcase({
                         <p class="form__cases-inpection-source form__text">${inspectionSource}</p>
                         <div class="form__cases-test"><span>Test:&nbsp;</span>
                           <div class="form__text">
-                            <p>${test}</p>
+                            <p>${caseName}</p>
                           </div>
                         </div>
                       </div>
@@ -51,14 +58,13 @@ export function renderBriefcases(briefcases, container) {
     container.insertAdjacentHTML(
       'beforeend',
       createBriefcase({
-        id: briefcases[i].id,
-        inspectionName: briefcases[i].inspectionName,
-        inspectionType: briefcases[i].inspectionType,
-        inspectionSource: briefcases[i].inspectionSource,
-        vessel: briefcases[i].vessel,
-        port: briefcases[i].port,
-        test: briefcases[i].test,
-        date: briefcases[i].date
+        inspectorName: briefcases[i].briefcase.InspectorName,
+        inspectionType: briefcases[i].briefcase.InspectionTypes,
+        inspectionSource: briefcases[i].briefcase.InspectionSource,
+        vessel: briefcases[i].briefcase.vessel,
+        port: briefcases[i].briefcase.port,
+        date: briefcases[i].briefcase.date_in_vessel,
+        caseName: briefcases[i].briefcase.name_case
       })
     );
   }
@@ -71,9 +77,11 @@ function controlBriefcases(tab) {
 }
 
 export async function loadBriefcases() {
-  const briefcases = await getBriefcases();
+  const briefcases = getBriefCasesFromStorage();
   const briefcasesTab = findTabByName('briefcases');
   const briefcasesList = briefcasesTab.querySelector('.form__cases');
+
+  console.log(briefcases);
 
   renderBriefcases(briefcases, briefcasesList);
   controlBriefcases(briefcasesTab);

@@ -79,8 +79,6 @@ async function saveAnswer(
   const answerEl = findCheckedInput(answerContainer);
   const significantEl = findCheckedInput(significantContainer);
 
-  console.log(answerEl);
-
   const data = {
     date: dateEl.value,
     comment: commentEl.value,

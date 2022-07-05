@@ -4,7 +4,8 @@ import {
   fetchData,
   findTabByName,
   findCheckedInput,
-  preventTabChange
+  preventTabChange,
+  storeInLocalStorage
 } from '../helpers';
 import { loadBriefcases } from './briefcases';
 import { TOGGLE_TAB } from '../utils';
@@ -23,22 +24,48 @@ async function addBriefcaseToDB({
   inspectionType,
   inspectionSource
 }) {
-  const url = 'https://dummyjson.com/products/add';
+  const url = `${BASE_URL}/api/answer`;
   await fetchData(url, 'POST', {
-    inspectionName,
-    inspectionType,
-    inspectionSource,
+    name_case: inspectionName,
+    InspectionTypes: inspectionType,
+    InspectionSource: inspectionSource,
     port,
     vessel,
-    test: 'do not used',
-    date: new Date().toLocaleDateString()
+    date_in_vessel: new Date().toLocaleDateString()
   });
 }
 
+function addBriefcaseToStorage({
+  inspectionName,
+  vessel,
+  port,
+  inspectionType,
+  inspectionSource
+}) {
+  storeInLocalStorage(
+    'briefcases',
+    {
+      briefcase: {
+        name_case: inspectionName,
+        InspectionTypes: inspectionType,
+        InspectionSource: inspectionSource,
+        port,
+        vessel,
+        date_in_vessel: new Date().toLocaleDateString()
+      },
+      answer: {}
+    },
+    (obj, data) => data.unshift(obj)
+  );
+}
+
 function createDropdownOption(value, inputName) {
+  console.log(value);
+
   const dropdownOptionHTML = `<div class="form__option" data-form-dropdown-option>
                         <label>
-                          <input type="radio" name=${inputName} value=${value}>${value}
+                          <input type="radio" name=${inputName} value="${value}">
+                          ${value}
                         </label>
                       </div>`;
 
@@ -162,8 +189,10 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
   const inspectionType = findCheckedInput(dropdownInspectionsType);
   const inspectionSource = findCheckedInput(dropdownInspectionsSource);
 
-  await addBriefcaseToDB({
-    inspection: inspectionName.value,
+  console.log(inspectionSource);
+
+  addBriefcaseToStorage({
+    inspectionName: inspectionName.value,
     inspectionType: inspectionType.value,
     inspectionSource: inspectionSource.value,
     vessel: vessel.value,
