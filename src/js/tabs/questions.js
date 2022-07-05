@@ -92,8 +92,11 @@ export async function loadQuestions(id, title) {
   const briefcase = briefcases.find(
     (item) => item.briefcase.id_case === STATE.currentBriefcaseId
   );
-  const unansweredQuestions = questions.filter((item) =>
-    briefcase.answer.some((answered) => answered.questionid !== item.questionid)
+  const unansweredQuestions = questions.filter(
+    (question) =>
+      !briefcase.answer.some(
+        (answered) => answered.questionid === question.questionid
+      )
   );
 
   console.log(briefcase.answer);
