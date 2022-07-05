@@ -105,7 +105,7 @@ block content
               .form__title
                 p Answers
             .form__inner.form__inner--fixed-height
-              ul.form__answers-list(data-tab-answers)
+              ul.form__answers-list(data-tab-target="answers-info" data-tab-answers)
 
           //Answers-info
           .form__tab(data-tab="answers-info")
@@ -124,11 +124,11 @@ block content
                   .form__group.form__group--col.form__answers-item(data-tab-answer)
                     p.form__answer-txt Answer:
                     label.form__checkbox-wrapper
-                      input.form__checkbox(name="answer" type="radio" value="yes" hidden required)
+                      input.form__checkbox(name="answer" type="radio" value="1" hidden required)
                       span.form__checkbox-styled
                       span.form__checkbox-txt Yes
                     label.form__checkbox-wrapper
-                      input.form__checkbox(name="answer" type="radio" value="no" hidden required)
+                      input.form__checkbox(name="answer" type="radio" value="0" hidden required)
                       span.form__checkbox-styled
                       span.form__checkbox-txt No
                   .form__group.form__group--col.form__answers-item(data-tab-significant)

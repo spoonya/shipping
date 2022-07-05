@@ -5,7 +5,7 @@ import {
   DOM,
   STATE
 } from '../constants';
-import { fetchData, findTabByName } from '../helpers';
+import { fetchData } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
 

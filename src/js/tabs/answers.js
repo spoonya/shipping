@@ -12,8 +12,6 @@ function getAnswersFromStorage() {
     (obj) => obj.briefcase.id_case === STATE.currentBriefcaseId
   ).answer;
 
-  console.log(answers);
-
   return answers;
 }
 
@@ -41,7 +39,9 @@ function controlAnswers(answers, list) {
 
       STATE.activeQuestions.idArray = [answerId];
 
-      const activeAnswer = null;
+      const activeAnswer = answers.find(
+        (answer) => answer.questionid === answerId
+      );
 
       loadAnswerDetails(ANSWERS_INFO_ACTIONS.edit, activeAnswer);
 

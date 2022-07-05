@@ -1,35 +1,21 @@
-import {
-  DOM,
-  CURRENT_TAB,
-  STATE,
-  ANSWERS_INFO_ACTIONS,
-  PREV_TAB
-} from '../constants';
-import {
-  findCheckedInput,
-  fetchData,
-  preventTabChange,
-  findTabByName
-} from '../helpers';
+import { DOM, CURRENT_TAB, STATE, ANSWERS_INFO_ACTIONS } from '../constants';
+import { findCheckedInput, preventTabChange, toBase64 } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
 
-async function addAnswerToDB({ date, comment, photo, answer, significant }) {
-  const url = '';
-  await fetchData(url, 'POST', {
-    date,
-    comment,
-    photo,
-    answer,
-    significant
-  });
-}
-
-function addAnswerToStorage({ date, comment, photo, answer, significant }) {
+async function addAnswerToStorage({
+  date,
+  comment,
+  photo,
+  answer,
+  significant
+}) {
   const briefcases = JSON.parse(localStorage.getItem('briefcases'));
   const briefcase = briefcases.find(
     (item) => item.briefcase.id_case === STATE.currentBriefcaseId
   );
+
+  const base64Photo = photo[0] ? await toBase64(photo[0]) : '';
 
   for (let i = 0; i < STATE.activeQuestions.idArray.length; i++) {
     const question = STATE.questions.find(
@@ -41,7 +27,7 @@ function addAnswerToStorage({ date, comment, photo, answer, significant }) {
       comment,
       answer,
       significant,
-      data_image: photo,
+      data_image: base64Photo,
       questionid: question.questionid,
       question: question.question,
       questioncode: question.questioncode,
@@ -52,33 +38,16 @@ function addAnswerToStorage({ date, comment, photo, answer, significant }) {
   }
 
   localStorage.setItem('briefcases', JSON.stringify(briefcases));
-
-  // console.log(STATE.activeQuestions);
-  // console.log(briefcases);
 }
 
-async function editAnswerInDB({ date, comment, photo, answer, significant }) {
-  const url = '';
-  await fetchData(url, 'PUT', {
-    date,
-    comment,
-    photo,
-    answer,
-    significant
-  });
+function updateAnswerInStorage(data) {
+  console.log('updateAnswerInStorage');
 }
 
 function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
   let isValid = true;
 
-  if (
-    !date ||
-    !comment ||
-    (STATE.activeQuestions.idArray.length === 1 && !photo.length) ||
-    !answer ||
-    !significant
-  )
-    isValid = false;
+  if (!date || !comment || !answer || !significant) isValid = false;
 
   if (isValid) {
     errorEl.classList.remove('active');
@@ -100,6 +69,7 @@ function resetAnswerInputs({ date, comment, photo, answer, significant }) {
   photo.value = '';
   answer.checked = false;
   significant.checked = false;
+  imgPreview.innerHTML = '';
 }
 
 function showImagePreview(e) {
@@ -147,6 +117,7 @@ async function saveAnswer(
       addAnswerToStorage(data);
       break;
     case ANSWERS_INFO_ACTIONS.edit:
+      updateAnswerInStorage(data);
       break;
     default:
       console.log('Invalid action');
@@ -164,15 +135,37 @@ async function saveAnswer(
   DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
-function fillAnswer(
+async function fillAnswer(
   data,
-  { dateEl, commentEl, photoEl, answerContainer, significantContainer }
+  { dateEl, commentEl, photoContainer, answerContainer, significantContainer }
 ) {
-  dateEl.value = data.date;
+  dateEl.value = data ? data.date : '';
   commentEl.value = data.comment;
+  answerContainer.querySelectorAll('input').forEach((item) => {
+    if (data.answer === item.value) {
+      item.checked = true;
+    }
+  });
+  significantContainer.querySelectorAll('input').forEach((item) => {
+    if (data.significant === item.value) {
+      item.checked = true;
+    }
+  });
+
+  if (data.data_image) {
+    photoContainer.innerHTML = '';
+
+    const src = data.data_image;
+    const img = document.createElement('img');
+
+    img.src = src;
+    photoContainer.append(img);
+
+    photoContainer.classList.add('active');
+  }
 }
 
-export function loadAnswerDetails(action, data = null) {
+export async function loadAnswerDetails(action, data = null) {
   const tab = CURRENT_TAB.element;
   const saveButton = tab.querySelector('.form__bot [data-tab-submit]');
   const photoInput = tab.querySelector('input[name="photo"]');
@@ -193,6 +186,7 @@ export function loadAnswerDetails(action, data = null) {
   const dateEl = tab.querySelector('input[type="date"]');
   const commentEl = tab.querySelector('textarea');
   const photoEl = tab.querySelector('input[name="photo"]');
+  const photoContainer = tab.querySelector('[data-tab-img-preview]');
   const answerContainer = tab.querySelector('[data-tab-answer]');
   const significantContainer = tab.querySelector('[data-tab-significant]');
   const errorEl = tab.querySelector('.form__error');
@@ -206,10 +200,10 @@ export function loadAnswerDetails(action, data = null) {
   });
 
   if (action === ANSWERS_INFO_ACTIONS.edit) {
-    fillAnswer(data, {
+    await fillAnswer(data, {
       dateEl,
       commentEl,
-      photoEl,
+      photoContainer,
       answerContainer,
       significantContainer
     });

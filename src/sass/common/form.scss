@@ -891,13 +891,11 @@ textarea.form__input {
     cursor: pointer;
     padding: 10px 0;
 
-    border-bottom: 1px solid $color-black-alpha;
+    transition: color 0.1s linear;
 
     &:not(:last-child) {
-      margin-bottom: 10px;
+      border-bottom: 1px solid $color-black-alpha;
     }
-
-    transition: color 0.1s linear;
 
     &:hover {
       color: $color-blue-alpha;
