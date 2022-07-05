@@ -5,7 +5,7 @@ import {
   DOM,
   STATE
 } from '../constants';
-import { fetchData } from '../helpers';
+import { fetchData, findTabByName } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
 
@@ -98,9 +98,6 @@ export async function loadQuestions(id, title) {
         (answered) => answered.questionid === question.questionid
       )
   );
-
-  console.log(briefcase.answer);
-  console.log(unansweredQuestions);
 
   renderQuestions({
     questions: unansweredQuestions,

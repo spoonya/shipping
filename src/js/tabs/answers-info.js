@@ -1,5 +1,16 @@
-import { DOM, CURRENT_TAB, STATE, ANSWERS_INFO_ACTIONS } from '../constants';
-import { findCheckedInput, fetchData, preventTabChange } from '../helpers';
+import {
+  DOM,
+  CURRENT_TAB,
+  STATE,
+  ANSWERS_INFO_ACTIONS,
+  PREV_TAB
+} from '../constants';
+import {
+  findCheckedInput,
+  fetchData,
+  preventTabChange,
+  findTabByName
+} from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
 
@@ -42,8 +53,8 @@ function addAnswerToStorage({ date, comment, photo, answer, significant }) {
 
   localStorage.setItem('briefcases', JSON.stringify(briefcases));
 
-  console.log(STATE.activeQuestions);
-  console.log(briefcases);
+  // console.log(STATE.activeQuestions);
+  // console.log(briefcases);
 }
 
 async function editAnswerInDB({ date, comment, photo, answer, significant }) {
@@ -142,8 +153,6 @@ async function saveAnswer(
       return;
   }
 
-  DOM.form.dispatchEvent(TOGGLE_TAB);
-
   resetAnswerInputs({
     date: dateEl,
     comment: commentEl,
@@ -151,6 +160,8 @@ async function saveAnswer(
     answer: answerEl,
     significant: significantEl
   });
+
+  DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
 function fillAnswer(

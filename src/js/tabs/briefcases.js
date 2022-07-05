@@ -82,6 +82,8 @@ function controlBriefcases(tab) {
     briefcaseItem.addEventListener('click', () => {
       const briefcaseId = briefcaseItem.dataset.id;
       STATE.currentBriefcaseId = briefcaseId;
+
+      tab.classList.remove('active');
     });
   });
 }
@@ -90,8 +92,6 @@ export async function loadBriefcases() {
   const briefcases = getBriefCasesFromStorage();
   const briefcasesTab = findTabByName('briefcases');
   const briefcasesList = briefcasesTab.querySelector('.form__cases');
-
-  console.log(briefcases);
 
   renderBriefcases(briefcases, briefcasesList);
   controlBriefcases(briefcasesTab);
