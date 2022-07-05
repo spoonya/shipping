@@ -1,21 +1,5 @@
 import { STATE } from '../constants';
-import { fetchData, findTabByName } from '../helpers';
-import { loadAnswersBriefcases } from './answers-briefcases';
-
-export async function getBriefcases() {
-  const url = '';
-  const data = await fetchData(url);
-
-  return data;
-}
-
-export function getBriefcasesFromStorage() {
-  const briefcases = localStorage.getItem('briefcases')
-    ? JSON.parse(localStorage.getItem('briefcases'))
-    : [];
-
-  return briefcases;
-}
+import { findTabByName } from '../helpers';
 
 function createBriefcase({
   id,
@@ -53,7 +37,7 @@ function createBriefcase({
   return briefcaseHTML;
 }
 
-export function renderBriefcases(briefcases, container) {
+function renderBriefcases(briefcases, container) {
   container.innerHTML = '';
 
   for (let i = 0; i < briefcases.length; i++) {
@@ -74,11 +58,6 @@ export function renderBriefcases(briefcases, container) {
 }
 
 function controlBriefcases(tab) {
-  const answersButton = tab.querySelector(
-    '[data-tab-target="answers-briefcases"]'
-  );
-  answersButton.addEventListener('click', loadAnswersBriefcases);
-
   const briefcaseItems = tab.querySelectorAll('[data-id]');
   briefcaseItems.forEach((briefcaseItem) => {
     briefcaseItem.addEventListener('click', () => {
@@ -90,10 +69,12 @@ function controlBriefcases(tab) {
   });
 }
 
-export async function loadBriefcases() {
-  const briefcases = getBriefcasesFromStorage();
-  const briefcasesTab = findTabByName('briefcases');
-  const briefcasesList = briefcasesTab.querySelector('.form__cases');
+export async function loadAnswersBriefcases() {
+  const briefcases = localStorage.getItem('briefcases')
+    ? JSON.parse(localStorage.getItem('briefcases'))
+    : [];
+  const briefcasesTab = findTabByName('answers-briefcases');
+  const briefcasesList = briefcasesTab.querySelector('[data-briefcases-list]');
 
   renderBriefcases(briefcases, briefcasesList);
   controlBriefcases(briefcasesTab);

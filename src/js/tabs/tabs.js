@@ -27,9 +27,6 @@ export function toggleTabs(elements = null) {
       CURRENT_TAB.element = findTabByName(tabName);
       CURRENT_TAB.id = CURRENT_TAB.element.dataset.tab;
 
-      console.log('current: ', CURRENT_TAB.id);
-      console.log('prev: ', PREV_TAB.id);
-
       if (!toggle.hasAttribute('data-tab-submit')) {
         displayCurrentTab();
       } else {

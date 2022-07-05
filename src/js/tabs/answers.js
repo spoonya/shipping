@@ -6,11 +6,13 @@ import { toggleTabs } from './tabs';
 import { loadAnswerDetails } from './answers-info';
 
 async function getAnswers() {
-  const url = '../data/answers.json';
+  const url = '';
   const data = await fetchData(url);
 
   return data;
 }
+
+function getAnswersFromStorage() {}
 
 function createAnswer({ category, answers }) {
   const answerHTML = `<div class="form__select form__select--secondary" data-form-dropdown="spoiler">
@@ -68,7 +70,7 @@ function controlAnswers(answers, list) {
 }
 
 export async function loadAnswers() {
-  const answers = await getAnswers();
+  const answers = [];
   const answersContainer =
     CURRENT_TAB.element.querySelector('[data-tab-answers]');
 

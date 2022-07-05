@@ -28,7 +28,7 @@ block content
           //Briefcases
           .form__tab(data-tab="briefcases")
             .form__header
-              button.form__header-button.form__header-button--next(type="button" data-tab-target="answers" data-tab-submit) Answers
+              button.form__header-button.form__header-button--next(type="button" data-tab-target="answers-briefcases") Answers
               .form__title
                 p Briefcases
             .form__inner.form__inner--fixed-height
@@ -89,10 +89,19 @@ block content
             .form__bot
               button.form__button.form__button--secondary(type="button" disabled data-tab-target="answers-info" data-tab-open-questions) Open questions >
 
+          //Answers-briefcases
+          .form__tab(data-tab="answers-briefcases")
+            .form__header
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
+              .form__title
+                p Answers
+            .form__inner.form__inner--fixed-height
+              ul.form__cases(data-tab-target="answers" data-briefcases-list)
+
           //Answers
           .form__tab(data-tab="answers")
             .form__header
-              button.form__header-button.form__header-button--prev(type="button" data-tab-target="briefcases") Briefcases
+              button.form__header-button.form__header-button--prev(type="button" data-tab-target="answers-briefcases") Briefcases
               .form__title
                 p Answers
             .form__inner.form__inner--fixed-height(data-tab-answers)

@@ -185,7 +185,7 @@ export function loadAnswerDetails(action, data = null) {
     infoButton.style.display = 'none';
     addPhotoButton.style.display = 'none';
   } else {
-    questionEl.textContent = data.question;
+    questionEl.textContent = data ? data.question : null;
     infoButton.style.display = 'grid';
     addPhotoButton.style.display = 'block';
   }

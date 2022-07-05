@@ -5,3 +5,4 @@ export * from './briefcases-add';
 export * from './categories';
 export * from './questions';
 export * from './answers-info';
+export * from './answers-briefcases';
