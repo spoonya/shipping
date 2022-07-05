@@ -43,7 +43,6 @@ export function signIn() {
     if (STATE.token) {
       await loadBriefcases();
       await loadCategories();
-      console.log(JSON.parse(localStorage.getItem('briefcases')));
       controlAddBriefcase();
     } else {
       error.classList.add('active');

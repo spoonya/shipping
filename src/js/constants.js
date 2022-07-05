@@ -26,7 +26,8 @@ export const STATE = {
   dropdowns: {
     isLoaded: false
   },
-  token: ''
+  token: '',
+  currentBriefcaseId: null
 };
 
 export const BASE_URL = 'https://dev.eraapp.ru';

@@ -13,8 +13,6 @@ async function getQuestions(id) {
   const url = `${BASE_URL}/api/question`;
   const data = await fetchData(url, 'POST', { qid: id });
 
-  console.log(data);
-
   return data;
 }
 

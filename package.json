@@ -61,7 +61,8 @@
   "dependencies": {
     "core-js": "^3.22.4",
     "normalize.css": "^8.0.1",
-    "regenerator-runtime": "^0.13.9"
+    "regenerator-runtime": "^0.13.9",
+    "uuid": "^8.3.2"
   },
   "editorconfig-cli": [
     "*.json",

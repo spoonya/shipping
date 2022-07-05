@@ -1,4 +1,6 @@
 /* eslint-disable camelcase */
+import { v4 as uuid } from 'uuid';
+
 import { DOM, CURRENT_TAB, STATE, BASE_URL } from '../constants';
 import {
   fetchData,
@@ -46,6 +48,7 @@ function addBriefcaseToStorage({
     'briefcases',
     {
       briefcase: {
+        id_case: uuid(),
         name_case: inspectionName,
         InspectionTypes: inspectionType,
         InspectionSource: inspectionSource,
@@ -53,15 +56,13 @@ function addBriefcaseToStorage({
         vessel,
         date_in_vessel: new Date().toLocaleDateString()
       },
-      answer: {}
+      answer: []
     },
     (obj, data) => data.unshift(obj)
   );
 }
 
 function createDropdownOption(value, inputName) {
-  console.log(value);
-
   const dropdownOptionHTML = `<div class="form__option" data-form-dropdown-option>
                         <label>
                           <input type="radio" name=${inputName} value="${value}">
@@ -188,8 +189,6 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
   const port = findCheckedInput(dropdownPorts);
   const inspectionType = findCheckedInput(dropdownInspectionsType);
   const inspectionSource = findCheckedInput(dropdownInspectionsSource);
-
-  console.log(inspectionSource);
 
   addBriefcaseToStorage({
     inspectionName: inspectionName.value,

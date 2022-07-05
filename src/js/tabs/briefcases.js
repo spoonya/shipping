@@ -1,3 +1,4 @@
+import { STATE } from '../constants';
 import { fetchData, findTabByName } from '../helpers';
 import { loadAnswers } from './answers';
 
@@ -17,6 +18,7 @@ export function getBriefCasesFromStorage() {
 }
 
 function createBriefcase({
+  id,
   inspectorName,
   inspectionType,
   inspectionSource,
@@ -25,7 +27,7 @@ function createBriefcase({
   date,
   caseName
 }) {
-  const briefcaseHTML = `<li>
+  const briefcaseHTML = `<li data-id=${id}>
                     <div class="form__cases-img">
                     <img src="assets/img/svg/case.svg" with="130" height="130" alt=""></div>
                     <div class="form__cases-content">
@@ -58,6 +60,7 @@ export function renderBriefcases(briefcases, container) {
     container.insertAdjacentHTML(
       'beforeend',
       createBriefcase({
+        id: briefcases[i].briefcase.id_case,
         inspectorName: briefcases[i].briefcase.InspectorName,
         inspectionType: briefcases[i].briefcase.InspectionTypes,
         inspectionSource: briefcases[i].briefcase.InspectionSource,
@@ -72,8 +75,15 @@ export function renderBriefcases(briefcases, container) {
 
 function controlBriefcases(tab) {
   const answersButton = tab.querySelector('[data-tab-target="answers"]');
-
   answersButton.addEventListener('click', loadAnswers);
+
+  const briefcaseItems = tab.querySelectorAll('[data-id]');
+  briefcaseItems.forEach((briefcaseItem) => {
+    briefcaseItem.addEventListener('click', () => {
+      const briefcaseId = briefcaseItem.dataset.id;
+      STATE.currentBriefcaseId = briefcaseId;
+    });
+  });
 }
 
 export async function loadBriefcases() {
