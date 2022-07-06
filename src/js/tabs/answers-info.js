@@ -103,7 +103,7 @@ function showImagePreview(e) {
   previewContainer.classList.add('active');
 }
 
-function saveAnswer({
+async function saveAnswer({
   dateEl,
   commentEl,
   photoEl,
@@ -130,7 +130,7 @@ function saveAnswer({
 
   switch (action) {
     case ANSWERS_INFO_ACTIONS.add:
-      addAnswerToStorage(data);
+      await addAnswerToStorage(data);
       break;
     case ANSWERS_INFO_ACTIONS.edit:
       updateAnswerInStorage(data);
@@ -231,8 +231,8 @@ export function loadAnswerDetails(saveAction, data = null) {
     });
   }
 
-  saveButton.addEventListener('click', () => {
-    saveAnswer({
+  saveButton.addEventListener('click', async () => {
+    await saveAnswer({
       dateEl,
       commentEl,
       photoEl,

@@ -1,5 +1,5 @@
-import { ANSWERS_INFO_ACTIONS, DOM, STATE } from '../constants';
-import { preventTabChange } from '../helpers';
+import { ANSWERS_INFO_ACTIONS, BASE_URL, DOM, STATE } from '../constants';
+import { fetchData, findTabByName, preventTabChange } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
 
@@ -13,6 +13,25 @@ function getAnswersFromStorage() {
   ).answer;
 
   return answers;
+}
+
+function getBriefcasesFromStorage() {
+  const briefcases = localStorage.getItem('briefcases')
+    ? JSON.parse(localStorage.getItem('briefcases'))
+    : [];
+
+  return briefcases;
+}
+
+async function addBriefcasesToDB() {
+  const data = getBriefcasesFromStorage();
+
+  console.log(data);
+
+  const url = `${BASE_URL}/answer`;
+  await fetchData(url, 'POST', data);
+
+  DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
 function createAnswer({ answer, id }) {
@@ -32,7 +51,7 @@ function renderAnswers(answers, container) {
   }
 }
 
-function controlAnswers(answers, list) {
+function controlAnswers(answers, list, tab) {
   list.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
       const answerId = e.target.dataset.id;
@@ -49,12 +68,23 @@ function controlAnswers(answers, list) {
       preventTabChange();
     }
   });
+
+  const submitButton = tab.querySelector('[data-tab-submit]');
+  if (!list.firstChild) {
+    submitButton.classList.add('hidden');
+    submitButton.disabled = true;
+  } else {
+    submitButton.classList.remove('hidden');
+    submitButton.disabled = false;
+  }
+  submitButton.addEventListener('click', addBriefcasesToDB);
 }
 
 export function loadAnswers() {
   const answers = getAnswersFromStorage();
   const answersContainer = DOM.form.querySelector('[data-tab-answers]');
+  const tab = findTabByName('answers');
 
   renderAnswers(answers, answersContainer);
-  controlAnswers(answers, answersContainer);
+  controlAnswers(answers, answersContainer, tab);
 }

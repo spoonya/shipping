@@ -122,6 +122,10 @@
     height: 20px;
   }
 
+  &.hidden {
+    display: none;
+  }
+
   &--secondary {
     padding: 1.6rem 3rem;
 
