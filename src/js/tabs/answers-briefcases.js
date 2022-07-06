@@ -28,7 +28,7 @@ function createBriefcase({
                         <p class="form__cases-inpection-source form__text">${inspectionSource}</p>
                         <div class="form__cases-test"><span>Test:&nbsp;</span>
                           <div class="form__text">
-                            <p>${caseName}</p>
+                            <p>${inspectorName}</p>
                           </div>
                         </div>
                       </div>
