@@ -36,7 +36,6 @@ function controlAnswers(answers, list) {
   list.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
       const answerId = e.target.dataset.id;
-
       STATE.activeQuestions.idArray = [answerId];
 
       const activeAnswer = answers.find(

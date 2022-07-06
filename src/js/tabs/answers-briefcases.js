@@ -71,7 +71,7 @@ function controlBriefcases(tab) {
   });
 }
 
-export async function loadAnswersBriefcases() {
+export function loadAnswersBriefcases() {
   const briefcases = localStorage.getItem('briefcases')
     ? JSON.parse(localStorage.getItem('briefcases'))
     : [];

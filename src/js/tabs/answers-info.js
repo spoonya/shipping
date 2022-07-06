@@ -3,6 +3,8 @@ import { findCheckedInput, preventTabChange, toBase64 } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
 
+let action = '';
+
 async function addAnswerToStorage({
   date,
   comment,
@@ -40,9 +42,7 @@ async function addAnswerToStorage({
   localStorage.setItem('briefcases', JSON.stringify(briefcases));
 }
 
-function updateAnswerInStorage(data) {
-  console.log('updateAnswerInStorage');
-}
+function updateAnswerInStorage(data) {}
 
 function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
   let isValid = true;
@@ -58,7 +58,14 @@ function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
   return isValid;
 }
 
-function resetAnswerInputs({ date, comment, photo, answer, significant }) {
+function resetAnswerInputs({
+  date,
+  comment,
+  photo,
+  answer,
+  significant,
+  errorEl
+}) {
   const imgPreview = photo
     .closest('.form__group')
     .querySelector('[data-tab-img-preview]');
@@ -67,9 +74,14 @@ function resetAnswerInputs({ date, comment, photo, answer, significant }) {
   date.value = '';
   comment.value = '';
   photo.value = '';
-  answer.checked = false;
-  significant.checked = false;
+  if (answer) {
+    answer.checked = false;
+  }
+  if (significant) {
+    significant.checked = false;
+  }
   imgPreview.innerHTML = '';
+  errorEl.classList.remove('active');
 }
 
 function showImagePreview(e) {
@@ -91,10 +103,14 @@ function showImagePreview(e) {
   previewContainer.classList.add('active');
 }
 
-async function saveAnswer(
-  action,
-  { dateEl, commentEl, photoEl, answerContainer, significantContainer, errorEl }
-) {
+function saveAnswer({
+  dateEl,
+  commentEl,
+  photoEl,
+  answerContainer,
+  significantContainer,
+  errorEl
+}) {
   const answerEl = findCheckedInput(answerContainer);
   const significantEl = findCheckedInput(significantContainer);
 
@@ -129,13 +145,14 @@ async function saveAnswer(
     comment: commentEl,
     photo: photoEl,
     answer: answerEl,
-    significant: significantEl
+    significant: significantEl,
+    errorEl
   });
 
   DOM.form.dispatchEvent(TOGGLE_TAB);
 }
 
-async function fillAnswer(
+function fillAnswer(
   data,
   { dateEl, commentEl, photoContainer, answerContainer, significantContainer }
 ) {
@@ -165,7 +182,9 @@ async function fillAnswer(
   }
 }
 
-export async function loadAnswerDetails(action, data = null) {
+export function loadAnswerDetails(saveAction, data = null) {
+  action = saveAction;
+
   const tab = CURRENT_TAB.element;
   const saveButton = tab.querySelector('.form__bot [data-tab-submit]');
   const photoInput = tab.querySelector('input[name="photo"]');
@@ -190,17 +209,20 @@ export async function loadAnswerDetails(action, data = null) {
   const answerContainer = tab.querySelector('[data-tab-answer]');
   const significantContainer = tab.querySelector('[data-tab-significant]');
   const errorEl = tab.querySelector('.form__error');
+  const answer = findCheckedInput(answerContainer);
+  const significant = findCheckedInput(significantContainer);
 
   resetAnswerInputs({
     date: dateEl,
     comment: commentEl,
     photo: photoEl,
-    answer: answerContainer,
-    significant: significantContainer
+    answer,
+    significant,
+    errorEl
   });
 
   if (action === ANSWERS_INFO_ACTIONS.edit) {
-    await fillAnswer(data, {
+    fillAnswer(data, {
       dateEl,
       commentEl,
       photoContainer,
@@ -209,16 +231,16 @@ export async function loadAnswerDetails(action, data = null) {
     });
   }
 
-  saveButton.addEventListener('click', () =>
-    saveAnswer(action, {
+  saveButton.addEventListener('click', () => {
+    saveAnswer({
       dateEl,
       commentEl,
       photoEl,
       answerContainer,
       significantContainer,
       errorEl
-    })
-  );
+    });
+  });
   loadInfo(data && data.comment);
   photoInput.addEventListener('change', (e) => showImagePreview(e));
 }
