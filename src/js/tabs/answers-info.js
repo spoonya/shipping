@@ -219,7 +219,7 @@ function fillAnswer(
       const src = photos[i];
       const img = document.createElement('img');
 
-      img.src = src;
+      img.src = `data:image/jpeg;base64,${src}`;
       photoContainer.append(img);
     }
 
