@@ -12,7 +12,7 @@ function getAnswersFromStorage() {
     (obj) => obj.briefcase.id_case === STATE.currentBriefcaseId
   ).answer;
 
-  return answers;
+  return Object.values(answers);
 }
 
 function getBriefcasesFromStorage() {
@@ -25,8 +25,6 @@ function getBriefcasesFromStorage() {
 
 async function addBriefcasesToDB() {
   const data = getBriefcasesFromStorage();
-
-  console.log(data);
 
   const url = `${BASE_URL}/answer`;
   await fetchData(url, 'POST', data);

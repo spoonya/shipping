@@ -18,11 +18,16 @@ export function toggleDropdown(elements = null) {
       optionsContainer.addEventListener('click', (e) => {
         const option = e.target.closest('[data-form-dropdown-option]');
 
-        if (e.target.tagName === 'DIV') {
+        if (
+          e.target.tagName === 'DIV' &&
+          !e.target.classList.contains('form__options-container')
+        ) {
           option.querySelector('input').checked = true;
         }
 
-        selectedLabel.textContent = option.querySelector('label').innerText;
+        if (option) {
+          selectedLabel.textContent = option.querySelector('label').innerText;
+        }
         optionsContainer.classList.remove('active');
         optionsContainer.setAttribute('data-dropdown-selected', true);
       });

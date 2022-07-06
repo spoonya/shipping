@@ -1,9 +1,26 @@
+import { v4 as uuid } from 'uuid';
+
 import { DOM, CURRENT_TAB, STATE, ANSWERS_INFO_ACTIONS } from '../constants';
 import { findCheckedInput, preventTabChange, toBase64 } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadInfo } from './info';
 
 let action = '';
+
+async function createPhotosObj(photo) {
+  const photos = {};
+
+  console.log(photo.length);
+
+  for (let i = 0; i < photo.length; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    const base64Photo = await toBase64(photo[i]);
+    photos[`photo-${uuid()}`] = base64Photo;
+    console.log(photos);
+  }
+
+  return photos;
+}
 
 async function addAnswerToStorage({
   date,
@@ -16,35 +33,64 @@ async function addAnswerToStorage({
   const briefcase = briefcases.find(
     (item) => item.briefcase.id_case === STATE.currentBriefcaseId
   );
-
-  const base64Photo = photo[0] ? await toBase64(photo[0]) : '';
+  const base64Photos = await createPhotosObj(photo);
 
   for (let i = 0; i < STATE.activeQuestions.idArray.length; i++) {
     const question = STATE.questions.find(
       (item) => item.questionid === STATE.activeQuestions.idArray[i]
     );
 
-    briefcase.answer.push({
+    briefcase.answer[`answer-${uuid()}`] = {
       date,
       comment,
       answer,
       significant,
-      data_image: base64Photo,
+      data_image: base64Photos,
       questionid: question.questionid,
       question: question.question,
       questioncode: question.questioncode,
       categoryid: question.categoryid,
       categorynewid: question.categorynewid,
       origin: question.origin
-    });
+    };
   }
 
   localStorage.setItem('briefcases', JSON.stringify(briefcases));
 }
 
-function updateAnswerInStorage(data) {}
+async function updateAnswerInStorage({
+  date,
+  comment,
+  photo,
+  answer,
+  significant
+}) {
+  console.log(photo);
+  const briefcases = JSON.parse(localStorage.getItem('briefcases'));
+  const briefcase = briefcases.find(
+    (item) => item.briefcase.id_case === STATE.currentBriefcaseId
+  );
+  const answers = Object.values(briefcase.answer);
+  const activeAnswer = answers.find(
+    (el) => el.questionid === STATE.activeQuestions.idArray[0]
+  );
 
-function isAnswerValid({ date, comment, photo, answer, significant }, errorEl) {
+  console.log(await createPhotosObj(photo));
+
+  activeAnswer.date = date;
+  activeAnswer.comment = comment;
+  if (photo.length) {
+    activeAnswer.data_image = await createPhotosObj(photo);
+    console.log('created');
+  }
+  activeAnswer.answer = answer;
+  activeAnswer.significant = significant;
+
+  console.log(activeAnswer);
+  localStorage.setItem('briefcases', JSON.stringify(briefcases));
+}
+
+function isAnswerValid({ date, comment, answer, significant }, errorEl) {
   let isValid = true;
 
   if (!date || !comment || !answer || !significant) isValid = false;
@@ -156,27 +202,33 @@ function fillAnswer(
   data,
   { dateEl, commentEl, photoContainer, answerContainer, significantContainer }
 ) {
-  dateEl.value = data ? data.date : '';
-  commentEl.value = data.comment;
-  answerContainer.querySelectorAll('input').forEach((item) => {
-    if (data.answer === item.value) {
-      item.checked = true;
-    }
-  });
-  significantContainer.querySelectorAll('input').forEach((item) => {
-    if (data.significant === item.value) {
-      item.checked = true;
-    }
-  });
+  if (data) {
+    dateEl.value = data.date;
+    commentEl.value = data.comment;
+    answerContainer.querySelectorAll('input').forEach((item) => {
+      if (data.answer === item.value) {
+        item.checked = true;
+      }
+    });
+    significantContainer.querySelectorAll('input').forEach((item) => {
+      if (data.significant === item.value) {
+        item.checked = true;
+      }
+    });
+  }
 
-  if (data.data_image) {
+  const photos = data ? Object.values(data.data_image) : [];
+
+  if (photos.length) {
     photoContainer.innerHTML = '';
 
-    const src = data.data_image;
-    const img = document.createElement('img');
+    for (let i = 0; i < photos.length; i++) {
+      const src = photos[i];
+      const img = document.createElement('img');
 
-    img.src = src;
-    photoContainer.append(img);
+      img.src = src;
+      photoContainer.append(img);
+    }
 
     photoContainer.classList.add('active');
   }

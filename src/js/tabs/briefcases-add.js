@@ -19,24 +19,6 @@ async function getInfoBriefcase() {
   return data;
 }
 
-async function addBriefcaseToDB({
-  inspectionName,
-  vessel,
-  port,
-  inspectionType,
-  inspectionSource
-}) {
-  const url = `${BASE_URL}/api/answer`;
-  await fetchData(url, 'POST', {
-    name_case: inspectionName,
-    InspectionTypes: inspectionType,
-    InspectionSource: inspectionSource,
-    port,
-    vessel,
-    date_in_vessel: new Date().toLocaleDateString()
-  });
-}
-
 function addBriefcaseToStorage({
   inspectionName,
   vessel,
@@ -56,7 +38,7 @@ function addBriefcaseToStorage({
         vessel,
         date_in_vessel: new Date().toLocaleDateString()
       },
-      answer: []
+      answer: {}
     },
     (obj, data) => data.unshift(obj)
   );

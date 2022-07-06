@@ -10,6 +10,11 @@ export async function fetchData(url, method = 'GET', body = null) {
       },
       body: body ? JSON.stringify(body) : null
     });
+
+    if (!res.ok) {
+      throw new Error(res.status);
+    }
+
     const data = await res.json();
 
     return data;

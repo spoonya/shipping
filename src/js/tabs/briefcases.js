@@ -14,6 +14,8 @@ export function getBriefcasesFromStorage() {
     ? JSON.parse(localStorage.getItem('briefcases'))
     : [];
 
+  console.log(briefcases);
+
   return briefcases;
 }
 
