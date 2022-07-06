@@ -20,6 +20,7 @@ async function getInfoBriefcase() {
 }
 
 function addBriefcaseToStorage({
+  inspectorName,
   inspectionName,
   vessel,
   port,
@@ -32,11 +33,12 @@ function addBriefcaseToStorage({
       briefcase: {
         id_case: uuid(),
         name_case: inspectionName,
+        InspectorName: inspectorName,
         InspectionTypes: inspectionType,
         InspectionSource: inspectionSource,
         port,
         vessel,
-        date_in_vessel: new Date().toLocaleDateString()
+        date_in_vessel: new Date().toISOString().slice(0, 10)
       },
       answer: {}
     },
@@ -173,6 +175,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
   const inspectionSource = findCheckedInput(dropdownInspectionsSource);
 
   addBriefcaseToStorage({
+    inspectorName: '',
     inspectionName: inspectionName.value,
     inspectionType: inspectionType.value,
     inspectionSource: inspectionSource.value,

@@ -46,7 +46,7 @@ async function addAnswerToStorage({
       questionid: question.questionid,
       question: question.question,
       questioncode: question.questioncode,
-      categoryid: question.categoryid,
+      categoryid: +question.categoryid,
       categorynewid: question.categorynewid,
       origin: question.origin
     };
@@ -86,7 +86,7 @@ async function updateAnswerInStorage({
 function isAnswerValid({ date, comment, answer, significant }, errorEl) {
   let isValid = true;
 
-  if (!date || !comment || !answer || !significant) isValid = false;
+  if (!date || !comment || !answer.toString() || !significant) isValid = false;
 
   if (isValid) {
     errorEl.classList.remove('active');
@@ -154,10 +154,10 @@ async function saveAnswer({
   const significantEl = findCheckedInput(significantContainer);
 
   const data = {
-    date: dateEl.value,
+    date: new Date(dateEl.value).toISOString().slice(0, 10),
     comment: commentEl.value,
     photo: photoEl.files,
-    answer: answerEl && answerEl.value,
+    answer: answerEl && +answerEl.value,
     significant: significantEl && significantEl.value
   };
 
@@ -199,7 +199,7 @@ function fillAnswer(
     dateEl.value = data.date;
     commentEl.value = data.comment;
     answerContainer.querySelectorAll('input').forEach((item) => {
-      if (data.answer === item.value) {
+      if (data.answer === +item.value) {
         item.checked = true;
       }
     });
@@ -274,6 +274,8 @@ export function loadAnswerDetails(saveAction, data = null) {
       answerContainer,
       significantContainer
     });
+  } else {
+    loadInfo(data && data.comment);
   }
 
   saveButton.addEventListener('click', async () => {
@@ -286,6 +288,5 @@ export function loadAnswerDetails(saveAction, data = null) {
       errorEl
     });
   });
-  loadInfo(data && data.comment);
   photoInput.addEventListener('change', (e) => showImagePreview(e));
 }

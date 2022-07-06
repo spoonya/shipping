@@ -1,20 +1,11 @@
 import { STATE } from '../constants';
-import { fetchData, findTabByName } from '../helpers';
+import { findTabByName } from '../helpers';
 import { loadAnswersBriefcases } from './answers-briefcases';
-
-export async function getBriefcases() {
-  const url = '';
-  const data = await fetchData(url);
-
-  return data;
-}
 
 export function getBriefcasesFromStorage() {
   const briefcases = localStorage.getItem('briefcases')
     ? JSON.parse(localStorage.getItem('briefcases'))
     : [];
-
-  console.log(briefcases);
 
   return briefcases;
 }
@@ -98,6 +89,7 @@ export async function loadBriefcases() {
   const briefcases = getBriefcasesFromStorage();
   const briefcasesTab = findTabByName('briefcases');
   const briefcasesList = briefcasesTab.querySelector('.form__cases');
+  console.log(briefcases);
 
   renderBriefcases(briefcases, briefcasesList);
   controlBriefcases(briefcasesTab);

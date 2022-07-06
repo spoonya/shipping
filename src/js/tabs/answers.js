@@ -25,9 +25,14 @@ function getBriefcasesFromStorage() {
 
 async function addBriefcasesToDB() {
   const data = getBriefcasesFromStorage();
+  const briefcase = data.find(
+    (item) => item.briefcase.id_case === STATE.currentBriefcaseId
+  );
 
-  const url = `${BASE_URL}/answer`;
-  await fetchData(url, 'POST', data);
+  console.log(briefcase);
+
+  const url = `${BASE_URL}/api/answer`;
+  await fetchData(url, 'POST', briefcase);
 
   DOM.form.dispatchEvent(TOGGLE_TAB);
 }

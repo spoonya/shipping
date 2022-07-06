@@ -9,7 +9,7 @@ import { fetchData } from '../helpers';
 import { TOGGLE_TAB } from '../utils';
 import { loadAnswerDetails } from './answers-info';
 
-async function getQuestions(id) {
+export async function getQuestions(id) {
   const url = `${BASE_URL}/api/question`;
   const data = await fetchData(url, 'POST', { qid: id });
 
