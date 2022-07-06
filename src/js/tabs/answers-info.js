@@ -46,7 +46,7 @@ async function addAnswerToStorage({
       questionid: question.questionid,
       question: question.question,
       questioncode: question.questioncode,
-      categoryid: +question.categoryid,
+      categoryid: parseInt(question.categoryid, 10),
       categorynewid: question.categorynewid,
       origin: question.origin
     };
@@ -86,7 +86,8 @@ async function updateAnswerInStorage({
 function isAnswerValid({ date, comment, answer, significant }, errorEl) {
   let isValid = true;
 
-  if (!date || !comment || !answer.toString() || !significant) isValid = false;
+  if (!date || !comment || !Number.isInteger(answer) || !significant)
+    isValid = false;
 
   if (isValid) {
     errorEl.classList.remove('active');
@@ -154,10 +155,10 @@ async function saveAnswer({
   const significantEl = findCheckedInput(significantContainer);
 
   const data = {
-    date: new Date(dateEl.value).toISOString().slice(0, 10),
+    date: dateEl.value,
     comment: commentEl.value,
     photo: photoEl.files,
-    answer: answerEl && +answerEl.value,
+    answer: answerEl && parseInt(answerEl.value, 10),
     significant: significantEl && significantEl.value
   };
 
