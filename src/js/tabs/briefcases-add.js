@@ -66,11 +66,7 @@ function renderDropdown({ data, container, inputName }) {
   }
 }
 
-function resetBriefcaseAdd({
-  dropdownsContainer,
-  textInput,
-  dropdownsPlaceholder
-}) {
+function resetBriefcaseAdd({ dropdownsContainer, dropdownsPlaceholder }) {
   dropdownsContainer.forEach((dropdown, index) => {
     const inputs = dropdown.querySelectorAll('input');
     const selectedLabel = dropdown
@@ -83,8 +79,6 @@ function resetBriefcaseAdd({
       input.checked = false;
     });
   });
-
-  textInput.value = '';
 }
 
 async function loadAddDropdowns(isLoaded) {
@@ -146,7 +140,7 @@ function isDropdownsValid(container) {
 }
 
 async function addBriefcase(tab, dropdownsPlaceholder) {
-  const inspectionName = tab.querySelector('input[name="inspection-name"]');
+  const inspectionName = STATE.inspectorName;
   const dropdownsContainer = tab.querySelectorAll(
     '[data-form-dropdown-container]'
   );
@@ -160,7 +154,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
   );
   const errorEl = tab.querySelector('.form__error');
 
-  if (!inspectionName.value || !isDropdownsValid(dropdownsContainer)) {
+  if (!isDropdownsValid(dropdownsContainer)) {
     errorEl.classList.add('active');
     preventTabChange();
 
@@ -176,7 +170,7 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
   addBriefcaseToStorage({
     nameCase: '',
-    inspectorName: inspectionName.value,
+    inspectorName: inspectionName,
     inspectionType: inspectionType.value,
     inspectionSource: inspectionSource.value,
     vessel: vessel.value,
@@ -187,7 +181,6 @@ async function addBriefcase(tab, dropdownsPlaceholder) {
 
   resetBriefcaseAdd({
     dropdownsContainer,
-    textInput: inspectionName,
     dropdownsPlaceholder
   });
 

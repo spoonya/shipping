@@ -27,6 +27,7 @@ export const STATE = {
     isLoaded: false
   },
   token: '',
+  inspectorName: '',
   currentBriefcaseId: null,
   questions: null
 };

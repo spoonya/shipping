@@ -4,7 +4,7 @@ import { BASE_URL, STATE } from '../constants';
 import { findTabByName, preventTabChange } from '../helpers';
 import { loadCategories } from './categories';
 
-async function getToken(login, password) {
+async function getSignInInfo(login, password) {
   try {
     const url = `${BASE_URL}/login`;
     const res = await fetch(url, {
@@ -20,7 +20,7 @@ async function getToken(login, password) {
     });
     const data = await res.json();
 
-    return data.token;
+    return data;
   } catch (error) {
     console.log(error);
   }
@@ -38,7 +38,10 @@ export function signIn() {
   submitButton.addEventListener('click', async () => {
     error.classList.remove('active');
 
-    STATE.token = await getToken(login.value, password.value);
+    const signInInfo = await getSignInInfo(login.value, password.value);
+
+    STATE.token = signInInfo.token;
+    STATE.inspectorName = signInInfo.full_name;
 
     if (STATE.token) {
       await loadBriefcases();
